@@ -13,10 +13,12 @@ import javax.swing.JPanel;
 
 public class View extends JPanel{
 	private int[][] map;
+	
 	public enum tankDirection {
 	    UP, DOWN, LEFT, RIGHT
 	}
 	tankDirection dir = tankDirection.UP;
+	
 	private Image tankUp;
 	private Image tankRight;
 	private Image tankDown;
@@ -61,9 +63,11 @@ public class View extends JPanel{
 				}
 			}
 		}
+		
+		//Draw map background
 		g2d.setColor(new Color(136,0,21));
 		g2d.fillRect(0, 0, 416,416);
-		//turn into enum for direction
+		
 		switch(dir) {
 		case UP:
 			g2d.drawImage(tankUp, x*(PIXEL_SIZE), y*(PIXEL_SIZE), null);
