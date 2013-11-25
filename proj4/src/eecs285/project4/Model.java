@@ -35,45 +35,45 @@ public class Model {
 
 	public void move(String a) {
 		if (a.equals("left")) {
+            window.setTankDirection(View.tankDirection.LEFT);
 			for(int i = 0; i < map.length; i++) {
 				for (int j = 0; j < map[i].length; j++) {
 					if(map[i][j] != 0 && i != 0) {
 						map[i][j] = 0;
 						map[i-1][j] = 1;
-						window.setTankDirection(4);
 						return;
 					}
 				}
 			}
 		} else if (a.equals("right")) {
+            window.setTankDirection(View.tankDirection.RIGHT);
 			for(int i = 0; i < map.length; i++) {
 				for(int j = 0; j < map[i].length; j++) {
 					if(map[i][j] != 0 && i !=  map[i].length - 1 - View.BLOCK_SIZE) {
 						map[i][j] = 0;
 						map[i+1][j] = 1;
-						window.setTankDirection(2);
 						return;
 					}
 				}
 			}
 		} else if (a.equals("up")) {
+            window.setTankDirection(View.tankDirection.UP);
 			for(int i = 0; i < map.length; i++) {
 				for(int j = 0; j < map[i].length; j++) {
 					if(map[i][j] != 0 && j != 0) {
 						map[i][j] = 0;
 						map[i][j-1] = 1;
-						window.setTankDirection(1);
 						return;
 					}
 				}
 			}
 		} else if (a.equals("down")) {
+            window.setTankDirection(View.tankDirection.DOWN);
 			for(int i = 0; i < map.length; i++) {
 				for(int j = 0; j < map[i].length; j++) {
 					if(map[i][j] != 0 && j !=  map[i].length - 1 - View.BLOCK_SIZE) {
 						map[i][j] = 0;
 						map[i][j+1] = 1;
-						window.setTankDirection(3);
 						return;
 					}
 				}

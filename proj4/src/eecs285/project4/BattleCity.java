@@ -33,7 +33,7 @@ public class BattleCity {
 
 		while(true) {
 			try {
-			Thread.sleep(50);
+			Thread.sleep(20);
 			} catch (InterruptedException e) {}
 			view.update(model.getMap());
 			view.repaint();
