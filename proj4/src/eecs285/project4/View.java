@@ -65,7 +65,7 @@ public class View extends JPanel{
 		}
 		
 		//Draw map background
-		g2d.setColor(new Color(136,0,21));
+		g2d.setColor(new Color(0,0,0));
 		g2d.fillRect(0, 0, 416,416);
 		
 		switch(dir) {
