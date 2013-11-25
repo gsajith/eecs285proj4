@@ -24,13 +24,13 @@ public class View extends JPanel{
 	
 	
 	public View() {
-		tankUp = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\Proj4Prac\\bin\\eecs285\\project4\\tankImage\\tankDraft1.png").getImage();
+		tankUp = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft1.png").getImage();
 
-		tankRight = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\Proj4Prac\\bin\\eecs285\\project4\\tankImage\\tankDraft2.png").getImage();
+		tankRight = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft2.png").getImage();
 
-		tankDown = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\Proj4Prac\\bin\\eecs285\\project4\\tankImage\\tankDraft3.png").getImage();
+		tankDown = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft3.png").getImage();
 
-		tankLeft = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\Proj4Prac\\bin\\eecs285\\project4\\tankImage\\tankDraft4.png").getImage();
+		tankLeft = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft4.png").getImage();
 	}
 	
 	public void paintComponent(Graphics g) {
