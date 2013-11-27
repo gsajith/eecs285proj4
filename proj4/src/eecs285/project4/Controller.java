@@ -43,8 +43,5 @@ public class Controller extends JPanel {
 				mom.move("right");
 			}
 		});
-		
 	}
-	
-	
 }
