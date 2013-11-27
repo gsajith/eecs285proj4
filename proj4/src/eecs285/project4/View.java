@@ -13,7 +13,12 @@ import javax.swing.JPanel;
 
 public class View extends JPanel {
 	private int[][] map;
-	private int tankDirection = 1;
+	
+	public enum tankDirection {
+	    UP, DOWN, LEFT, RIGHT
+	}
+	tankDirection dir = tankDirection.UP;
+	
 	private Image tankUp;
 	private Image tankRight;
 	private Image tankDown;
@@ -21,8 +26,7 @@ public class View extends JPanel {
 	public static final int BLOCK_SIZE = 8;
 	public static final int MAP_SIZE = 13 * BLOCK_SIZE;
 	public static final int PIXEL_SIZE = 4;
-	
-	
+		
 	public View() {
 		tankUp = new ImageIcon("eecs285/project4/tankImage/tankDraft1.png").getImage();
 
@@ -42,8 +46,8 @@ public class View extends JPanel {
 		map = Map;
 	}
 	
-	public void setTankDirection(int dir) {
-		tankDirection = dir;
+	public void setTankDirection(tankDirection Dir) {
+		dir = Dir;
 	}
 	
 	private void draw(Graphics g) {
@@ -59,20 +63,22 @@ public class View extends JPanel {
 				}
 			}
 		}
-		g2d.setColor(new Color(136,0,21));
+		
+		//Draw map background
+		g2d.setColor(new Color(0,0,0));
 		g2d.fillRect(0, 0, 416,416);
-		// turn into enum for direction
-		switch(tankDirection) {
-		case 1:
+		
+		switch(dir) {
+		case UP:
 			g2d.drawImage(tankUp, x*(PIXEL_SIZE), y*(PIXEL_SIZE), null);
 			break;
-		case 2:
+		case RIGHT:
 			g2d.drawImage(tankRight, x*(PIXEL_SIZE), y*(PIXEL_SIZE), null);
 			break;
-		case 3:
+		case DOWN:
 			g2d.drawImage(tankDown, x*(PIXEL_SIZE), y*(PIXEL_SIZE), null);
 			break;
-		case 4:
+		case LEFT:
 			g2d.drawImage(tankLeft, x*(PIXEL_SIZE), y*(PIXEL_SIZE), null);
 			break;
 			
