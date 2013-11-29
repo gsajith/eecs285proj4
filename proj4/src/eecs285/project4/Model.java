@@ -1,5 +1,7 @@
 package eecs285.project4;
 
+import static eecs285.project4.Constants.*;
+
 import java.util.HashSet;
 
 /**
@@ -9,98 +11,84 @@ import java.util.HashSet;
  */
 public class Model {
 
-    private HastSet<Tank> AITanks;
+    private HashSet<Tank> AITanks;
     private Tank playerTank;
+    private int[][] map;
+    private View view;
 
     /**
      * Create a bunch of AI tanks and one player tank.
      */
-    public Model(final int playerHealth, final int playerStrength, final int playerSpeed) {
-        playerTank = new PlayerTank(playerHealth, playerStrength, playerSpeed);
+    public Model() {
+        AITanks = new HashSet<Tank>();
+        playerTank = new PlayerTank(5, 5, 5, this);
+        map = new int[MAP_SIZE][MAP_SIZE];
+        map[0][0] = 1;
     }
 
     /**
-     * Notify the view about the location change of a tank.
+     * Attach the specified view to the model 
+     * and notify the view about the locations of all tanks
      */
-    public void notifyLocation(Tank tank) {
-        
+    public void attach(View view) {
+        this.view = view;
+        for(Tank tank : AITanks) {
+            view.addTank(tank);
+        }
+        view.addTank(playerTank);
     }
 
-/* class MODEL stores the current game map state
- *
- * Syntax:
- *     Model obj = new Model();
- *
- * Description:
- * 
- * 
- * Input:
- * 
- * 
- * Output:
- * 
- * 
- *
- *
-	private int[][] map;
-	private View window;
-	
-	public Model(View win) {
-		map = new int[View.MAP_SIZE][View.MAP_SIZE];
-		map[0][0] = 1;
-		window = win;
-	}
-	
-	public int[][] getMap() {
-		return map;
-	}
-
-	public void move(String a) {
-		if (a.equals("left")) {
-            window.setTankDirection(View.tankDirection.LEFT);
-			for(int i = 0; i < map.length; i++) {
-				for (int j = 0; j < map[i].length; j++) {
-					if(map[i][j] != 0 && i != 0) {
-						map[i][j] = 0;
-						map[i-1][j] = 1;
-						return;
-					}
-				}
-			}
-		} else if (a.equals("right")) {
-            window.setTankDirection(View.tankDirection.RIGHT);
-			for(int i = 0; i < map.length; i++) {
-				for(int j = 0; j < map[i].length; j++) {
-					if(map[i][j] != 0 && i !=  map[i].length - 1 - View.BLOCK_SIZE) {
-						map[i][j] = 0;
-						map[i+1][j] = 1;
-						return;
-					}
-				}
-			}
-		} else if (a.equals("up")) {
-            window.setTankDirection(View.tankDirection.UP);
-			for(int i = 0; i < map.length; i++) {
-				for(int j = 0; j < map[i].length; j++) {
-					if(map[i][j] != 0 && j != 0) {
-						map[i][j] = 0;
-						map[i][j-1] = 1;
-						return;
-					}
-				}
-			}
-		} else if (a.equals("down")) {
-            window.setTankDirection(View.tankDirection.DOWN);
-			for(int i = 0; i < map.length; i++) {
-				for(int j = 0; j < map[i].length; j++) {
-					if(map[i][j] != 0 && j !=  map[i].length - 1 - View.BLOCK_SIZE) {
-						map[i][j] = 0;
-						map[i][j+1] = 1;
-						return;
-					}
-				}
-			}
-		}
-	}
-*/
+    /**
+     * Determine whether a tank can move to a specific location.
+     * Return true if the move is valid, and update the map to reflect the new locatio.
+     * Return false if the move is not valid.
+     * If the move is vali,d notify the view about the location change of a tank.
+     */
+    public boolean notifyLocation(Tank tank, final int direction) {
+        int row = tank.getRow();
+        int column = tank.getColumn();
+        switch(direction) {
+            case UP:
+                // the tank can safely move up if its y-coordinate
+                // is greater than 0
+                if(row > 0) {
+                    map[row][column] = 0;
+                    map[row - 1][column] = 1;
+                    view.update(map);
+                    view.repaint();
+                    return true;
+                }
+                break;
+            case DOWN:
+                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
+                    map[row][column] = 0;
+                    map[row + 1][column] = 1;
+                    view.update(map);
+                    view.repaint();
+                    return true;
+                }
+                break;
+            case LEFT:
+                if(column > 0) {
+                    map[row][column] = 0;
+                    map[row][column - 1] = 1;
+                    view.update(map);
+                    view.repaint();
+                    return true;
+                }
+                break;
+            case RIGHT:
+                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
+                    map[row][column] = 0;
+                    map[row][column + 1] = 1;
+                    view.update(map);
+                    view.repaint();
+                    return true;
+                }
+                break;
+            default:
+                assert(false);
+        }
+        return false;
+    }
 }
