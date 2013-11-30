@@ -9,6 +9,10 @@ import java.util.HashSet;
  * In addition, Model notifies the View how the map should be drawn.
  * It will keep the View updated when tanks move around, fire, "die", etc.
  */
+enum BlockType {
+	BLANK, BRICK, STEEl, BUSH, WATER, ICE, BASE
+}
+
 public class Model {
 
     private HashSet<Tank> AITanks;
@@ -39,10 +43,19 @@ public class Model {
     }
 
     /**
+     * Tentative function to add blocks to the map.
+     */
+    public void addBlock(Block b) {
+    	if (map[b.getx()][b.gety()] == 0 && b.getType() != BlockType.BLANK) {
+    		map[b.getx()][b.gety()] = b.getType().ordinal() + 1;
+    	}
+    }
+    
+    /**
      * Determine whether a tank can move to a specific location.
      * Return true if the move is valid, and update the map to reflect the new locatio.
      * Return false if the move is not valid.
-     * If the move is vali,d notify the view about the location change of a tank.
+     * If the move is valid notify the view about the location change of a tank.
      */
     public boolean notifyLocation(Tank tank, final int direction) {
         int row = tank.getRow();

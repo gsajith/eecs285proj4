@@ -27,10 +27,12 @@ public class PlayerTank extends Tank {
         super(healthPoint, bulletStrength, speed, 0, 0, model);
 
         tankImages = new Image[4];
-		tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraft1.png").getImage();
-		tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraft2.png").getImage();
-		tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/tankDraft3.png").getImage();
-		tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/tankDraft4.png").getImage();
+        //Chermine's Filepath: C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft1.png
+        //Jiatu's Filepath: eecs285/project4/tankImage/tankDraft1.png
+		tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft1.png").getImage();
+		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft2.png").getImage();
+		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft3.png").getImage();
+		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft4.png").getImage();
         image = tankImages[UP];
 
         setUpMove();

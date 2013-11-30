@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- * View is reponsible for drawing the map.
+ * View is responsible for drawing the map.
  */
 public class View extends JPanel {
     private HashSet<Tank> tanks;
