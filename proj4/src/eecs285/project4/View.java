@@ -10,6 +10,9 @@ import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 
 import javax.swing.ImageIcon;
+import java.awt.Rectangle;
+import java.awt.Shape;
+
 import javax.swing.JPanel;
 
 /**
@@ -53,6 +56,25 @@ public class View extends JPanel {
         for(Tank tank : tanks) {
             g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE, tank.getRow() * PIXEL_SIZE, null);
         }
+        
+        // set up blocks
+        g2d.setColor(Color.RED);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+        g2d.setColor(Color.BLUE);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+        g2d.setColor(Color.GREEN);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+        g2d.setColor(Color.YELLOW);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+
         g2d.setColor(Color.WHITE);
     	try{
     		for(Bullet bullet : bullets) {
