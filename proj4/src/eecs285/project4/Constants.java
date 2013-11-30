@@ -11,6 +11,7 @@ public class Constants {
     public static final int DOWN = 1;
     public static final int LEFT = 2;
     public static final int RIGHT = 3;
+    
 
 	// frame size we're adding to 416 x 416 to account for size of border
 	public static final int SIDE_BORDER = 2;

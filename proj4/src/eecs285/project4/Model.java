@@ -37,12 +37,91 @@ public class Model {
         }
         view.addTank(playerTank);
     }
+    
+    public boolean notifyLocation(BulletThread bThread) {
+    	int row = bThread.bullet.row;
+    	int column = bThread.bullet.column;
+    	int direction = bThread.bullet.bulletDirection;
+    	int speed = bThread.bullet.bulletSpeed;
+    	view.addBullet(bThread.bullet);
+    	switch(direction) {
+    	case UP:
+    		 // the tank can safely move up if its y-coordinate
+            // is greater than 0
+            if(row >= 0) {
+                map[row + speed][column] = 0;
+                map[row][column] = 2;
+                view.update(map);
+                view.repaint();
+                return true;
+	        } else {
+	        	bThread.tank.canShoot = true;
+	        	map[row + speed][column] = 0;
+            	view.removeBullet(bThread.bullet);
+	        	view.update(map);
+	        	view.repaint();
+	        	bThread.stop();
+	        	return false;
+	        }
+        case DOWN:
+            if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
+                map[row - speed][column] = 0;
+                map[row][column] = 2;
+                view.update(map);
+                view.repaint();
+                return true;
+	        } else {
+	        	bThread.tank.canShoot = true;
+	        	map[row - speed][column] = 0;
+            	view.removeBullet(bThread.bullet);
+	        	view.update(map);
+	        	view.repaint();
+	        	bThread.stop();
+	        	return false;
+	        }
+        case LEFT:
+            if(column >= 0) {
+                map[row][column + speed] = 0;
+                map[row][column] = 2;
+                view.update(map);
+                view.repaint();
+                return true;
+            } else {
+	        	bThread.tank.canShoot = true;
+            	map[row][column + speed] = 0;
+            	view.removeBullet(bThread.bullet);
+            	view.update(map);
+            	view.repaint();
+	        	bThread.stop();
+            	return false;
+            }
+        case RIGHT:
+            if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
+                map[row][column - speed] = 0;
+                map[row][column] = 2;
+                view.update(map);
+                view.repaint();
+                return true;
+            } else {
+	        	bThread.tank.canShoot = true;
+            	map[row][column - speed] = 0;
+            	view.removeBullet(bThread.bullet);
+            	view.update(map);
+            	view.repaint();
+	        	bThread.stop();
+            	return false;
+            }
+        default:
+            assert(false);
+    }
+    	return false;
+    }
 
     /**
      * Determine whether a tank can move to a specific location.
-     * Return true if the move is valid, and update the map to reflect the new locatio.
+     * Return true if the move is valid, and update the map to reflect the new location.
      * Return false if the move is not valid.
-     * If the move is vali,d notify the view about the location change of a tank.
+     * If the move is valid notify the view about the location change of a tank.
      */
     public boolean notifyLocation(Tank tank, final int direction) {
         int row = tank.getRow();

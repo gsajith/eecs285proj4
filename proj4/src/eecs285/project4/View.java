@@ -17,10 +17,12 @@ import javax.swing.JPanel;
  */
 public class View extends JPanel {
     private HashSet<Tank> tanks;
+    private HashSet<Bullet> bullets;
 	private int[][] map;
 
     public View() {
         tanks = new HashSet<Tank>();
+        bullets = new HashSet<Bullet>();
     }
 
 	public void paintComponent(Graphics g) {
@@ -33,6 +35,14 @@ public class View extends JPanel {
         add(tank);
     }
 
+    public void addBullet(Bullet bullet) {
+    	bullets.add(bullet);
+    }
+    
+    public void removeBullet(Bullet bullet) {
+    	bullets.remove(bullet);
+    }
+    
 	public void update(int[][] map) {
 		this.map = map;
 	}
@@ -46,6 +56,10 @@ public class View extends JPanel {
         // then draw each tank
         for(Tank tank : tanks) {
             g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE, tank.getRow() * PIXEL_SIZE, null);
+        }
+        g2d.setColor(Color.WHITE);
+        for(Bullet bullet : bullets) {
+        	g2d.fillRect(bullet.column * PIXEL_SIZE, bullet.row * PIXEL_SIZE, 2 * PIXEL_SIZE, 2 * PIXEL_SIZE);
         }
     }
 }

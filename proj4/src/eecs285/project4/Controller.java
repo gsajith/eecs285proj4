@@ -22,25 +22,25 @@ public class Controller extends JPanel {
 		this.getActionMap().put("up", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				mom.move("up");
+				//mom.move("up");
 			}
 		});
 		this.getActionMap().put("down", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				mom.move("down");
+				//mom.move("down");
 			}
 		});
 		this.getActionMap().put("left", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				mom.move("left");
+				//mom.move("left");
 			}
 		});
 		this.getActionMap().put("right", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				mom.move("right");
+				//mom.move("right");
 			}
 		});
 	}
