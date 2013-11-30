@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  */
 public class View extends JPanel {
     private HashSet<Tank> tanks;
-
+    
     public View() {
         tanks = new HashSet<Tank>();
     }
@@ -35,7 +35,8 @@ public class View extends JPanel {
 		// draw map background
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, MAP_SIZE * PIXEL_SIZE, MAP_SIZE * PIXEL_SIZE);
-        // then draw each tank
+        
+		// then draw each tank
         for(Tank tank : tanks) {
             g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE, tank.getRow() * PIXEL_SIZE, null);
         }

@@ -18,10 +18,13 @@ abstract public class Block {
  * 
  */
 	
-	private BlockType type;
+	private int type;
 	private int x;
 	private int y;
 	private boolean canMoveThru;
+	
+	// We can't shoot thru bricks and steel and the base, but they
+	// are destructable, so they will have a non-zero value for destructableLvl.
 	private boolean canShootThru;
 	
 	// Level at which block can be partially destroyed.
@@ -29,7 +32,7 @@ abstract public class Block {
 	private int destructableLvl; 
 	
 	
-	public Block(BlockType Type, int X, int Y) {
+	public Block(int Type, int X, int Y) {
 		type = Type;
 		
 		if (X < NUM_BLOCKS - 1 && X >= 0) {
@@ -46,22 +49,39 @@ abstract public class Block {
 			y = 0;
 		}
 		
-		if (type == BlockType.BLANK &&
-			type == BlockType.BUSH &&
-			type == BlockType.ICE) {
+		if (type == BLANK_BLOCK ||
+				type == BUSH_BLOCK ||
+				type == ICE_BLOCK) {
 			canMoveThru = true;
 		} else {
 			canMoveThru = false;
 		}
-	}
-	
-	public boolean setParams() {
-		if (type == BlockType.BLANK)
 		
-		return true;
+		if (type == BRICK_BLOCK ||
+				type == STEEL_BLOCK ||
+				type == BASE_BLOCK) {
+			canShootThru = false;
+		} else {
+			canShootThru = true;
+		}
+		
+		switch (type) {
+			case BRICK_BLOCK:
+			case BASE_BLOCK:
+				destructableLvl = 1;
+				break;
+			case STEEL_BLOCK:
+				destructableLvl = 2;
+				break;
+			default:
+				destructableLvl = 0;	
+		}	
 	}
 	
 	public int getx() { return x; }
 	public int gety() { return y; }
-	public BlockType getType() { return type; }
+	public int getType() { return type; }
+	public boolean getCanMoveThru() { return canMoveThru; }
+	public boolean getCanShootThru() { return canShootThru; }
+	public int getDestructableLvl() { return destructableLvl; }
 }

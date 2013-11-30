@@ -9,9 +9,6 @@ import java.util.HashSet;
  * In addition, Model notifies the View how the map should be drawn.
  * It will keep the View updated when tanks move around, fire, "die", etc.
  */
-enum BlockType {
-	BLANK, BRICK, STEEl, BUSH, WATER, ICE, BASE
-}
 
 public class Model {
 
@@ -27,7 +24,7 @@ public class Model {
         AITanks = new HashSet<Tank>();
         playerTank = new PlayerTank(5, 5, 5, this);
         map = new int[MAP_SIZE][MAP_SIZE];
-        map[0][0] = 1;
+        map[0][0] = PLAYER1_TANK;
     }
 
     /**
@@ -37,17 +34,19 @@ public class Model {
     public void attach(View view) {
         this.view = view;
         for(Tank tank : AITanks) {
-            view.addTank(tank);
+            this.view.addTank(tank);
         }
-        view.addTank(playerTank);
+        this.view.addTank(playerTank);
     }
 
     /**
      * Tentative function to add blocks to the map.
      */
     public void addBlock(Block b) {
-    	if (map[b.getx()][b.gety()] == 0 && b.getType() != BlockType.BLANK) {
-    		map[b.getx()][b.gety()] = b.getType().ordinal() + 1;
+    	if (map[b.getx()][b.gety()] == 0 &&
+    		b.getType() != BLANK_BLOCK &&
+    		b.getType() != BASE_BLOCK) {    		
+    		map[b.getx()][b.gety()] = b.getType();
     	}
     }
     
@@ -64,7 +63,7 @@ public class Model {
             case UP:
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
-                if(row > 0) {
+                if(row > 0 && clearPath(map[row - 1][column])) {
                     map[row][column] = 0;
                     map[row - 1][column] = 1;
                     view.repaint();
@@ -72,7 +71,7 @@ public class Model {
                 }
                 break;
             case DOWN:
-                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
+                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(map[row + 1][column])) {
                     map[row][column] = 0;
                     map[row + 1][column] = 1;
                     view.repaint();
@@ -80,7 +79,7 @@ public class Model {
                 }
                 break;
             case LEFT:
-                if(column > 0) {
+                if(column > 0 && clearPath(map[row][column - 1])) {
                     map[row][column] = 0;
                     map[row][column - 1] = 1;
                     view.repaint();
@@ -88,7 +87,7 @@ public class Model {
                 }
                 break;
             case RIGHT:
-                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
+                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(map[row][column + 1])) {
                     map[row][column] = 0;
                     map[row][column + 1] = 1;
                     view.repaint();
@@ -99,5 +98,12 @@ public class Model {
                 assert(false);
         }
         return false;
+    }
+
+    // private function that takes in the number for the
+    // block at a map coordinate and says if there is a
+    // block that a tank could move through
+    private boolean clearPath(int x) {
+    	return x >= BLANK_BLOCK && x <= ICE_BLOCK;
     }
 }
