@@ -10,7 +10,6 @@ import java.util.HashSet;
  * It will keep the View updated when tanks move around, fire, "die", etc.
  */
 public class Model {
-
     private HashSet<AITank> AITanks;
     private Tank playerTank;
     private int[][] map;
@@ -21,10 +20,12 @@ public class Model {
      */
     public Model() {
         AITanks = new HashSet<AITank>();
-        AITanks.add(new AITank(5, 5, 5, this));
+        for(int i = 0; i < 3; ++i) {
+            AITanks.add(new AITank(5, 5, 5, this));
+        }
         playerTank = new PlayerTank(5, 5, 5, this);
         map = new int[MAP_SIZE][MAP_SIZE];
-        map[0][0] = 1;
+        map[0][0] = PLAYER_TANK;
     }
 
     /**
@@ -55,15 +56,15 @@ public class Model {
      * If the move is valid, notify the view about the location change of a tank.
      */
     public synchronized boolean notifyLocation(Tank tank, final int direction) {
-        int row = tank.getRow();
-        int column = tank.getColumn();
+        int row = tank.getRow(), column = tank.getColumn();
+        int number = tank.getNumber();
         switch(direction) {
             case UP:
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
                 if(row > 0) {
                     map[row][column] = 0;
-                    map[row - 1][column] = 1;
+                    map[row - 1][column] = number;
                     view.repaint();
                     return true;
                 }
@@ -71,7 +72,7 @@ public class Model {
             case DOWN:
                 if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
                     map[row][column] = 0;
-                    map[row + 1][column] = 1;
+                    map[row + 1][column] = number;
                     view.repaint();
                     return true;
                 }
@@ -79,7 +80,7 @@ public class Model {
             case LEFT:
                 if(column > 0) {
                     map[row][column] = 0;
-                    map[row][column - 1] = 1;
+                    map[row][column - 1] = number;
                     view.repaint();
                     return true;
                 }
@@ -87,7 +88,7 @@ public class Model {
             case RIGHT:
                 if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
                     map[row][column] = 0;
-                    map[row][column + 1] = 1;
+                    map[row][column + 1] = number;
                     view.repaint();
                     return true;
                 }

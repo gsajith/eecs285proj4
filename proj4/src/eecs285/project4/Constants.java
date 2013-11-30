@@ -15,4 +15,8 @@ public class Constants {
 	// frame size we're adding to 416 x 416 to account for size of border
 	public static final int SIDE_BORDER = 2;
 	public static final int TOP_BORDER = 24;
+
+    // numbers used to represent each kind of object on the map
+    public static final int PLAYER_TANK = 1;
+    public static final int AI_TANK = 2;
 }

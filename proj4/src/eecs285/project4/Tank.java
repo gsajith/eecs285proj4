@@ -4,6 +4,7 @@ import java.awt.Image;
 import javax.swing.JComponent;
 
 public abstract class Tank extends JComponent {
+    protected int number;
     protected int healthPoint;
     protected int bulletStrength;
     protected int speed;
@@ -14,14 +15,22 @@ public abstract class Tank extends JComponent {
     protected Image image;
     protected Model model;
 
-    public Tank(final int healthPoint, final int bulletStrength, final int speed,
+    public Tank(final int number, final int healthPoint, final int bulletStrength, final int speed,
                 final int row, final int column, final Model model) {
+        this.number = number;
         this.healthPoint = healthPoint;
         this.bulletStrength = bulletStrength;
         this.speed = speed;
         this.row = row;
         this.column = column;
         this.model = model;
+    }
+
+    /**
+     * Return the number that is used to represent the tank on the map.
+     */
+    public int getNumber() {
+        return number;
     }
 
     public int getRow() {

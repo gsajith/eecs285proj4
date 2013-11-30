@@ -18,7 +18,7 @@ public class AITank extends Tank {
 
     public AITank(final int healthPoint, final int bulletStrength, final int speed, 
                   final Model model) {
-        super(healthPoint, bulletStrength, speed, 10, 10, model);
+        super(AI_TANK, healthPoint, bulletStrength, speed, 10, 10, model);
 
         tankImages = new Image[4];
         tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
