@@ -5,25 +5,22 @@ import static eecs285.project4.Constants.*;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.JFrame;
 
 /**
  * A player tank that moves in response to key strokes.
  * Press arrows for moving and space for firing.
  */
 public class PlayerTank extends Tank { 
-
     // images for the tank in four different directions
     private Image[] tankImages;
 
     public PlayerTank(final int healthPoint, final int bulletStrength, final int speed, 
                       final Model model) {
+<<<<<<< HEAD
         super(healthPoint, bulletStrength, speed, UP, 0, 0, model);
 
         tankImages = new Image[4];
@@ -31,6 +28,15 @@ public class PlayerTank extends Tank {
 		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft2.png").getImage();
 		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft3.png").getImage();
 		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft4.png").getImage();
+=======
+        super(PLAYER1_TANK, healthPoint, bulletStrength, speed, 0, 0, model);
+
+        tankImages = new Image[4];
+        tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftUp.png").getImage();
+		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftRight.png").getImage();
+		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftDown.png").getImage();
+		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftLeft.png").getImage();
+>>>>>>> 1a3b08e6f0d7b064d613e5b4f0c48d95e5bd52dd
         image = tankImages[UP];
 
         setUpMove();

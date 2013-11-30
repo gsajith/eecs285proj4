@@ -9,9 +9,9 @@ import java.util.HashSet;
  * In addition, Model notifies the View how the map should be drawn.
  * It will keep the View updated when tanks move around, fire, "die", etc.
  */
-public class Model {
 
-    private HashSet<Tank> AITanks;
+public class Model {
+    private HashSet<AITank> AITanks;
     private Tank playerTank;
     private int[][] map;
     private View view;
@@ -20,10 +20,13 @@ public class Model {
      * Create a bunch of AI tanks and one player tank.
      */
     public Model() {
-        AITanks = new HashSet<Tank>();
+        AITanks = new HashSet<AITank>();
+        for(int i = 0; i < 3; ++i) {
+            AITanks.add(new AITank(5, 5, 5, this));
+        }
         playerTank = new PlayerTank(5, 5, 5, this);
         map = new int[MAP_SIZE][MAP_SIZE];
-        map[0][0] = 1;
+        map[0][0] = PLAYER1_TANK;
     }
 
     /**
@@ -33,9 +36,28 @@ public class Model {
     public void attach(View view) {
         this.view = view;
         for(Tank tank : AITanks) {
-            view.addTank(tank);
+            this.view.addTank(tank);
         }
-        view.addTank(playerTank);
+        this.view.addTank(playerTank);
+    }
+
+    /**
+     * Tentative function to add blocks to the map.
+     */
+    public void addBlock(Block b) {
+    	if (map[b.getx()][b.gety()] == 0 &&
+    		b.getType() != BLANK_BLOCK &&
+    		b.getType() != BASE_BLOCK) {    		
+    		map[b.getx()][b.gety()] = b.getType();
+    	}
+    }
+    /**
+     * Let each AI Tank update themselves.
+     */
+    public void go() {
+        for(AITank tank : AITanks) {
+            tank.go();
+        }
     }
     
     public boolean notifyLocation(BulletThread bThread) {
@@ -121,46 +143,46 @@ public class Model {
      * Determine whether a tank can move to a specific location.
      * Return true if the move is valid, and update the map to reflect the new location.
      * Return false if the move is not valid.
+<<<<<<< HEAD
      * If the move is valid notify the view about the location change of a tank.
+=======
+     * If the move is valid, notify the view about the location change of a tank.
+>>>>>>> 1a3b08e6f0d7b064d613e5b4f0c48d95e5bd52dd
      */
-    public boolean notifyLocation(Tank tank, final int direction) {
-        int row = tank.getRow();
-        int column = tank.getColumn();
+    public synchronized boolean notifyLocation(Tank tank, final int direction) {
+        int row = tank.getRow(), column = tank.getColumn();
+        int number = tank.getNumber();
         switch(direction) {
             case UP:
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
-                if(row > 0) {
+                if(row > 0 && clearPath(map[row - 1][column])) {
                     map[row][column] = 0;
-                    map[row - 1][column] = 1;
-                    view.update(map);
+                    map[row - 1][column] = number;
                     view.repaint();
                     return true;
                 }
                 break;
             case DOWN:
-                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
+                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(map[row + 1][column])) {
                     map[row][column] = 0;
-                    map[row + 1][column] = 1;
-                    view.update(map);
+                    map[row + 1][column] = number;
                     view.repaint();
                     return true;
                 }
                 break;
             case LEFT:
-                if(column > 0) {
+                if(column > 0 && clearPath(map[row][column - 1])) {
                     map[row][column] = 0;
-                    map[row][column - 1] = 1;
-                    view.update(map);
+                    map[row][column - 1] = number;
                     view.repaint();
                     return true;
                 }
                 break;
             case RIGHT:
-                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
+                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(map[row][column + 1])) {
                     map[row][column] = 0;
-                    map[row][column + 1] = 1;
-                    view.update(map);
+                    map[row][column + 1] = number;
                     view.repaint();
                     return true;
                 }
@@ -169,5 +191,12 @@ public class Model {
                 assert(false);
         }
         return false;
+    }
+
+    // private function that takes in the number for the
+    // block at a map coordinate and says if there is a
+    // block that a tank could move through
+    private boolean clearPath(int x) {
+    	return x >= BLANK_BLOCK && x <= ICE_BLOCK;
     }
 }
