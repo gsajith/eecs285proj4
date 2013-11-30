@@ -66,7 +66,7 @@ public class Model {
         }
     }
     
-    public boolean notifyLocation(BulletThread bThread) {
+    public synchronized boolean notifyLocation(BulletThread bThread) {
     	int row = bThread.bullet.row;
     	int column = bThread.bullet.column;
     	int direction = bThread.bullet.bulletDirection;

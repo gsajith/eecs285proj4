@@ -4,6 +4,7 @@ import static eecs285.project4.Constants.*;
 
 import java.awt.Image;
 import java.util.Random;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -21,10 +22,15 @@ public class AITank extends Tank {
         super(AI_REG_TANK, healthPoint, bulletStrength, speed, 10, 10, model);
 
         tankImages = new Image[4];
-        tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
+        /*tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
         tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/tankDraftDown.png").getImage();
         tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/tankDraftLeft.png").getImage();
-        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraftRight.png").getImage();
+        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraftRight.png").getImage();*/
+        tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftUp.png").getImage();
+		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftRight.png").getImage();
+		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftDown.png").getImage();
+		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftLeft.png").getImage();
+
         image = tankImages[UP];
 
         shouldTurnAround = true;
@@ -43,6 +49,14 @@ public class AITank extends Tank {
             shouldTurnAround = false;
             // we only have to change the image if we turn to a new direciotn
             image = tankImages[direction];
+        }
+        int shouldShoot = generator.nextInt(10);
+        if(shouldShoot == 0) {
+        	if(canShoot) {
+				canShoot = false;
+				BulletThread thread = new BulletThread(AITank.this, model, 1, 2, direction, row, column);
+				thread.start();
+			}
         }
         switch(direction) {
             case 0:
