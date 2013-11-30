@@ -20,15 +20,6 @@ public class PlayerTank extends Tank {
 
     public PlayerTank(final int healthPoint, final int bulletStrength, final int speed, 
                       final Model model) {
-<<<<<<< HEAD
-        super(healthPoint, bulletStrength, speed, UP, 0, 0, model);
-
-        tankImages = new Image[4];
-		tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft1.png").getImage();
-		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft2.png").getImage();
-		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft3.png").getImage();
-		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraft4.png").getImage();
-=======
         super(PLAYER1_TANK, healthPoint, bulletStrength, speed, 0, 0, model);
 
         tankImages = new Image[4];
@@ -36,7 +27,7 @@ public class PlayerTank extends Tank {
 		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftRight.png").getImage();
 		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftDown.png").getImage();
 		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftLeft.png").getImage();
->>>>>>> 1a3b08e6f0d7b064d613e5b4f0c48d95e5bd52dd
+
         image = tankImages[UP];
 
         setUpMove();
@@ -66,40 +57,40 @@ public class PlayerTank extends Tank {
 		getActionMap().put(UP, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = UP;
+                image = tankImages[UP];
                 if(model.notifyLocation(PlayerTank.this, UP)) {
                     --row;
-                    direction = UP;
-                    image = tankImages[UP];
                 }
 			}
 		});
 		getActionMap().put(DOWN, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = DOWN;
+                image = tankImages[DOWN];
                 if(model.notifyLocation(PlayerTank.this, DOWN)) {
                     ++row;
-                    direction = DOWN;
-                    image = tankImages[DOWN];
                 }
 			}
 		});
 		getActionMap().put(LEFT, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = LEFT;
+                image = tankImages[LEFT];
                 if(model.notifyLocation(PlayerTank.this, LEFT)) {
                     --column;
-                    direction = LEFT;
-                    image = tankImages[LEFT];
                 }
 			}
 		});
 		getActionMap().put(RIGHT, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = RIGHT;
+                image = tankImages[RIGHT];
                 if(model.notifyLocation(PlayerTank.this, RIGHT)) {
                     ++column;
-                    direction = RIGHT;
-                    image = tankImages[RIGHT];
                 }
 			}
 		});

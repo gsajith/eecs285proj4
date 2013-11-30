@@ -17,11 +17,7 @@ public abstract class Tank extends JComponent {
     protected Image image;
     protected Model model;
 
-<<<<<<< HEAD
-    public Tank(final int healthPoint, final int bulletStrength, final int speed, final int direction,
-=======
     public Tank(final int number, final int healthPoint, final int bulletStrength, final int speed,
->>>>>>> 1a3b08e6f0d7b064d613e5b4f0c48d95e5bd52dd
                 final int row, final int column, final Model model) {
         this.number = number;
         this.healthPoint = healthPoint;

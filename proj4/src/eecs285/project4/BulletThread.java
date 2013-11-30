@@ -13,6 +13,10 @@ public class BulletThread extends Thread{
 		this.bullet = new Bullet(bulletStrength, bulletSpeed, direction, startRow, startCol);
 	}
 	
+	/*
+	 * Method to terminate this BulletThread.
+	 * Currently termination is just being done using stop() instead
+	 */
 	public void term() {
 		run = false;
 	}

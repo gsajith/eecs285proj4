@@ -19,23 +19,29 @@ public class Bullet {
 		fixLocation(this.bulletDirection, this.row, this.column);
 	}
 	
+	/*
+	 * Given input row and col as top-left corner of firing tank,
+	 * convert it to be coordinate corresponding to location where
+	 * bullet would be if it was fired from the tank's gun in the
+	 * direction that it's facing.
+	 */
 	private void fixLocation(final int bulletDirection, int row,  int column) {
 		switch(bulletDirection) {
 		case UP:
-			this.row = row - 2;
-			this.column = column + 3;
+			this.row = row - BULLET_SIZE;
+			this.column = column + BLOCK_SIZE/2 - 1;
 			break;
 		case DOWN:
-			this.row = row + 8;
-			this.column = column + 3;
+			this.row = row + BLOCK_SIZE;
+			this.column = column + BLOCK_SIZE/2 - 1;
 			break;
 		case LEFT:
-			this.row = row + 3;
-			this.column = column - 2;
+			this.row = row + BLOCK_SIZE/2 - 1;
+			this.column = column - BULLET_SIZE;
 			break;
 		case RIGHT:
-			this.row = row + 3;
-			this.column = column + 8;
+			this.row = row + BLOCK_SIZE/2 - 1;
+			this.column = column + BLOCK_SIZE;
 			break;
 		}
 	}

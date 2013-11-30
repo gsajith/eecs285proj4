@@ -72,15 +72,13 @@ public class Model {
             // is greater than 0
             if(row >= 0) {
                 map[row + speed][column] = 0;
-                map[row][column] = 2;
-                view.update(map);
+                map[row][column] = BULLET_BLOCK;
                 view.repaint();
                 return true;
 	        } else {
 	        	bThread.tank.canShoot = true;
 	        	map[row + speed][column] = 0;
             	view.removeBullet(bThread.bullet);
-	        	view.update(map);
 	        	view.repaint();
 	        	bThread.stop();
 	        	return false;
@@ -88,15 +86,13 @@ public class Model {
         case DOWN:
             if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
                 map[row - speed][column] = 0;
-                map[row][column] = 2;
-                view.update(map);
+                map[row][column] = BULLET_BLOCK;
                 view.repaint();
                 return true;
 	        } else {
 	        	bThread.tank.canShoot = true;
 	        	map[row - speed][column] = 0;
             	view.removeBullet(bThread.bullet);
-	        	view.update(map);
 	        	view.repaint();
 	        	bThread.stop();
 	        	return false;
@@ -104,15 +100,13 @@ public class Model {
         case LEFT:
             if(column >= 0) {
                 map[row][column + speed] = 0;
-                map[row][column] = 2;
-                view.update(map);
+                map[row][column] = BULLET_BLOCK;
                 view.repaint();
                 return true;
             } else {
 	        	bThread.tank.canShoot = true;
             	map[row][column + speed] = 0;
             	view.removeBullet(bThread.bullet);
-            	view.update(map);
             	view.repaint();
 	        	bThread.stop();
             	return false;
@@ -120,15 +114,13 @@ public class Model {
         case RIGHT:
             if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
                 map[row][column - speed] = 0;
-                map[row][column] = 2;
-                view.update(map);
+                map[row][column] = BULLET_BLOCK;
                 view.repaint();
                 return true;
             } else {
 	        	bThread.tank.canShoot = true;
             	map[row][column - speed] = 0;
             	view.removeBullet(bThread.bullet);
-            	view.update(map);
             	view.repaint();
 	        	bThread.stop();
             	return false;
@@ -143,11 +135,7 @@ public class Model {
      * Determine whether a tank can move to a specific location.
      * Return true if the move is valid, and update the map to reflect the new location.
      * Return false if the move is not valid.
-<<<<<<< HEAD
-     * If the move is valid notify the view about the location change of a tank.
-=======
      * If the move is valid, notify the view about the location change of a tank.
->>>>>>> 1a3b08e6f0d7b064d613e5b4f0c48d95e5bd52dd
      */
     public synchronized boolean notifyLocation(Tank tank, final int direction) {
         int row = tank.getRow(), column = tank.getColumn();
