@@ -11,7 +11,7 @@ import java.util.HashSet;
  */
 public class Model {
 
-    private HashSet<Tank> AITanks;
+    private HashSet<AITank> AITanks;
     private Tank playerTank;
     private int[][] map;
     private View view;
@@ -20,7 +20,8 @@ public class Model {
      * Create a bunch of AI tanks and one player tank.
      */
     public Model() {
-        AITanks = new HashSet<Tank>();
+        AITanks = new HashSet<AITank>();
+        AITanks.add(new AITank(5, 5, 5, this));
         playerTank = new PlayerTank(5, 5, 5, this);
         map = new int[MAP_SIZE][MAP_SIZE];
         map[0][0] = 1;
@@ -39,12 +40,21 @@ public class Model {
     }
 
     /**
+     * Let each AI Tank update themselves.
+     */
+    public void go() {
+        for(AITank tank : AITanks) {
+            tank.go();
+        }
+    }
+
+    /**
      * Determine whether a tank can move to a specific location.
      * Return true if the move is valid, and update the map to reflect the new locatio.
      * Return false if the move is not valid.
-     * If the move is vali,d notify the view about the location change of a tank.
+     * If the move is valid, notify the view about the location change of a tank.
      */
-    public boolean notifyLocation(Tank tank, final int direction) {
+    public synchronized boolean notifyLocation(Tank tank, final int direction) {
         int row = tank.getRow();
         int column = tank.getColumn();
         switch(direction) {

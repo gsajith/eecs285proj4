@@ -24,10 +24,10 @@ public class PlayerTank extends Tank {
         super(healthPoint, bulletStrength, speed, 0, 0, model);
 
         tankImages = new Image[4];
-		tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraft1.png").getImage();
-		tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraft2.png").getImage();
-		tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/tankDraft3.png").getImage();
-		tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/tankDraft4.png").getImage();
+		tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
+		tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/tankDraftDown.png").getImage();
+		tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/tankDraftLeft.png").getImage();
+		tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraftRight.png").getImage();
         image = tankImages[UP];
 
         setUpMove();

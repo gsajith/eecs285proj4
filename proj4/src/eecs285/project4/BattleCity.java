@@ -19,5 +19,12 @@ public class BattleCity {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setVisible(true);
+
+        while(true) {
+            try {
+                Thread.sleep(50);
+            } catch(InterruptedException e) {}
+            model.go();
+        }
 	}
 }
