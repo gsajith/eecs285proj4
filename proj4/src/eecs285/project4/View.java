@@ -18,12 +18,17 @@ import javax.swing.JPanel;
 public class View extends JPanel {
     private HashSet<Tank> tanks;
     private HashSet<Bullet> bullets;
+    private MapMaker makeMap;
     
     public View() {
         tanks = new HashSet<Tank>();
         bullets = new HashSet<Bullet>();
     }
 
+    public void attach(MapMaker m) {
+    	makeMap = m;
+    }
+    
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		draw(g);
@@ -55,26 +60,31 @@ public class View extends JPanel {
         }
         
         // set up blocks
-        g2d.setColor(Color.RED);
-        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE,
-        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
-
-        g2d.setColor(Color.BLUE);
-        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE,
-        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
-
-        g2d.setColor(Color.GREEN);
-        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE,
-        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
-
-        g2d.setColor(Color.YELLOW);
-        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE,
-        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
-
+        drawMap(g2d);
 
         g2d.setColor(Color.WHITE);
         for(Bullet bullet : bullets) {
         	g2d.fillOval(bullet.column * PIXEL_SIZE, bullet.row * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE);
         }
     }
+	
+	// Draws the blocks
+	private void drawMap(Graphics2D g2d) {
+		for (int i = 0; i < makeMap.getBlocks().size(); i++) {
+			switch(makeMap.getBlocks().get(i).getType()) {
+			case BASE_BLOCK:
+		        g2d.setColor(Color.GRAY);
+		        g2d.fillRect(makeMap.getBlocks().get(i).gety() * PIXEL_SIZE,
+		        				makeMap.getBlocks().get(i).getx() * PIXEL_SIZE,
+		        				MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+		        break;
+			case BRICK_BLOCK:
+				g2d.setColor(Color.RED);
+			    g2d.fillRect(makeMap.getBlocks().get(i).gety() * PIXEL_SIZE,
+			    				makeMap.getBlocks().get(i).getx() * PIXEL_SIZE,
+			    				MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+			    break;
+			}
+		}
+	}
 }
