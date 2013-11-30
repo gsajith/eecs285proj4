@@ -46,9 +46,14 @@ public class Model {
      */
     public void addBlock(Block b) {
     	if (map[b.getx()][b.gety()] == 0 &&
-    		b.getType() != BLANK_BLOCK &&
-    		b.getType() != BASE_BLOCK) {    		
-    		map[b.getx()][b.gety()] = b.getType();
+    			b.getType() != BLANK_BLOCK && b.getType() != BASE_BLOCK) {
+    		for (int i = 0; i < MINI_BLOCK_SIZE; i++) {
+    			for (int j = 0; j < MINI_BLOCK_SIZE; j++) {  
+    				System.out.println("Coors: " + (b.getx() + i) + ", "
+    						+ (b.gety() + j));
+    				map[b.getx() + i][b.gety() + j] = b.getType();
+    			}
+    		}
     	}
     }
     /**
@@ -56,24 +61,25 @@ public class Model {
      */
     public void go() {
         for(AITank tank : AITanks) {
-            tank.go();
+           // tank.go();
         }
     }
-
+ 
     /**
      * Determine whether a tank can move to a specific location.
-     * Return true if the move is valid, and update the map to reflect the new locatio.
+     * Return true if the move is valid, and update the map to reflect the new location.
      * Return false if the move is not valid.
      * If the move is valid, notify the view about the location change of a tank.
      */
     public synchronized boolean notifyLocation(Tank tank, final int direction) {
         int row = tank.getRow(), column = tank.getColumn();
+        System.out.println("Tank loc: " + row + ", " + column);
         int number = tank.getNumber();
         switch(direction) {
             case UP:
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
-                if(row > 0 && clearPath(map[row - 1][column])) {
+                if(row > 0 && clearPathUp(map, row - 1, column)) {
                     map[row][column] = 0;
                     map[row - 1][column] = number;
                     view.repaint();
@@ -81,7 +87,7 @@ public class Model {
                 }
                 break;
             case DOWN:
-                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(map[row + 1][column])) {
+                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPathDown(map, row + 1, column)) {
                     map[row][column] = 0;
                     map[row + 1][column] = number;
                     view.repaint();
@@ -89,7 +95,7 @@ public class Model {
                 }
                 break;
             case LEFT:
-                if(column > 0 && clearPath(map[row][column - 1])) {
+                if(column > 0 && clearPathLeft(map, row, column - 1)) {
                     map[row][column] = 0;
                     map[row][column - 1] = number;
                     view.repaint();
@@ -97,7 +103,7 @@ public class Model {
                 }
                 break;
             case RIGHT:
-                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(map[row][column + 1])) {
+                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPathRight(map, row, column + 1)) {
                     map[row][column] = 0;
                     map[row][column + 1] = number;
                     view.repaint();
@@ -113,7 +119,40 @@ public class Model {
     // private function that takes in the number for the
     // block at a map coordinate and says if there is a
     // block that a tank could move through
-    private boolean clearPath(int x) {
-    	return x >= BLANK_BLOCK && x <= ICE_BLOCK;
+    private boolean clearPathUp(int map[][], int x, int y) {
+    	for (int i = 0; i < BLOCK_SIZE; i++) {
+    		if (!(map[x][y+i] >= BLANK_BLOCK && map[x][y+i] <= ICE_BLOCK)) {
+    			return false;
+    		}
+    	}
+    	return true;
     }
+    
+    private boolean clearPathDown(int map[][], int x, int y) {
+    	for (int i = 0; i < BLOCK_SIZE; i++) {
+    		if (!(map[x+BLOCK_SIZE-1][y+i] >= BLANK_BLOCK && map[x+BLOCK_SIZE-1][y+i] <= ICE_BLOCK)) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    private boolean clearPathLeft(int map[][], int x, int y) {
+    	for (int i = 0; i < BLOCK_SIZE; i++) {
+    		if (!(map[x+i][y] >= BLANK_BLOCK && map[x+i][y] <= ICE_BLOCK)) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    private boolean clearPathRight(int map[][], int x, int y) {
+    	for (int i = 0; i < BLOCK_SIZE; i++) {
+    		if (!(map[x+i][y+BLOCK_SIZE-1] >= BLANK_BLOCK && map[x+i][y+BLOCK_SIZE-1] <= ICE_BLOCK)) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
 }

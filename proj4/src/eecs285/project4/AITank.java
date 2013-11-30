@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 public class AITank extends Tank {
     private final Random generator = new Random();
     private Image[] tankImages;
-    // determines whwther the AI tank should generate a new location
+    // determines whether the AI tank should generate a new location
     private boolean shouldTurnAround;
     private int direction;
 

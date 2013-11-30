@@ -6,7 +6,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.util.HashSet;
+
 import javax.swing.JPanel;
 
 /**
@@ -40,5 +43,25 @@ public class View extends JPanel {
         for(Tank tank : tanks) {
             g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE, tank.getRow() * PIXEL_SIZE, null);
         }
+        
+        // set up blocks
+        g2d.setColor(Color.RED);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+        g2d.setColor(Color.BLUE);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+        g2d.setColor(Color.GREEN);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+        g2d.setColor(Color.YELLOW);
+        g2d.fillRect(6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE, 6 * PIXEL_SIZE * BLOCK_SIZE + MINI_BLOCK_SIZE * PIXEL_SIZE,
+        						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
+
+
+        
     }
 }

@@ -11,6 +11,14 @@ public class BattleCity {
         View view = new View();
 		Model model = new Model();
         model.attach(view);
+		Block b1 = new Block(BRICK_BLOCK, 6 * BLOCK_SIZE, 6 * BLOCK_SIZE);
+		Block b2 = new Block(BRICK_BLOCK, 6 * BLOCK_SIZE + MINI_BLOCK_SIZE, 6 * BLOCK_SIZE);
+		Block b3 = new Block(BRICK_BLOCK, 6 * BLOCK_SIZE, 6 * BLOCK_SIZE + MINI_BLOCK_SIZE);
+		Block b4 = new Block(BRICK_BLOCK, 6 * BLOCK_SIZE + MINI_BLOCK_SIZE, 6 * BLOCK_SIZE + MINI_BLOCK_SIZE);
+		model.addBlock(b1);
+		model.addBlock(b2);
+		model.addBlock(b3);
+		model.addBlock(b4);
 		
         // set up the main frame
 		frame.setContentPane(view);

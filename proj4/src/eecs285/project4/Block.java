@@ -2,7 +2,7 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
-abstract public class Block {
+public class Block {
 /* class BLOCK	defines a block of the 13x13 block map.
  * 
  * Syntax:
@@ -35,14 +35,14 @@ abstract public class Block {
 	public Block(int Type, int X, int Y) {
 		type = Type;
 		
-		if (X < NUM_BLOCKS - 1 && X >= 0) {
+		if (X < NUM_BLOCKS * BLOCK_SIZE - 1 && X >= 0) {
 			x = X;
 		} else {
 			System.out.print("Error in Block: x-coor not in bounds");
 			x = 0;
 		}
 		
-		if (Y < NUM_BLOCKS - 1 && Y < 0) {
+		if (Y < NUM_BLOCKS * BLOCK_SIZE - 1 && Y >= 0) {
 			y = Y;
 		} else {
 			System.out.println("Error in Block: y-coor not in bounds");
