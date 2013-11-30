@@ -3,10 +3,7 @@ package eecs285.project4;
 import static eecs285.project4.Constants.*;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class BattleCity {
 	public static void main(String[] args) {

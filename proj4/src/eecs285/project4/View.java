@@ -6,10 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-
 import java.util.HashSet;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -17,7 +14,6 @@ import javax.swing.JPanel;
  */
 public class View extends JPanel {
     private HashSet<Tank> tanks;
-	private int[][] map;
 
     public View() {
         tanks = new HashSet<Tank>();
@@ -32,10 +28,6 @@ public class View extends JPanel {
         tanks.add(tank);
         add(tank);
     }
-
-	public void update(int[][] map) {
-		this.map = map;
-	}
 	
 	private void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;

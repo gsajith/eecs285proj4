@@ -67,7 +67,6 @@ public class Model {
                 if(row > 0) {
                     map[row][column] = 0;
                     map[row - 1][column] = 1;
-                    view.update(map);
                     view.repaint();
                     return true;
                 }
@@ -76,7 +75,6 @@ public class Model {
                 if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
                     map[row][column] = 0;
                     map[row + 1][column] = 1;
-                    view.update(map);
                     view.repaint();
                     return true;
                 }
@@ -85,7 +83,6 @@ public class Model {
                 if(column > 0) {
                     map[row][column] = 0;
                     map[row][column - 1] = 1;
-                    view.update(map);
                     view.repaint();
                     return true;
                 }
@@ -94,7 +91,6 @@ public class Model {
                 if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE) {
                     map[row][column] = 0;
                     map[row][column + 1] = 1;
-                    view.update(map);
                     view.repaint();
                     return true;
                 }
