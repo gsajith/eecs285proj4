@@ -16,6 +16,8 @@ public class Constants {
 	public static final int SIDE_BORDER = 2;
 	public static final int TOP_BORDER = 24;
 	
+// numbers used to represent each kind of object on the map
+	
 	// numbers for types of blocks.
 	public static final int BLANK_BLOCK = 0;
 	public static final int BUSH_BLOCK = 1;
@@ -30,8 +32,9 @@ public class Constants {
 	public static final int PLAYER2_TANK = 8;
 	public static final int PLAYER3_TANK = 9;
 	public static final int PLAYER4_TANK = 10;
-	public static final int OPP_REG_TANK = 11;
-	public static final int OPP_FAST_TANK = 12;
-	public static final int OPP_REG2_TANK = 13;
-	public static final int OPP_FAST2_TANK = 14;
+	public static final int AI_REG_TANK = 11;
+	public static final int AI_FAST_TANK = 12;
+	public static final int AI_REG2_TANK = 13;
+	public static final int AI_FAST2_TANK = 14;
+	
 }
