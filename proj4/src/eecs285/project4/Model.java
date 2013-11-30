@@ -2,6 +2,7 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -42,19 +43,20 @@ public class Model {
     }
 
     /**
-     * Tentative function to add blocks to the map.
+     * Function to add blocks to the model and register them on the map.
      */
-    public void addBlock(Block b) {
-    	if (map[b.getx()][b.gety()] == 0 &&
-    		b.getType() != BLANK_BLOCK && 
-    		b.getType() != BASE_BLOCK) {
-    		for (int i = 0; i < MINI_BLOCK_SIZE; i++) {
-    			for (int j = 0; j < MINI_BLOCK_SIZE; j++) {  
-    				map[b.getx() + i][b.gety() + j] = b.getType();
+    public void addBlocks(ArrayList<Block> b) {
+    	for (int a = 0; a < b.size(); a++) {
+    		if (map[b.get(a).getx()][b.get(a).gety()] == 0 && b.get(a).getType() != BLANK_BLOCK) {
+    			for (int i = 0; i < MINI_BLOCK_SIZE; i++) {
+    				for (int j = 0; j < MINI_BLOCK_SIZE; j++) {  
+    					map[b.get(a).getx() + i][b.get(a).gety() + j] = b.get(a).getType();
+    				}
     			}
     		}
     	}
     }
+    
     /**
      * Let each AI Tank update themselves.
      */
@@ -62,8 +64,7 @@ public class Model {
         for(AITank tank : AITanks) {
            tank.go();
         }
-    }
-    
+    }    
 
     /**
      * Determine whether a bullet can move to a specific location.
