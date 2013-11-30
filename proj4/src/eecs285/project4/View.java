@@ -17,9 +17,11 @@ import javax.swing.JPanel;
  */
 public class View extends JPanel {
     private HashSet<Tank> tanks;
+    private HashSet<Bullet> bullets;
     
     public View() {
         tanks = new HashSet<Tank>();
+        bullets = new HashSet<Bullet>();
     }
 
 	public void paintComponent(Graphics g) {
@@ -30,6 +32,14 @@ public class View extends JPanel {
     public void addTank(Tank tank) {
         tanks.add(tank);
         add(tank);
+    }
+
+    public void addBullet(Bullet bullet) {
+    	bullets.add(bullet);
+    }
+    
+    public void removeBullet(Bullet bullet) {
+    	bullets.remove(bullet);
     }
 	
 	private void draw(Graphics g) {
@@ -62,6 +72,9 @@ public class View extends JPanel {
         						MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
 
 
-        
+        g2d.setColor(Color.WHITE);
+        for(Bullet bullet : bullets) {
+        	g2d.fillOval(bullet.column * PIXEL_SIZE, bullet.row * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE);
+        }
     }
 }

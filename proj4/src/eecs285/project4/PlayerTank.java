@@ -27,11 +27,27 @@ public class PlayerTank extends Tank {
 		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftRight.png").getImage();
 		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftDown.png").getImage();
 		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftLeft.png").getImage();
+
         image = tankImages[UP];
 
         setUpMove();
+        setUpShoot();
     }
 
+    // Specify how the tank shoots when key is pressed
+    private void setUpShoot() {
+    	getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "shoot");
+    	getActionMap().put("shoot", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(canShoot) {
+					canShoot = false;
+					BulletThread thread = new BulletThread(PlayerTank.this, model, 1, 2, direction, row, column);
+					thread.start();
+				}
+			}
+    	});
+    }
     // Specify how the tank moves when certain keys are pressed.
     private void setUpMove() {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), UP);
@@ -41,36 +57,40 @@ public class PlayerTank extends Tank {
 		getActionMap().put(UP, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = UP;
+                image = tankImages[UP];
                 if(model.notifyLocation(PlayerTank.this, UP)) {
                     --row;
-                    image = tankImages[UP];
                 }
 			}
 		});
 		getActionMap().put(DOWN, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = DOWN;
+                image = tankImages[DOWN];
                 if(model.notifyLocation(PlayerTank.this, DOWN)) {
                     ++row;
-                    image = tankImages[DOWN];
                 }
 			}
 		});
 		getActionMap().put(LEFT, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = LEFT;
+                image = tankImages[LEFT];
                 if(model.notifyLocation(PlayerTank.this, LEFT)) {
                     --column;
-                    image = tankImages[LEFT];
                 }
 			}
 		});
 		getActionMap().put(RIGHT, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+                direction = RIGHT;
+                image = tankImages[RIGHT];
                 if(model.notifyLocation(PlayerTank.this, RIGHT)) {
                     ++column;
-                    image = tankImages[RIGHT];
                 }
 			}
 		});
