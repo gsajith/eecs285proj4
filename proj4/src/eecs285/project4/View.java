@@ -6,7 +6,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.ConcurrentModificationException;
 import java.util.HashSet;
+
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -36,7 +39,7 @@ public class View extends JPanel {
     }
     
     public void removeBullet(Bullet bullet) {
-    	bullets.remove(bullet);
+        	bullets.remove(bullet);
     }
 	
 	private void draw(Graphics g) {
@@ -51,8 +54,16 @@ public class View extends JPanel {
             g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE, tank.getRow() * PIXEL_SIZE, null);
         }
         g2d.setColor(Color.WHITE);
-        for(Bullet bullet : bullets) {
-        	g2d.fillOval(bullet.column * PIXEL_SIZE, bullet.row * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE);
+    	try{
+    		for(Bullet bullet : bullets) {
+    			g2d.fillOval(bullet.column * PIXEL_SIZE, bullet.row * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE);
+    		} 
+    	} catch (ConcurrentModificationException e) {
+    		//Something tried to modify bullets while it was being iterated over
+    		//This happens rarely and shouldn't actually be a problem since we're just drawing here
+    		System.out.println("Bulltes modified");
         }
+        
+        
     }
 }
