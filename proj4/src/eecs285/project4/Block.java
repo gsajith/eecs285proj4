@@ -23,14 +23,14 @@ public class Block {
             this.x = x;
         } else {
             System.out.print("Error in Block: x-coor not in bounds");
-            x = 0;
+            this.x = 0;
         }
 
         if (y < NUM_BLOCKS * BLOCK_SIZE - 1 && y >= 0) {
            this.y = y;
         } else {
             System.out.println("Error in Block: y-coor not in bounds");
-            y = 0;
+            this.y = 0;
         }
 
         destructableLvl = 0;
