@@ -18,7 +18,7 @@ public class AITank extends Tank {
     private int direction;
 
     public AITank(final int healthPoint, final int bulletStrength, final int speed, 
-                  final Model model) {
+            final Model model) {
         super(AI_REG_TANK, healthPoint, bulletStrength, speed, 10, 10, model);
 
         tankImages = new Image[4];
@@ -48,11 +48,11 @@ public class AITank extends Tank {
         }
         int shouldShoot = generator.nextInt(10);
         if(shouldShoot == 0) {
-        	if(canShoot) {
-				canShoot = false;
-				BulletThread thread = new BulletThread(AITank.this, model, 1, 2, direction, row, column);
-				thread.start();
-			}
+            if(canShoot) {
+                canShoot = false;
+                BulletThread thread = new BulletThread(AITank.this, model, 1, 2, direction, row, column);
+                thread.start();
+            }
         }
         switch(direction) {
             case 0:

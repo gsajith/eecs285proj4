@@ -18,7 +18,7 @@ public abstract class Tank extends JComponent {
     protected Model model;
 
     public Tank(final int number, final int healthPoint, final int bulletStrength, final int speed,
-                final int row, final int column, final Model model) {
+            final int row, final int column, final Model model) {
         this.number = number;
         this.healthPoint = healthPoint;
         this.bulletStrength = bulletStrength;
@@ -48,8 +48,8 @@ public abstract class Tank extends JComponent {
     public Image getImage() {
         return image;
     }
-    
+
     public boolean canShoot() {
-    	return canShoot;
+        return canShoot;
     }
 }
