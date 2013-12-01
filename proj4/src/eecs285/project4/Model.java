@@ -39,7 +39,7 @@ public class Model {
     public void attach(View view) {
         this.view = view;
         for(Tank tank : AITanks) {
-            this.view.addTank(tank);
+            view.addTank(tank);
             placeTank(10, 10, AI_REG_TANK);
         }
         this.view.addTank(playerTank);
@@ -158,7 +158,7 @@ public class Model {
             case LEFT:
                 if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row, column-1, number);
+                    placeTank(row, column - 1, number);
                     view.repaint();
                     return true;
                 }
@@ -166,7 +166,7 @@ public class Model {
             case RIGHT:
                 if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row, column+1, number);
+                    placeTank(row, column + 1, number);
                     view.repaint();
                     return true;
                 }

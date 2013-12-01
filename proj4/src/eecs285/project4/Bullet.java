@@ -19,6 +19,23 @@ public class Bullet {
         fixLocation(this.bulletDirection, this.row, this.column);
     }
 
+    public void move() {
+        switch(bulletDirection) {
+            case UP:
+                row -= bulletSpeed;
+                break;
+            case DOWN:
+                row += bulletSpeed;
+                break;
+            case LEFT:
+                column -= bulletSpeed;
+                break;
+            case RIGHT:
+                column += bulletSpeed;
+                break;
+        }
+    }
+
     /*
      * Given input row and col as top-left corner of firing tank,
      * convert it to be coordinate corresponding to location where
@@ -42,23 +59,6 @@ public class Bullet {
             case RIGHT:
                 this.row = row + BLOCK_SIZE/2 - 1;
                 this.column = column + BLOCK_SIZE;
-                break;
-        }
-    }
-
-    public void move() {
-        switch(bulletDirection) {
-            case UP:
-                row -= bulletSpeed;
-                break;
-            case DOWN:
-                row += bulletSpeed;
-                break;
-            case LEFT:
-                column -= bulletSpeed;
-                break;
-            case RIGHT:
-                column += bulletSpeed;
                 break;
         }
     }
