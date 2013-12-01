@@ -27,9 +27,9 @@ public class Model {
         originalMap = new int[MAP_SIZE][MAP_SIZE];
         AITanks = new HashSet<AITank>();
         for(int i = 0; i < 3; ++i) {
-            AITanks.add(new AITank(5, 5, 5, this));
+            AITanks.add(new AITank(WEAK_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this));
         }
-        playerTank = new PlayerTank(5, 5, 5, this);
+        playerTank = new PlayerTank(ENHANCED_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this);
     }
 
     /**

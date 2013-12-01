@@ -59,4 +59,19 @@ public class Constants {
     public static final int EASY_DESTRUCTABLE = 1;
     public static final int HARD_DESTRUCTABLE = 2;
     public static final int NON_DESTRUCTABLE = 3;
+    // bullet strength
+    public static final int INITIAL_STRENGTH = EASY_DESTRUCTABLE;
+    public static final int ENHANCED_STRENGTH = HARD_DESTRUCTABLE;
+
+    // speed
+    public static final int TANK_SPEED = 1;
+    public static final int BULLET_SPEED = 2;
+
+    // health points
+    public static final int WEAK_HEALTH = 1;
+    // player tank has an initial health of 2
+    public static final int ENHANCED_HEALTH = 2;
+    // when in invincibility mode, each tank has high health points
+    // to ensure that they cannot be destroyed within short amount of time
+    public static final int INVINCIBLE_HEALTH = 1000;
 }

@@ -42,7 +42,8 @@ public class PlayerTank extends Tank {
 			public void actionPerformed(ActionEvent arg0) {
 				if(canShoot) {
 					canShoot = false; //canShoot flag is set to false until this thread is ended by Model
-					BulletThread bThread = new BulletThread(PlayerTank.this, model, 1, 2, direction, row, column);
+					BulletThread bThread = new BulletThread(PlayerTank.this, model, 
+                        bulletStrength, BULLET_SPEED, direction, row, column);
 					bThread.start();
 				}
 			}

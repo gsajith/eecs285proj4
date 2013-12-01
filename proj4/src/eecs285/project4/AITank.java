@@ -50,7 +50,8 @@ public class AITank extends Tank {
         if(shouldShoot == 0) {
             if(canShoot) {
                 canShoot = false;
-                BulletThread thread = new BulletThread(AITank.this, model, 1, 2, direction, row, column);
+                BulletThread thread = new BulletThread(AITank.this, model, 
+                        bulletStrength, BULLET_SPEED, direction, row, column);
                 thread.start();
             }
         }
