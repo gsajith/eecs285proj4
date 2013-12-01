@@ -16,18 +16,18 @@ public class Block {
     // Equals 0 if N/A for block.
     private int destructableLvl; 
 
-    public Block(int Type, int X, int Y) {
-        type = Type;
+    public Block(int type, int x, int y) {
+        this.type = type;
 
-        if (X < NUM_BLOCKS * BLOCK_SIZE - 1 && X >= 0) {
-            x = X;
+        if (x < NUM_BLOCKS * BLOCK_SIZE - 1 && x >= 0) {
+            this.x = x;
         } else {
             System.out.print("Error in Block: x-coor not in bounds");
             x = 0;
         }
 
-        if (Y < NUM_BLOCKS * BLOCK_SIZE - 1 && Y >= 0) {
-            y = Y;
+        if (y < NUM_BLOCKS * BLOCK_SIZE - 1 && y >= 0) {
+           this.y = y;
         } else {
             System.out.println("Error in Block: y-coor not in bounds");
             y = 0;
