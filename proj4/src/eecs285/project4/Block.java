@@ -36,24 +36,24 @@ public class Block {
         destructibleLvl = NON_DESTRUCTIBLE;
         switch (type) {
             case TREE_BLOCK:
-                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/tree.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/tree.png").getImage();
                 break;
             case ICE_BLOCK:
-                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/ice.png").getImage();  
+                image = new ImageIcon("eecs285/project4/blockImage/ice.png").getImage();  
                 break;
             case WATER_BLOCK:
-                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/water.png").getImage();  
+                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();  
                 break;
             case BRICK_BLOCK:
-                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/brick.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/brick.png").getImage();
                 destructibleLvl = EASY_DESTRUCTIBLE;
                 break;
             case STEEL_BLOCK:
-                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/steel.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/steel.png").getImage();
                 destructibleLvl = HARD_DESTRUCTIBLE;
                 break;
             case BASE_BLOCK:
-                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/water.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();
                 destructibleLvl = EASY_DESTRUCTIBLE;
                 break;
             default:
