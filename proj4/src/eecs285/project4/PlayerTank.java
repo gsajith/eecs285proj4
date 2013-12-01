@@ -2,6 +2,9 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
+import java.applet.*;
+import java.net.*;
+
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -42,6 +45,16 @@ public class PlayerTank extends Tank {
 			public void actionPerformed(ActionEvent arg0) {
 				if(canShoot) {
 					canShoot = false; //canShoot flag is set to false until this thread is ended by Model
+					try {
+					  /*AudioClip clip = Applet.newAudioClip(
+					  new URL("file:eecs285/project4/sounds/shoot.wav"));*/
+					  //need to change the path
+					  AudioClip clip = Applet.newAudioClip(
+	                      		    new URL("file:/Users/Dang/eecs285proj4/proj4/src/eecs285/project4/sounds/shoot.wav"));
+					  clip.play();
+					  } catch (MalformedURLException murle) {
+					      //System.out.println(murle);
+					  }
 					BulletThread bThread = new BulletThread(PlayerTank.this, model, 
                         bulletStrength, BULLET_SPEED, direction, row, column);
 					bThread.start();
