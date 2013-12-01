@@ -6,13 +6,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.ConcurrentModificationException;
-import java.util.HashSet;
-
-import javax.swing.ImageIcon;
 import java.awt.Rectangle;
 import java.awt.Shape;
-
+import java.util.ConcurrentModificationException;
+import java.util.HashSet;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**

@@ -43,7 +43,7 @@ public class Model {
             placeTank(10, 10, AI_REG_TANK);
         }
         this.view.addTank(playerTank);
-        placeTank(0, 0, PLAYER1_TANK);
+        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getNumber());
     }
 
     /**
