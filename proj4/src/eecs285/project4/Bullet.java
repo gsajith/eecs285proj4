@@ -33,6 +33,8 @@ public class Bullet {
             case RIGHT:
                 column += bulletSpeed;
                 break;
+            default:
+                assert(false);
         }
     }
 
@@ -60,6 +62,8 @@ public class Bullet {
                 this.row = row + BLOCK_SIZE/2 - 1;
                 this.column = column + BLOCK_SIZE;
                 break;
+            default:
+                assert(false);
         }
     }
 }
