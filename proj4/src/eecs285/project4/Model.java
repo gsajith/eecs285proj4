@@ -109,28 +109,28 @@ public class Model {
     	switch(direction) {
     	case UP:
     		clearBullet(row+speed, column);
-            if(row >= 0 && clearPath(row, column, UP, BULLET_SIZE)) {
+            if(row >= 0 && clearPath(row, column, UP, BULLET_SIZE, true)) {
                 return moveBullet(row, column);
 	        } else {
             	return endBullet(bThread);
 	        }
         case DOWN:
     		clearBullet(row-speed, column);
-            if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, DOWN, BULLET_SIZE)) {
+            if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, DOWN, BULLET_SIZE, true)) {
                 return moveBullet(row, column);
 	        } else {
             	return endBullet(bThread);
 	        }
         case LEFT:
     		clearBullet(row, column+speed);
-            if(column >= 0 && clearPath(row, column, LEFT, BULLET_SIZE)) {
+            if(column >= 0 && clearPath(row, column, LEFT, BULLET_SIZE, true)) {
                 return moveBullet(row, column);
             } else {
             	return endBullet(bThread);
             }
         case RIGHT:
     		clearBullet(row, column-speed);
-            if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, RIGHT, BULLET_SIZE)) {
+            if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, RIGHT, BULLET_SIZE, true)) {
                 return moveBullet(row, column);
             } else {
             	return endBullet(bThread);
@@ -190,7 +190,7 @@ public class Model {
             case UP:
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
-                if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE)) {
+                if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE, false)) {
                 	clearTank(row, column);
                 	placeTank(row-1, column, number);
                     view.repaint();
@@ -198,7 +198,7 @@ public class Model {
                 }
                 break;
             case DOWN:
-                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE)) {
+                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE, false)) {
                 	clearTank(row, column);
                 	placeTank(row+1, column, number);
                     view.repaint();
@@ -206,7 +206,7 @@ public class Model {
                 }
                 break;
             case LEFT:
-                if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE)) {
+                if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE, false)) {
                 	clearTank(row, column);
                 	placeTank(row, column-1, number);
                     view.repaint();
@@ -214,7 +214,7 @@ public class Model {
                 }
                 break;
             case RIGHT:
-                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE)) {
+                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE, false)) {
                 	clearTank(row, column);
                 	placeTank(row, column+1, number);
                     view.repaint();
@@ -232,7 +232,7 @@ public class Model {
      * that you're moving (determines which adjacent row/col you need to check), and 
      * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check)
      */
-    private boolean clearPath(final int row, final int column, final int direction, final int checkSize) {
+    private boolean clearPath(final int row, final int column, final int direction, final int checkSize, boolean isBullet) {
     	int rowMult = 0, colMult = 0;
     	int rowOffset = 0, colOffset = 0;
     	switch (direction) {
@@ -254,7 +254,7 @@ public class Model {
     	
     	for(int i = 0; i < checkSize; i++) {
     		if(!(map[row+(i*rowMult) + rowOffset][column+(i*colMult) + colOffset] >= BLANK_BLOCK &&
-    				map[row+(i*rowMult) + rowOffset][column+(i*colMult) + colOffset] <= ICE_BLOCK)) {
+    				map[row+(i*rowMult) + rowOffset][column+(i*colMult) + colOffset] <= (ICE_BLOCK+ (isBullet?1:0)))) {
     			return false;	
     		}
     	}
