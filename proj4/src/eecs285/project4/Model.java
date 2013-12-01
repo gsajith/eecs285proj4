@@ -22,12 +22,36 @@ public class Model {
      */
     public Model() {
         AITanks = new HashSet<AITank>();
+        map = new int[MAP_SIZE][MAP_SIZE];
         for(int i = 0; i < 3; ++i) {
             AITanks.add(new AITank(5, 5, 5, this));
+            placeTank(10, 10, AI_REG_TANK);
         }
         playerTank = new PlayerTank(5, 5, 5, this);
-        map = new int[MAP_SIZE][MAP_SIZE];
-        map[0][0] = PLAYER1_TANK;
+        placeTank(0, 0, PLAYER1_TANK);
+    }
+    
+    /*
+     * Places a tank block on map at (row,col)
+     */
+    private void placeTank(final int row, final int column, final int tankType) {
+    	for(int i = 0; i < BLOCK_SIZE; i++) {
+    		for(int j = 0; j < BLOCK_SIZE; j++) {
+    			if(map[row+i][column+j] != 0) System.out.println("Uhoh " + (row+i) + "," + (column+j) + " was " + map[row+i][column+j]);
+    			map[row+i][column+j] = tankType;
+    		}
+    	}
+    }
+    
+    /*
+     * Removes a tank block from (row,col), sets this block on the map to 0
+     */
+    private void clearTank(final int row, final int column) {
+    	for(int i = 0; i < BLOCK_SIZE; i++) {
+    		for(int j = 0; j < BLOCK_SIZE; j++) {
+    			map[row+i][column+j] = 0;
+    		}
+    	}
     }
 
     /**
@@ -84,28 +108,28 @@ public class Model {
     	
     	switch(direction) {
     	case UP:
-            map[row + speed][column] = 0;
+    		clearBullet(row+speed, column);
             if(row >= 0 && clearPath(row, column, UP, BULLET_SIZE)) {
                 return moveBullet(row, column);
 	        } else {
             	return endBullet(bThread);
 	        }
         case DOWN:
-            map[row - speed][column] = 0;
+    		clearBullet(row-speed, column);
             if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, DOWN, BULLET_SIZE)) {
                 return moveBullet(row, column);
 	        } else {
             	return endBullet(bThread);
 	        }
         case LEFT:
-            map[row][column + speed] = 0;
+    		clearBullet(row, column+speed);
             if(column >= 0 && clearPath(row, column, LEFT, BULLET_SIZE)) {
                 return moveBullet(row, column);
             } else {
             	return endBullet(bThread);
             }
         case RIGHT:
-            map[row][column - speed] = 0;
+    		clearBullet(row, column-speed);
             if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, RIGHT, BULLET_SIZE)) {
                 return moveBullet(row, column);
             } else {
@@ -121,12 +145,27 @@ public class Model {
      * Moves to bullet on map to row, col.
      * Assumes it has already been removed from it's previous location
      */
-	private boolean moveBullet(int row, int column) {
-		map[row][column] = BULLET_BLOCK;
+	private boolean moveBullet(final int row, final int column) {
+		for(int i = 0; i < BULLET_SIZE; i++) {
+			for(int j = 0; j < BULLET_SIZE; j++) {
+				map[row+i][column+j] = BULLET_BLOCK;
+			}
+		}
 		view.repaint();
 		return true;
 	}
     
+	/*
+	 * Clears bullet from map at (row,col)
+	 */
+	private void clearBullet(final int row, final int column) {
+		for(int i = 0; i < BULLET_SIZE; i++) {
+			for(int j = 0; j < BULLET_SIZE; j++) {
+				if(row >= 0 && column >= 0 && row+i < MAP_SIZE && column+j < MAP_SIZE)  
+					map[row+i][column+j] = 0;
+			}
+		}
+	}
     /*
      * Removes this BulletThread's bullet from view, stops this bThread
      */
@@ -152,32 +191,32 @@ public class Model {
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
                 if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE)) {
-                    map[row][column] = 0;
-                    map[row - 1][column] = number;
+                	clearTank(row, column);
+                	placeTank(row-1, column, number);
                     view.repaint();
                     return true;
                 }
                 break;
             case DOWN:
                 if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE)) {
-                    map[row][column] = 0;
-                    map[row + 1][column] = number;
+                	clearTank(row, column);
+                	placeTank(row+1, column, number);
                     view.repaint();
                     return true;
                 }
                 break;
             case LEFT:
                 if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE)) {
-                    map[row][column] = 0;
-                    map[row][column - 1] = number;
+                	clearTank(row, column);
+                	placeTank(row, column-1, number);
                     view.repaint();
                     return true;
                 }
                 break;
             case RIGHT:
                 if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE)) {
-                    map[row][column] = 0;
-                    map[row][column + 1] = number;
+                	clearTank(row, column);
+                	placeTank(row, column+1, number);
                     view.repaint();
                     return true;
                 }
