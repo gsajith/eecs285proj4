@@ -182,7 +182,8 @@ public class Model {
      * that you're moving (determines which adjacent row/col you need to check), and 
      * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check)
      */
-    private boolean clearPath(final int row, final int column, final int direction, final int checkSize, final boolean isBullet) {
+    private boolean clearPath(final int row, final int column, final int direction, 
+            final int checkSize, final boolean isBullet) {
         int rowMult = 0, colMult = 0;
         int rowOffset = 0, colOffset = 0;
         switch (direction) {
