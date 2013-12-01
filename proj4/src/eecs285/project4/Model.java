@@ -32,28 +32,6 @@ public class Model {
         playerTank = new PlayerTank(5, 5, 5, this);
     }
 
-    /*
-     * Places a tank block on map at (row,col)
-     */
-    private void placeTank(final int row, final int column, final int tankType) {
-        for(int i = 0; i < BLOCK_SIZE; i++) {
-            for(int j = 0; j < BLOCK_SIZE; j++) {
-                map[row+i][column+j] = tankType;
-            }
-        }
-    }
-
-    /*
-     * Removes a tank block from (row,col), sets this block on the map to 0
-     */
-    private void clearTank(final int row, final int column) {
-        for(int i = 0; i < BLOCK_SIZE; i++) {
-            for(int j = 0; j < BLOCK_SIZE; j++) {    			
-                map[row+i][column+j] = originalMap[row+i][column+j];
-            }
-        }
-    }
-
     /**
      * Attach the specified view to the model 
      * and notify the view about the locations of all tanks
@@ -110,8 +88,8 @@ public class Model {
         int direction = bThread.bullet.bulletDirection;
         int speed = bThread.bullet.bulletSpeed;
 
-        //Add bullet to view even if it already exists
-        //Will just update this bullet instance in HashSet<Bullet> in View
+        // Add bullet to view even if it already exists
+        // Will just update this bullet instance in HashSet<Bullet> in View
         view.addBullet(bThread.bullet); 
 
         switch(direction) {
@@ -146,42 +124,6 @@ public class Model {
             default:
                 assert(false);
         }
-        return false;
-    }
-
-    /*
-     * Moves to bullet on map to row, col.
-     * Assumes it has already been removed from it's previous location
-     */
-    private boolean moveBullet(final int row, final int column) {
-        for(int i = 0; i < BULLET_SIZE; i++) {
-            for(int j = 0; j < BULLET_SIZE; j++) {
-                map[row+i][column+j] = BULLET_BLOCK;
-            }
-        }
-        view.repaint();
-        return true;
-    }
-
-    /*
-     * Clears bullet from map at (row,col)
-     */
-    private void clearBullet(final int row, final int column) {
-        for(int i = 0; i < BULLET_SIZE; i++) {
-            for(int j = 0; j < BULLET_SIZE; j++) {
-                if(row >= 0 && column >= 0 && row+i < MAP_SIZE && column+j < MAP_SIZE)  
-                    map[row+i][column+j] = originalMap[row+i][column+j];
-            }
-        }
-    }
-    /*
-     * Removes this BulletThread's bullet from view, stops this bThread
-     */
-    private boolean endBullet(BulletThread bThread) {
-        bThread.tank.canShoot = true;
-        view.removeBullet(bThread.bullet);
-        view.repaint();
-        bThread.stop();
         return false;
     }
 
@@ -267,5 +209,64 @@ public class Model {
             }
         }
         return true;
+    }
+
+    /*
+     * Places a tank block on map at (row,col)
+     */
+    private void placeTank(final int row, final int column, final int tankType) {
+        for(int i = 0; i < BLOCK_SIZE; i++) {
+            for(int j = 0; j < BLOCK_SIZE; j++) {
+                map[row+i][column+j] = tankType;
+            }
+        }
+    }
+
+    /*
+     * Removes a tank block from (row,col), sets this block on the map to 0
+     */
+    private void clearTank(final int row, final int column) {
+        for(int i = 0; i < BLOCK_SIZE; i++) {
+            for(int j = 0; j < BLOCK_SIZE; j++) {    			
+                map[row+i][column+j] = originalMap[row+i][column+j];
+            }
+        }
+    }
+
+    /*
+     * Moves to bullet on map to row, col.
+     * Assumes it has already been removed from it's previous location
+     */
+    private boolean moveBullet(final int row, final int column) {
+        for(int i = 0; i < BULLET_SIZE; i++) {
+            for(int j = 0; j < BULLET_SIZE; j++) {
+                map[row+i][column+j] = BULLET_BLOCK;
+            }
+        }
+        view.repaint();
+        return true;
+    }
+
+    /*
+     * Clears bullet from map at (row,col)
+     */
+    private void clearBullet(final int row, final int column) {
+        for(int i = 0; i < BULLET_SIZE; i++) {
+            for(int j = 0; j < BULLET_SIZE; j++) {
+                if(row >= 0 && column >= 0 && row+i < MAP_SIZE && column+j < MAP_SIZE)  
+                    map[row+i][column+j] = originalMap[row+i][column+j];
+            }
+        }
+    }
+
+    /*
+     * Removes this BulletThread's bullet from view, stops this bThread
+     */
+    private boolean endBullet(BulletThread bThread) {
+        bThread.tank.canShoot = true;
+        view.removeBullet(bThread.bullet);
+        view.repaint();
+        bThread.stop();
+        return false;
     }
 }
