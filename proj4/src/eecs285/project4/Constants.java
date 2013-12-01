@@ -22,13 +22,17 @@ public class Constants {
 // numbers used to represent each kind of object on the map
 	
 	// numbers for types of blocks.
+	// **************** blocks you can move through *********
 	public static final int BLANK_BLOCK = 0;
 	public static final int BUSH_BLOCK = 1;
 	public static final int ICE_BLOCK = 2;
+	// *******************************************************
+	// **************** blocks you can't move through ********
 	public static final int WATER_BLOCK = 3;
 	public static final int BRICK_BLOCK = 4;
 	public static final int STEEL_BLOCK = 5;
 	public static final int BASE_BLOCK = 6;
+	// *******************************************************
 	
 	// tanks as represented by int on the 2D int map
 	public static final int PLAYER1_TANK = 7;

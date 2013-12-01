@@ -77,50 +77,35 @@ public class Model {
     	int column = bThread.bullet.column;
     	int direction = bThread.bullet.bulletDirection;
     	int speed = bThread.bullet.bulletSpeed;
-    	view.addBullet(bThread.bullet);
+    	view.addBullet(bThread.bullet); //Add t
+    	
     	switch(direction) {
     	case UP:
+            map[row + speed][column] = 0;
             if(row >= 0 && clearPath(row, column, UP, BULLET_SIZE)) {
-                map[row + speed][column] = 0;
-                map[row][column] = BULLET_BLOCK;
-                view.repaint();
-                return true;
+                return moveBullet(row, column);
 	        } else {
-	        	bThread.tank.canShoot = true;
-	        	map[row + speed][column] = 0;
             	return endBullet(bThread);
 	        }
         case DOWN:
+            map[row - speed][column] = 0;
             if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, DOWN, BULLET_SIZE)) {
-                map[row - speed][column] = 0;
-                map[row][column] = BULLET_BLOCK;
-                view.repaint();
-                return true;
+                return moveBullet(row, column);
 	        } else {
-	        	bThread.tank.canShoot = true;
-	        	map[row - speed][column] = 0;
             	return endBullet(bThread);
 	        }
         case LEFT:
+            map[row][column + speed] = 0;
             if(column >= 0 && clearPath(row, column, LEFT, BULLET_SIZE)) {
-                map[row][column + speed] = 0;
-                map[row][column] = BULLET_BLOCK;
-                view.repaint();
-                return true;
+                return moveBullet(row, column);
             } else {
-	        	bThread.tank.canShoot = true;
-            	map[row][column + speed] = 0;
             	return endBullet(bThread);
             }
         case RIGHT:
+            map[row][column - speed] = 0;
             if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, RIGHT, BULLET_SIZE)) {
-                map[row][column - speed] = 0;
-                map[row][column] = BULLET_BLOCK;
-                view.repaint();
-                return true;
+                return moveBullet(row, column);
             } else {
-	        	bThread.tank.canShoot = true;
-            	map[row][column - speed] = 0;
             	return endBullet(bThread);
             }
         default:
@@ -128,11 +113,22 @@ public class Model {
     }
     	return false;
     }
+
+    /*
+     * Moves to bullet on map to row, col.
+     * Assumes it has already been removed from it's previous location
+     */
+	private boolean moveBullet(int row, int column) {
+		map[row][column] = BULLET_BLOCK;
+		view.repaint();
+		return true;
+	}
     
     /*
      * Removes this BulletThread's bullet from view, stops this bThread
      */
     private boolean endBullet(BulletThread bThread) {
+    	bThread.tank.canShoot = true;
     	view.removeBullet(bThread.bullet);
     	view.repaint();
     	bThread.stop();
@@ -147,7 +143,6 @@ public class Model {
      */
     public synchronized boolean notifyLocation(Tank tank, final int direction) {
         int row = tank.getRow(), column = tank.getColumn();
-        System.out.println("Tank loc: " + row + ", " + column);
         int number = tank.getNumber();
         switch(direction) {
             case UP:
