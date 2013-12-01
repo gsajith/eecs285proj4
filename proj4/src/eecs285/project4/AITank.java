@@ -22,10 +22,10 @@ public class AITank extends Tank {
         super(AI_REG_TANK, healthPoint, bulletStrength, speed, 10, 10, model);
 
         tankImages = new Image[4];
-        tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
-        tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/tankDraftDown.png").getImage();
-        tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/tankDraftLeft.png").getImage();
-        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraftRight.png").getImage();
+        tankImages[UP] = new ImageIcon("/afs/umich.edu/user/c/n/cnsn/workspace/eecs285proj4/proj4/src/eecs285/project4/tankImage/tankDraftUp.png").getImage();
+        tankImages[DOWN] = new ImageIcon("/afs/umich.edu/user/c/n/cnsn/workspace/eecs285proj4/proj4/src/eecs285/project4/tankImage/tankDraftDown.png").getImage();
+        tankImages[LEFT] = new ImageIcon("/afs/umich.edu/user/c/n/cnsn/workspace/eecs285proj4/proj4/src/eecs285/project4/tankImage/tankDraftLeft.png").getImage();
+        tankImages[RIGHT] = new ImageIcon("/afs/umich.edu/user/c/n/cnsn/workspace/eecs285proj4/proj4/src/eecs285/project4/tankImage/tankDraftRight.png").getImage();
 
         image = tankImages[UP];
 

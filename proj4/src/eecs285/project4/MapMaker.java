@@ -20,6 +20,8 @@ public class MapMaker {
 
     public MapMaker() {
         blocks = new HashSet<Block>();
+        bricks = new HashSet<Block>();
+        steelBlocks = new HashSet<Block>();
         makeBlock(BASE_BLOCK, 12, 6);
         makeBlock(BRICK_BLOCK, 12, 5);
         makeBlock(BRICK_BLOCK, 11, 5);
@@ -36,6 +38,9 @@ public class MapMaker {
             case 1:
                 map1();
                 break;
+            case 2:
+            	map2();
+            	break;
         }
     }
 
@@ -123,10 +128,85 @@ public class MapMaker {
         makeBlock(BRICK_BLOCK, 11, 11);
     }
 
-    public void removeBlock(final int blockType) {
-
+    public void map2() {
+    	makeBlock(WATER_BLOCK, 1, 1);
+    	makeBlock(WATER_BLOCK, 1, 2);
+    	makeBlock(WATER_BLOCK, 1, 3);
+    	makeBlock(WATER_BLOCK, 1, 4);
+    	makeBlock(WATER_BLOCK, 1, 5);
+    	makeBlock(WATER_BLOCK, 1, 6);
+    	makeBlock(WATER_BLOCK, 1, 7);
+    	makeBlock(WATER_BLOCK, 1, 8);
+    	makeBlock(WATER_BLOCK, 1, 9);
+    	makeBlock(WATER_BLOCK, 1, 10);
+    	makeBlock(WATER_BLOCK, 1, 11);
+    	makeBlock(WATER_BLOCK, 2, 5);
+    	makeBlock(WATER_BLOCK, 2, 6);
+    	makeBlock(WATER_BLOCK, 2, 7);
+    	makeBlock(WATER_BLOCK, 3, 1);
+    	makeBlock(WATER_BLOCK, 3, 2);
+    	makeBlock(WATER_BLOCK, 3, 3);
+    	makeBlock(WATER_BLOCK, 3, 5);
+    	makeBlock(WATER_BLOCK, 3, 6);
+    	makeBlock(WATER_BLOCK, 3, 7);
+    	makeBlock(WATER_BLOCK, 3, 9);
+    	makeBlock(WATER_BLOCK, 3, 10);
+    	makeBlock(WATER_BLOCK, 3, 11);
+    	makeBlock(WATER_BLOCK, 4, 1);
+    	makeBlock(WATER_BLOCK, 4, 2);
+    	makeBlock(WATER_BLOCK, 4, 3);
+    	makeBlock(WATER_BLOCK, 4, 9);
+    	makeBlock(WATER_BLOCK, 4, 10);
+    	makeBlock(WATER_BLOCK, 4, 11);
+    	makeBlock(WATER_BLOCK, 5, 2);
+    	makeBlock(WATER_BLOCK, 5, 3);
+    	makeBlock(WATER_BLOCK, 5, 4);
+    	makeBlock(WATER_BLOCK, 5, 8);
+    	makeBlock(WATER_BLOCK, 5, 9);
+    	makeBlock(WATER_BLOCK, 5, 10);
+    	makeBlock(WATER_BLOCK, 6, 2);
+    	makeBlock(WATER_BLOCK, 6, 3);
+    	makeBlock(WATER_BLOCK, 6, 4);
+    	makeBlock(WATER_BLOCK, 6, 5);
+    	makeBlock(WATER_BLOCK, 6, 7);
+    	makeBlock(WATER_BLOCK, 6, 8);
+    	makeBlock(WATER_BLOCK, 6, 9);
+    	makeBlock(WATER_BLOCK, 6, 10);
+    	makeBlock(WATER_BLOCK, 7, 2);
+    	makeBlock(WATER_BLOCK, 7, 3);
+    	makeBlock(WATER_BLOCK, 7, 4);
+    	makeBlock(WATER_BLOCK, 7, 5);
+    	makeBlock(WATER_BLOCK, 7, 6);
+    	makeBlock(WATER_BLOCK, 7, 7);
+    	makeBlock(WATER_BLOCK, 7, 8);
+    	makeBlock(WATER_BLOCK, 7, 9);
+    	makeBlock(WATER_BLOCK, 7, 10);
+    	makeBlock(WATER_BLOCK, 8, 2);
+    	makeBlock(WATER_BLOCK, 8, 3);
+    	makeBlock(WATER_BLOCK, 8, 5);
+    	makeBlock(WATER_BLOCK, 8, 6);
+    	makeBlock(WATER_BLOCK, 8, 7);
+    	makeBlock(WATER_BLOCK, 8, 9);
+    	makeBlock(WATER_BLOCK, 8, 10);
+    	makeBlock(WATER_BLOCK, 9, 2);
+    	makeBlock(WATER_BLOCK, 9, 3);
+    	makeBlock(WATER_BLOCK, 9, 6);
+    	makeBlock(WATER_BLOCK, 9, 9);
+    	makeBlock(WATER_BLOCK, 9, 10);
+    	makeBlock(WATER_BLOCK, 10, 1);
+    	makeBlock(WATER_BLOCK, 10, 2);
+    	makeBlock(WATER_BLOCK, 10, 3);
+    	makeBlock(WATER_BLOCK, 10, 9);
+    	makeBlock(WATER_BLOCK, 10, 10);
+    	makeBlock(WATER_BLOCK, 10, 11);
+    	makeBlock(WATER_BLOCK, 11, 1);
+    	makeBlock(WATER_BLOCK, 11, 2);
+    	makeBlock(WATER_BLOCK, 11, 3);
+    	makeBlock(WATER_BLOCK, 11, 9);
+    	makeBlock(WATER_BLOCK, 11, 10);
+    	makeBlock(WATER_BLOCK, 11, 11);
     }
-
+    
     private void makeBlock(final int type, final int x, final int y) {
         Block block1 = new Block(type, x * BLOCK_SIZE, y * BLOCK_SIZE);
         Block block2 = new Block(type, x * BLOCK_SIZE + MINI_BLOCK_SIZE, y * BLOCK_SIZE);
