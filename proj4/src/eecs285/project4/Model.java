@@ -77,7 +77,10 @@ public class Model {
     	int column = bThread.bullet.column;
     	int direction = bThread.bullet.bulletDirection;
     	int speed = bThread.bullet.bulletSpeed;
-    	view.addBullet(bThread.bullet); //Add t
+    	
+    	//Add bullet to view even if it already exists
+    	//Will just update this bullet instance in HashSet<Bullet> in View
+    	view.addBullet(bThread.bullet); 
     	
     	switch(direction) {
     	case UP:
