@@ -43,7 +43,7 @@ public class Model {
             placeTank(10, 10, AI_REG_TANK);
         }
         this.view.addTank(playerTank);
-        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getNumber());
+        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());
     }
 
     /**
@@ -89,7 +89,7 @@ public class Model {
         int speed = bThread.bullet.bulletSpeed;
 
         // Add bullet to view even if it already exists
-        // Will just update this bullet instance in HashSet<Bullet> in View
+        // Will just update this bullet instance in HashSet<Bullet> in View.
         view.addBullet(bThread.bullet); 
 
         switch(direction) {
@@ -135,14 +135,14 @@ public class Model {
      */
     public synchronized boolean notifyLocation(final Tank tank, final int direction) {
         int row = tank.getRow(), column = tank.getColumn();
-        int number = tank.getNumber();
+        int type = tank.getType();
         switch(direction) {
             case UP:
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
                 if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row - 1, column, number);
+                    placeTank(row - 1, column, type);
                     view.repaint();
                     return true;
                 }
@@ -150,7 +150,7 @@ public class Model {
             case DOWN:
                 if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row + 1, column, number);
+                    placeTank(row + 1, column, type);
                     view.repaint();
                     return true;
                 }
@@ -158,7 +158,7 @@ public class Model {
             case LEFT:
                 if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row, column - 1, number);
+                    placeTank(row, column - 1, type);
                     view.repaint();
                     return true;
                 }
@@ -166,7 +166,7 @@ public class Model {
             case RIGHT:
                 if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row, column + 1, number);
+                    placeTank(row, column + 1, type);
                     view.repaint();
                     return true;
                 }
@@ -180,7 +180,7 @@ public class Model {
     /*
      * Collision checking function which takes in coordinates you're moving to, direction
      * that you're moving (determines which adjacent row/col you need to check), and 
-     * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check)
+     * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check).
      */
     private boolean clearPath(final int row, final int column, final int direction, 
             final int checkSize, final boolean isBullet) {
@@ -215,7 +215,7 @@ public class Model {
     }
 
     /*
-     * Places a tank block on map at (row,col)
+     * Places a tank block on map at (row,col).
      */
     private void placeTank(final int row, final int column, final int tankType) {
         for(int i = 0; i < BLOCK_SIZE; i++) {
@@ -226,7 +226,7 @@ public class Model {
     }
 
     /*
-     * Removes a tank block from (row,col), sets this block on the map to 0
+     * Removes a tank block from (row,col), sets this block on the map to 0.
      */
     private void clearTank(final int row, final int column) {
         for(int i = 0; i < BLOCK_SIZE; i++) {
@@ -238,7 +238,7 @@ public class Model {
 
     /*
      * Moves to bullet on map to row, col.
-     * Assumes it has already been removed from it's previous location
+     * Assumes it has already been removed from it's previous location.
      */
     private boolean moveBullet(final int row, final int column) {
         for(int i = 0; i < BULLET_SIZE; i++) {
@@ -251,7 +251,7 @@ public class Model {
     }
 
     /*
-     * Clears bullet from map at (row,col)
+     * Clears bullet from map at (row,col).
      */
     private void clearBullet(final int row, final int column) {
         for(int i = 0; i < BULLET_SIZE; i++) {
@@ -263,7 +263,7 @@ public class Model {
     }
 
     /*
-     * Removes this BulletThread's bullet from view, stops this bThread
+     * Removes this BulletThread's bullet from view.
      */
     private boolean endBullet(final BulletThread bThread) {
         view.removeBullet(bThread.bullet);

@@ -6,14 +6,17 @@ public class Bullet {
     protected int bulletStrength;
     protected int bulletSpeed;
     protected int bulletDirection;
+    // Identification of the bullet so that tanks of the same type cannot kill each other.
+    private int bulletType;
     protected int row;
     protected int column;
 
     public Bullet(final int bulletStrength, final int bulletSpeed, final int bulletDirection, 
-                  final int row, final int column) {
+                  final int bulletType, final int row, final int column) {
         this.bulletStrength = bulletStrength;
         this.bulletSpeed = bulletSpeed;
         this.bulletDirection = bulletDirection;
+        this.bulletType = bulletType;
         this.row = row;
         this.column = column;
         fixLocation(this.bulletDirection, this.row, this.column);
@@ -38,6 +41,9 @@ public class Bullet {
         }
     }
 
+    public int getType() {
+        return bulletType;
+    }
     /*
      * Given input row and col as top-left corner of firing tank,
      * convert it to be coordinate corresponding to location where

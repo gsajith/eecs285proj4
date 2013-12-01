@@ -9,7 +9,7 @@ public class BulletThread extends Thread {
             final int startRow, final int startCol) {
         this.tank = tank;
         this.model = model;
-        this.bullet = new Bullet(bulletStrength, bulletSpeed, direction, startRow, startCol);
+        this.bullet = new Bullet(bulletStrength, bulletSpeed, tank.getType(), direction, startRow, startCol);
     }
 
     public void run() {
