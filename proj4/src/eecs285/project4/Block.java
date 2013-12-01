@@ -54,6 +54,7 @@ public class Block {
                 break;
             case BASE_BLOCK:
                 image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\water.png").getImage();
+
                 destructableLvl = EASY_DESTRUCTABLE;
                 break;
             default:
