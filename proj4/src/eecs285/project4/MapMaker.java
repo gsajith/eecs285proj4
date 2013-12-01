@@ -4,7 +4,7 @@ import static eecs285.project4.Constants.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class MapMaker {
     /* class MAPMAKER	makes block maps for view.
@@ -13,10 +13,13 @@ public class MapMaker {
      * 	MapMaker stores the blocks for each level map.
      * 
      */
-    private ArrayList<Block> blocks;
+    private Block base;
+    private HashSet<Block> blocks;
+    private HashSet<Block> bricks;
+    private HashSet<Block> steelBlocks;
 
     public MapMaker() {
-        blocks = new ArrayList<Block>();
+        blocks = new HashSet<Block>();
         makeBlock(BASE_BLOCK, 12, 6);
         makeBlock(BRICK_BLOCK, 12, 5);
         makeBlock(BRICK_BLOCK, 11, 5);
@@ -25,7 +28,7 @@ public class MapMaker {
         makeBlock(BRICK_BLOCK, 12, 7);
     }
 
-    public void makeMap(int lvl) {
+    public void makeMap(final int lvl) {
         switch (lvl) {
             case 0:
                 testMap();
@@ -120,18 +123,56 @@ public class MapMaker {
         makeBlock(BRICK_BLOCK, 11, 11);
     }
 
-    private void makeBlock(int type, int x, int y) {
-        blocks.add(new Block(type, x * BLOCK_SIZE, y * BLOCK_SIZE));
-        blocks.add(new Block(type, x * BLOCK_SIZE + MINI_BLOCK_SIZE, y * BLOCK_SIZE));
-        blocks.add(new Block(type, x * BLOCK_SIZE, y * BLOCK_SIZE + MINI_BLOCK_SIZE));
-        blocks.add(new Block(type, x * BLOCK_SIZE + MINI_BLOCK_SIZE, y * BLOCK_SIZE + MINI_BLOCK_SIZE));
+    public void removeBlock(final int blockType) {
+
+    }
+
+    private void makeBlock(final int type, final int x, final int y) {
+        Block block1 = new Block(type, x * BLOCK_SIZE, y * BLOCK_SIZE);
+        Block block2 = new Block(type, x * BLOCK_SIZE + MINI_BLOCK_SIZE, y * BLOCK_SIZE);
+        Block block3 = new Block(type, x * BLOCK_SIZE, y * BLOCK_SIZE + MINI_BLOCK_SIZE);
+        Block block4 = new Block(type, x * BLOCK_SIZE + MINI_BLOCK_SIZE, y * BLOCK_SIZE + MINI_BLOCK_SIZE);
+        blocks.add(block1);
+        blocks.add(block2);
+        blocks.add(block3);
+        blocks.add(block4);
+        switch(type) {
+            case BRICK_BLOCK:
+                bricks.add(block1);
+                bricks.add(block2);
+                bricks.add(block3);
+                bricks.add(block4);
+                break;
+            case STEEL_BLOCK:
+                steelBlocks.add(block1);
+                steelBlocks.add(block2);
+                steelBlocks.add(block3);
+                steelBlocks.add(block4);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void removeBlock(final Block block) {
+        blocks.remove(block);
+        switch(block.getType()) {
+            case BRICK_BLOCK:
+                bricks.remove(block);
+                break;
+            case STEEL_BLOCK:
+                steelBlocks.remove(block);
+                break;
+            default:
+                break;
+        }
     }
 
     public void addAllBlocks(Model model) {
         model.addBlocks(blocks);
     }
 
-    public ArrayList<Block> getBlocks() {
+    public HashSet<Block> getBlocks() {
         return blocks;
     }
 }

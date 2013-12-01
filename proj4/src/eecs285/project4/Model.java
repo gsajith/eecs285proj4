@@ -2,7 +2,6 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -49,12 +48,12 @@ public class Model {
     /**
      * Function to add blocks and register them on the map.
      */
-    public void addBlocks(final ArrayList<Block> b) {
-        for (int a = 0; a < b.size(); a++) {
-            if (map[b.get(a).getx()][b.get(a).gety()] == 0 && b.get(a).getType() != BLANK_BLOCK) {
+    public void addBlocks(final HashSet<Block> blocks) {
+        for(Block block : blocks) {
+            if (map[block.getx()][block.gety()] == 0 && block.getType() != BLANK_BLOCK) {
                 for (int i = 0; i < MINI_BLOCK_SIZE; i++) {
                     for (int j = 0; j < MINI_BLOCK_SIZE; j++) {  
-                        map[b.get(a).getx() + i][b.get(a).gety() + j] = b.get(a).getType();
+                        map[block.getx() + i][block.gety() + j] = block.getType();
                     }
                 }
             }
