@@ -16,7 +16,7 @@ public class Block {
     // Equals 0 if N/A for block.
     private int destructableLvl; 
 
-    public Block(int type, int x, int y) {
+    public Block(final int type, final int x, final int y) {
         this.type = type;
 
         if (x < NUM_BLOCKS * BLOCK_SIZE - 1 && x >= 0) {

@@ -36,7 +36,7 @@ public class Model {
      * Attach the specified view to the model 
      * and notify the view about the locations of all tanks
      */
-    public void attach(View view) {
+    public void attach(final View view) {
         this.view = view;
         for(Tank tank : AITanks) {
             view.addTank(tank);
@@ -49,7 +49,7 @@ public class Model {
     /**
      * Function to add blocks and register them on the map.
      */
-    public void addBlocks(ArrayList<Block> b) {
+    public void addBlocks(final ArrayList<Block> b) {
         for (int a = 0; a < b.size(); a++) {
             if (map[b.get(a).getx()][b.get(a).gety()] == 0 && b.get(a).getType() != BLANK_BLOCK) {
                 for (int i = 0; i < MINI_BLOCK_SIZE; i++) {
@@ -82,7 +82,7 @@ public class Model {
      * Return false if the move is not valid.
      * If the move is valid, notify the view about the location change of a bullet.
      */
-    public synchronized boolean notifyLocation(BulletThread bThread) {
+    public synchronized boolean notifyLocation(final BulletThread bThread) {
         int row = bThread.bullet.row;
         int column = bThread.bullet.column;
         int direction = bThread.bullet.bulletDirection;
@@ -133,7 +133,7 @@ public class Model {
      * Return false if the move is not valid.
      * If the move is valid, notify the view about the location change of a tank.
      */
-    public synchronized boolean notifyLocation(Tank tank, final int direction) {
+    public synchronized boolean notifyLocation(final Tank tank, final int direction) {
         int row = tank.getRow(), column = tank.getColumn();
         int number = tank.getNumber();
         switch(direction) {
@@ -182,7 +182,7 @@ public class Model {
      * that you're moving (determines which adjacent row/col you need to check), and 
      * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check)
      */
-    private boolean clearPath(final int row, final int column, final int direction, final int checkSize, boolean isBullet) {
+    private boolean clearPath(final int row, final int column, final int direction, final int checkSize, final boolean isBullet) {
         int rowMult = 0, colMult = 0;
         int rowOffset = 0, colOffset = 0;
         switch (direction) {
@@ -262,7 +262,7 @@ public class Model {
     /*
      * Removes this BulletThread's bullet from view, stops this bThread
      */
-    private boolean endBullet(BulletThread bThread) {
+    private boolean endBullet(final BulletThread bThread) {
         view.removeBullet(bThread.bullet);
         view.repaint();
         return false;
