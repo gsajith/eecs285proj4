@@ -20,7 +20,7 @@ public class PlayerTank extends Tank {
 
     public PlayerTank(final int healthPoint, final int bulletStrength, final int speed, 
                       final Model model) {
-        super(PLAYER1_TANK, healthPoint, bulletStrength, speed, 0, 0, model);
+        super(PLAYER1_TANK, healthPoint, bulletStrength, speed, 12 * BLOCK_SIZE, 4 * BLOCK_SIZE, model);
 
         tankImages = new Image[4];
         /*tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();

@@ -82,20 +82,9 @@ public class View extends JPanel {
 	// Draws the blocks
 	private void drawMap(Graphics2D g2d) {
 		for (int i = 0; i < makeMap.getBlocks().size(); i++) {
-			switch(makeMap.getBlocks().get(i).getType()) {
-			case BASE_BLOCK:
-		        g2d.setColor(Color.GRAY);
-		        g2d.fillRect(makeMap.getBlocks().get(i).gety() * PIXEL_SIZE,
-		        				makeMap.getBlocks().get(i).getx() * PIXEL_SIZE,
-		        				MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
-		        break;
-			case BRICK_BLOCK:
-				g2d.setColor(Color.RED);
-			    g2d.fillRect(makeMap.getBlocks().get(i).gety() * PIXEL_SIZE,
-			    				makeMap.getBlocks().get(i).getx() * PIXEL_SIZE,
-			    				MINI_BLOCK_SIZE * PIXEL_SIZE, MINI_BLOCK_SIZE * PIXEL_SIZE);
-			    break;
-			}
+			((Graphics) g2d).drawImage(makeMap.getBlocks().get(i).getImage(),
+					makeMap.getBlocks().get(i).gety() * PIXEL_SIZE,
+					makeMap.getBlocks().get(i).getx() * PIXEL_SIZE, null);
 		}
 	}
 }

@@ -43,7 +43,7 @@ public class Model {
     }
 
     /**
-     * Function to add blocks to the model and register them on the map.
+     * Function to add blocks and register them on the map.
      */
     public void addBlocks(ArrayList<Block> b) {
     	for (int a = 0; a < b.size(); a++) {
@@ -57,6 +57,7 @@ public class Model {
     		}
     	}
     }
+    
     /**
      * Let each AI Tank update themselves.
      */

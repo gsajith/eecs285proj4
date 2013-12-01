@@ -23,7 +23,7 @@ public class Constants {
 	
 	// numbers for types of blocks.
 	public static final int BLANK_BLOCK = 0;
-	public static final int BUSH_BLOCK = 1;
+	public static final int TREE_BLOCK = 1;
 	public static final int ICE_BLOCK = 2;
 	public static final int WATER_BLOCK = 3;
 	public static final int BRICK_BLOCK = 4;

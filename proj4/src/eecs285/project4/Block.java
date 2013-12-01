@@ -2,6 +2,10 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 public class Block {
 /* class BLOCK	defines a block of the 13x13 block map.
  * 
@@ -22,6 +26,7 @@ public class Block {
 	private int x;
 	private int y;
 	private boolean canMoveThru;
+	private Image image;
 	
 	// We can't shoot thru bricks and steel and the base, but they
 	// are destructable, so they will have a non-zero value for destructableLvl.
@@ -50,7 +55,7 @@ public class Block {
 		}
 		
 		if (type == BLANK_BLOCK ||
-				type == BUSH_BLOCK ||
+				type == TREE_BLOCK ||
 				type == ICE_BLOCK) {
 			canMoveThru = true;
 		} else {
@@ -65,17 +70,29 @@ public class Block {
 			canShootThru = true;
 		}
 		
+		destructableLvl = 0;
 		switch (type) {
-			case BRICK_BLOCK:
-			case BASE_BLOCK:
-				destructableLvl = 1;
-				break;
-			case STEEL_BLOCK:
-				destructableLvl = 2;
-				break;
-			default:
-				destructableLvl = 0;	
-		}	
+		case TREE_BLOCK:
+			image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\tree.png").getImage();
+			break;
+		case ICE_BLOCK:
+			image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\ice.png").getImage();  
+			break;
+		case WATER_BLOCK:
+			image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\water.png").getImage();  
+			break;
+		case BRICK_BLOCK:
+			image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\brick.png").getImage();
+			break;
+		case STEEL_BLOCK:
+			image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\steel.png").getImage();
+			destructableLvl = 2;
+			break;
+		case BASE_BLOCK:
+			image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\water.png").getImage();
+			destructableLvl = 1;
+			break;
+		}
 	}
 	
 	public int getx() { return x; }
@@ -84,4 +101,5 @@ public class Block {
 	public boolean getCanMoveThru() { return canMoveThru; }
 	public boolean getCanShootThru() { return canShootThru; }
 	public int getDestructableLvl() { return destructableLvl; }
+	public Image getImage() { return image; }
 }
