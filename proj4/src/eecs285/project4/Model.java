@@ -142,7 +142,7 @@ public class Model {
                 // is greater than 0
                 if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row-1, column, number);
+                    placeTank(row - 1, column, number);
                     view.repaint();
                     return true;
                 }
@@ -150,7 +150,7 @@ public class Model {
             case DOWN:
                 if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE, false)) {
                     clearTank(row, column);
-                    placeTank(row+1, column, number);
+                    placeTank(row + 1, column, number);
                     view.repaint();
                     return true;
                 }
@@ -266,7 +266,6 @@ public class Model {
         bThread.tank.canShoot = true;
         view.removeBullet(bThread.bullet);
         view.repaint();
-        bThread.stop();
         return false;
     }
 }
