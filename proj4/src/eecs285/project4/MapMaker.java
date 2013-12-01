@@ -120,6 +120,66 @@ public class MapMaker {
         makeBlock(BRICK_BLOCK, 11, 11);
     }
 
+    public void map2() {
+        makeBlock(WATER_BLOCK, 1, 1);
+        makeBlock(WATER_BLOCK, 1, 2);
+        makeBlock(WATER_BLOCK, 1, 3);
+        makeBlock(WATER_BLOCK, 1, 9);
+        makeBlock(WATER_BLOCK, 1, 10);
+        makeBlock(WATER_BLOCK, 1, 11);
+        makeBlock(WATER_BLOCK, 5, 4);
+        makeBlock(WATER_BLOCK, 5, 8);
+        makeBlock(WATER_BLOCK, 6, 5);
+        makeBlock(WATER_BLOCK, 6, 7);
+        makeBlock(TREE_BLOCK, 1, 4);
+        makeBlock(TREE_BLOCK, 1, 5);
+        makeBlock(TREE_BLOCK, 1, 6);
+        makeBlock(TREE_BLOCK, 1, 7);
+        makeBlock(TREE_BLOCK, 1, 8);
+        
+        //keep building here.
+        
+        makeBlock(BRICK_BLOCK, 3, 7);
+        makeBlock(BRICK_BLOCK, 3, 9);
+        makeBlock(BRICK_BLOCK, 3, 11);
+        makeBlock(BRICK_BLOCK, 4, 1);
+        makeBlock(BRICK_BLOCK, 4, 3);
+        makeBlock(BRICK_BLOCK, 4, 9);
+        makeBlock(BRICK_BLOCK, 4, 11);
+        makeBlock(BRICK_BLOCK, 5, 5);
+        makeBlock(BRICK_BLOCK, 5, 7);
+        makeBlock(STEEL_BLOCK, 6, 0);
+        makeBlock(BRICK_BLOCK, 6, 2);
+        makeBlock(BRICK_BLOCK, 6, 3);
+        makeBlock(BRICK_BLOCK, 6, 9);
+        makeBlock(BRICK_BLOCK, 6, 10);
+        makeBlock(STEEL_BLOCK, 6, 12);
+        makeBlock(BRICK_BLOCK, 7, 5);
+        makeBlock(BRICK_BLOCK, 7, 6);
+        makeBlock(BRICK_BLOCK, 7, 7);
+        makeBlock(BRICK_BLOCK, 8, 1);
+        makeBlock(BRICK_BLOCK, 8, 3);
+        makeBlock(BRICK_BLOCK, 8, 5);
+        makeBlock(BRICK_BLOCK, 8, 7);
+        makeBlock(BRICK_BLOCK, 8, 9);
+        makeBlock(BRICK_BLOCK, 8, 11);
+        makeBlock(BRICK_BLOCK, 9, 1);
+        makeBlock(BRICK_BLOCK, 9, 3);
+        makeBlock(BRICK_BLOCK, 9, 5);
+        makeBlock(BRICK_BLOCK, 9, 7);
+        makeBlock(BRICK_BLOCK, 9, 9);
+        makeBlock(BRICK_BLOCK, 9, 11);
+        makeBlock(BRICK_BLOCK, 10, 1);
+        makeBlock(BRICK_BLOCK, 10, 3);
+        makeBlock(BRICK_BLOCK, 10, 9);
+        makeBlock(BRICK_BLOCK, 10, 11);
+        makeBlock(BRICK_BLOCK, 11, 1);
+        makeBlock(BRICK_BLOCK, 11, 3);
+        makeBlock(BRICK_BLOCK, 11, 9);
+        makeBlock(BRICK_BLOCK, 11, 11);
+    }
+
+    
     private void makeBlock(int type, int x, int y) {
         blocks.add(new Block(type, x * BLOCK_SIZE, y * BLOCK_SIZE));
         blocks.add(new Block(type, x * BLOCK_SIZE + MINI_BLOCK_SIZE, y * BLOCK_SIZE));

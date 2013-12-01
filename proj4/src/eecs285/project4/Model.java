@@ -72,7 +72,7 @@ public class Model {
      */
     public void go() {
         for(AITank tank : AITanks) {
-            tank.go();
+            //tank.go();
         }
     }    
 
