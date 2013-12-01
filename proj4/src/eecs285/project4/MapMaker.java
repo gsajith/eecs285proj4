@@ -1,10 +1,6 @@
 package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
-import static eecs285.project4.Constants.BLOCK_SIZE;
-import static eecs285.project4.Constants.BRICK_BLOCK;
-import static eecs285.project4.Constants.MINI_BLOCK_SIZE;
-import static eecs285.project4.Constants.PIXEL_SIZE;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -18,7 +14,6 @@ public class MapMaker {
 	 * 
 	 */
 	private ArrayList<Block> blocks;
-	
 	
 	public MapMaker() {
 		blocks = new ArrayList<Block>();
@@ -46,5 +41,4 @@ public class MapMaker {
 	public ArrayList<Block> getBlocks() {
 		return blocks;
 	}
-
 }

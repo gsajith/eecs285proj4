@@ -19,18 +19,14 @@ public class PlayerTank extends Tank {
     private Image[] tankImages;
 
     public PlayerTank(final int healthPoint, final int bulletStrength, final int speed, 
-                      final Model model) {
-        super(PLAYER1_TANK, healthPoint, bulletStrength, speed, 0, 0, model);
+                      final int row, final int column, final Model model) {
+        super(PLAYER1_TANK, healthPoint, bulletStrength, speed, row, column, model);
 
         tankImages = new Image[4];
-        /*tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
+        tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
         tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/tankDraftDown.png").getImage();
         tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/tankDraftLeft.png").getImage();
-        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraftRight.png").getImage();*/
-        tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftUp.png").getImage();
-		tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftRight.png").getImage();
-		tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftDown.png").getImage();
-		tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftLeft.png").getImage();
+        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraftRight.png").getImage();
 
         image = tankImages[UP];
 
@@ -52,6 +48,7 @@ public class PlayerTank extends Tank {
 			}
     	});
     }
+
     // Specify how the tank moves when certain keys are pressed.
     private void setUpMove() {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), UP);

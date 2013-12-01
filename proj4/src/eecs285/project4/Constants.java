@@ -18,8 +18,17 @@ public class Constants {
 	// frame size we're adding to 416 x 416 to account for size of border
 	public static final int SIDE_BORDER = 2;
 	public static final int TOP_BORDER = 24;
+
+    // the maximum number of AI tanks in each level
+    public static final int MAX_AI_TANK_NUM = 15;
+    // the maximum number of tanks allowed on the map
+    public static final int MAX_AI_TANK_ON_MAP = 3;
+
+    // the initial position of the player tank
+    public static final int INITIAL_PLAYER_ROW = (NUM_BLOCKS - 1) * BLOCK_SIZE;
+    public static final int INITIAL_PLAYER_COLUMN = (NUM_BLOCKS / 2 - 1) * BLOCK_SIZE;
 	
-// numbers used to represent each kind of object on the map
+    // numbers used to represent each kind of object on the map
 	
 	// numbers for types of blocks.
 	public static final int BLANK_BLOCK = 0;
@@ -41,7 +50,5 @@ public class Constants {
 	public static final int AI_FAST2_TANK = 14;
 	
 	// bullet on the map
-	
 	public static final int BULLET_BLOCK = 15;
-	
 }

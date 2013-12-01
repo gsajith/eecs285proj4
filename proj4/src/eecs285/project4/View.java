@@ -71,8 +71,8 @@ public class View extends JPanel {
     			g2d.fillOval(bullet.column * PIXEL_SIZE, bullet.row * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE);
     		} 
     	} catch (ConcurrentModificationException e) {
-    		//Something tried to modify bullets while it was being iterated over
-    		//This happens rarely and shouldn't actually be a problem since we're just drawing here
+    		// Something tried to modify bullets while it was being iterated over
+    		// This happens rarely and shouldn't actually be a problem since we're just drawing here
     		System.out.println("Bulltes modified");
         }
         
