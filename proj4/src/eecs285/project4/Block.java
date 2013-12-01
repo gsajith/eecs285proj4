@@ -48,9 +48,10 @@ public class Block {
                 image = new ImageIcon("eecs285/project4/blockImage/brick.png").getImage();
                 break;
             case STEEL_BLOCK:
+                image = new ImageIcon("eecs285/project4/blockImage/steel.png").getImage();
                 break;
             case BASE_BLOCK:
-                image = new ImageIcon("/eecs285/project4/blockImage/water.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();
                 destructableLvl = 1;
                 break;
             default:
