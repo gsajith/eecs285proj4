@@ -25,17 +25,11 @@ public class Block {
 	private int type;
 	private int x;
 	private int y;
-	private boolean canMoveThru;
 	private Image image;
-	
-	// We can't shoot thru bricks and steel and the base, but they
-	// are destructable, so they will have a non-zero value for destructableLvl.
-	private boolean canShootThru;
 	
 	// Level at which block can be partially destroyed.
 	// Equals 0 if N/A for block.
 	private int destructableLvl; 
-	
 	
 	public Block(int Type, int X, int Y) {
 		type = Type;
@@ -52,22 +46,6 @@ public class Block {
 		} else {
 			System.out.println("Error in Block: y-coor not in bounds");
 			y = 0;
-		}
-		
-		if (type == BLANK_BLOCK ||
-				type == TREE_BLOCK ||
-				type == ICE_BLOCK) {
-			canMoveThru = true;
-		} else {
-			canMoveThru = false;
-		}
-		
-		if (type == BRICK_BLOCK ||
-				type == STEEL_BLOCK ||
-				type == BASE_BLOCK) {
-			canShootThru = false;
-		} else {
-			canShootThru = true;
 		}
 		
 		destructableLvl = 0;
@@ -98,8 +76,6 @@ public class Block {
 	public int getx() { return x; }
 	public int gety() { return y; }
 	public int getType() { return type; }
-	public boolean getCanMoveThru() { return canMoveThru; }
-	public boolean getCanShootThru() { return canShootThru; }
 	public int getDestructableLvl() { return destructableLvl; }
 	public Image getImage() { return image; }
 }
