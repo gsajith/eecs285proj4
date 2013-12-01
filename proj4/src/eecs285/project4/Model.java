@@ -200,6 +200,8 @@ public class Model {
                 rowMult = 1;
                 colOffset = checkSize - 1;
                 break;
+            default:
+                assert(false);
         }
 
         for(int i = 0; i < checkSize; i++) {

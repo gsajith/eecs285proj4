@@ -33,7 +33,7 @@ public class Block {
             this.y = 0;
         }
 
-        destructableLvl = 0;
+        destructableLvl = NON_DESTRUCTABLE;
         switch (type) {
             case TREE_BLOCK:
                 image = new ImageIcon("eecs285/project4/blockImage/tree.png").getImage();
@@ -46,13 +46,15 @@ public class Block {
                 break;
             case BRICK_BLOCK:
                 image = new ImageIcon("eecs285/project4/blockImage/brick.png").getImage();
+                destructableLvl = EASY_DESTRUCTABLE;
                 break;
             case STEEL_BLOCK:
                 image = new ImageIcon("eecs285/project4/blockImage/steel.png").getImage();
+                destructableLvl = HARD_DESTRUCTABLE;
                 break;
             case BASE_BLOCK:
                 image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();
-                destructableLvl = 1;
+                destructableLvl = EASY_DESTRUCTABLE;
                 break;
             default:
                 assert(false);

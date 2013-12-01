@@ -54,4 +54,9 @@ public class Constants {
 
     // bullet on the map
     public static final int BULLET_BLOCK = 15;
+
+    // destructible level for each block
+    public static final int EASY_DESTRUCTABLE = 1;
+    public static final int HARD_DESTRUCTABLE = 2;
+    public static final int NON_DESTRUCTABLE = 3;
 }
