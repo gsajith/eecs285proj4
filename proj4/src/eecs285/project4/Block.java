@@ -36,24 +36,24 @@ public class Block {
         destructableLvl = NON_DESTRUCTABLE;
         switch (type) {
             case TREE_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\tree.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/tree.png").getImage();
                 break;
             case ICE_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\ice.png").getImage();  
+                image = new ImageIcon("eecs285/project4/blockImage/ice.png").getImage();  
                 break;
             case WATER_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\water.png").getImage();  
+                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();  
                 break;
             case BRICK_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\brick.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/brick.png").getImage();
                 destructableLvl = EASY_DESTRUCTABLE;
                 break;
             case STEEL_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\steel.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/steel.png").getImage();
                 destructableLvl = HARD_DESTRUCTABLE;
                 break;
             case BASE_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\blockImage\\water.png").getImage();
+                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();
 
                 destructableLvl = EASY_DESTRUCTABLE;
                 break;
