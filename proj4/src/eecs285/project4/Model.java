@@ -14,6 +14,7 @@ import java.util.HashSet;
 public class Model {
     private HashSet<AITank> AITanks;
     private Tank playerTank;
+    private int[][] originalMap;
     private int[][] map;
     private View view;
 
@@ -23,12 +24,11 @@ public class Model {
     public Model() {
         AITanks = new HashSet<AITank>();
         map = new int[MAP_SIZE][MAP_SIZE];
+        originalMap = new int[MAP_SIZE][MAP_SIZE];
         for(int i = 0; i < 3; ++i) {
             AITanks.add(new AITank(5, 5, 5, this));
-            placeTank(10, 10, AI_REG_TANK);
         }
         playerTank = new PlayerTank(5, 5, 5, this);
-        placeTank(0, 0, PLAYER1_TANK);
     }
     
     /*
@@ -37,7 +37,6 @@ public class Model {
     private void placeTank(final int row, final int column, final int tankType) {
     	for(int i = 0; i < BLOCK_SIZE; i++) {
     		for(int j = 0; j < BLOCK_SIZE; j++) {
-    			if(map[row+i][column+j] != 0) System.out.println("Uhoh " + (row+i) + "," + (column+j) + " was " + map[row+i][column+j]);
     			map[row+i][column+j] = tankType;
     		}
     	}
@@ -48,8 +47,8 @@ public class Model {
      */
     private void clearTank(final int row, final int column) {
     	for(int i = 0; i < BLOCK_SIZE; i++) {
-    		for(int j = 0; j < BLOCK_SIZE; j++) {
-    			map[row+i][column+j] = 0;
+    		for(int j = 0; j < BLOCK_SIZE; j++) {    			
+    			map[row+i][column+j] = originalMap[row+i][column+j];
     		}
     	}
     }
@@ -62,8 +61,10 @@ public class Model {
         this.view = view;
         for(Tank tank : AITanks) {
             this.view.addTank(tank);
+            placeTank(10, 10, AI_REG_TANK);
         }
         this.view.addTank(playerTank);
+        placeTank(0, 0, PLAYER1_TANK);
     }
 
     /**
@@ -77,6 +78,12 @@ public class Model {
     					map[b.get(a).getx() + i][b.get(a).gety() + j] = b.get(a).getType();
     				}
     			}
+    		}
+    	}
+    	
+    	for(int i = 0; i < MAP_SIZE; i++) {
+    		for(int j = 0; j < MAP_SIZE; j++) {
+    			originalMap[i][j] = map[i][j];
     		}
     	}
     }
@@ -162,7 +169,7 @@ public class Model {
 		for(int i = 0; i < BULLET_SIZE; i++) {
 			for(int j = 0; j < BULLET_SIZE; j++) {
 				if(row >= 0 && column >= 0 && row+i < MAP_SIZE && column+j < MAP_SIZE)  
-					map[row+i][column+j] = 0;
+					map[row+i][column+j] = originalMap[row+i][column+j];
 			}
 		}
 	}

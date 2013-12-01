@@ -10,13 +10,14 @@ public class BattleCity {
 		JFrame frame = new JFrame("Battle City");
         View view = new View();
 		Model model = new Model();
-		model.attach(view);
         
 		// mapMaker calls
 		MapMaker mapMaker = new MapMaker();
         mapMaker.makeMap(0);
 		view.attach(mapMaker);
 		mapMaker.addAllBlocks(model);
+		
+		model.attach(view);
 		
         // set up the main frame
 		frame.setContentPane(view);
