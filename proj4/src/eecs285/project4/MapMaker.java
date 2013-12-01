@@ -20,6 +20,8 @@ public class MapMaker {
 
     public MapMaker() {
         blocks = new HashSet<Block>();
+        bricks = new HashSet<Block>();
+        steelBlocks = new HashSet<Block>();
         makeBlock(BASE_BLOCK, 12, 6);
         makeBlock(BRICK_BLOCK, 12, 5);
         makeBlock(BRICK_BLOCK, 11, 5);
