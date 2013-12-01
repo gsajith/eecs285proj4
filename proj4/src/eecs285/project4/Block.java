@@ -53,6 +53,8 @@ public class Block {
                 image = new ImageIcon("/eecs285/project4/blockImage/water.png").getImage();
                 destructableLvl = 1;
                 break;
+            default:
+                assert(false);
         }
     }
 
