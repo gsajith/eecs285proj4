@@ -18,8 +18,8 @@ public class AITank extends Tank {
     private int direction;
 
     public AITank(final int healthPoint, final int bulletStrength, final int speed, 
-                  final int row, final int column, final Model model) {
-        super(AI_REG_TANK, healthPoint, bulletStrength, speed, row, column, model);
+                  final Model model) {
+        super(AI_REG_TANK, healthPoint, bulletStrength, speed, 10, 10, model);
 
         tankImages = new Image[4];
         tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();

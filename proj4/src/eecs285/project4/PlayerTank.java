@@ -19,8 +19,8 @@ public class PlayerTank extends Tank {
     private Image[] tankImages;
 
     public PlayerTank(final int healthPoint, final int bulletStrength, final int speed, 
-                      final int row, final int column, final Model model) {
-        super(PLAYER1_TANK, healthPoint, bulletStrength, speed, row, column, model);
+                      final Model model) {
+        super(PLAYER1_TANK, healthPoint, bulletStrength, speed, 12 * BLOCK_SIZE, 4 * BLOCK_SIZE, model);
 
         tankImages = new Image[4];
         tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
@@ -41,9 +41,9 @@ public class PlayerTank extends Tank {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(canShoot) {
-					canShoot = false;
-					BulletThread thread = new BulletThread(PlayerTank.this, model, 1, 2, direction, row, column);
-					thread.start();
+					canShoot = false; //canShoot flag is set to false until this thread is ended by Model
+					BulletThread bThread = new BulletThread(PlayerTank.this, model, 1, 2, direction, row, column);
+					bThread.start();
 				}
 			}
     	});
