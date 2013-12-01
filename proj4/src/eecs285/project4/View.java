@@ -73,7 +73,7 @@ public class View extends JPanel {
     	} catch (ConcurrentModificationException e) {
     		//Something tried to modify bullets while it was being iterated over
     		//This happens rarely and shouldn't actually be a problem since we're just drawing here
-    		System.out.println("Bulltes modified");
+    		System.out.println("Bullets modified");
         }
         
         
