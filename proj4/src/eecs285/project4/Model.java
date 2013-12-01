@@ -263,7 +263,6 @@ public class Model {
      * Removes this BulletThread's bullet from view, stops this bThread
      */
     private boolean endBullet(BulletThread bThread) {
-        bThread.tank.canShoot = true;
         view.removeBullet(bThread.bullet);
         view.repaint();
         return false;
