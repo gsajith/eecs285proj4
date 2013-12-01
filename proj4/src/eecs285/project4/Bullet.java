@@ -44,7 +44,7 @@ public class Bullet {
      * bullet would be if it was fired from the tank's gun in the
      * direction that it's facing.
      */
-    private void fixLocation(final int bulletDirection, int row,  int column) {
+    private void fixLocation(final int bulletDirection, final int row, final int column) {
         switch(bulletDirection) {
             case UP:
                 this.row = row - BULLET_SIZE;
