@@ -14,7 +14,7 @@ public class Block {
 
     // Level at which block can be partially destroyed.
     // Equals 0 if N/A for block.
-    private int destructableLvl; 
+    private int destructibleLvl; 
 
     public Block(final int type, final int x, final int y) {
         this.type = type;
@@ -33,28 +33,28 @@ public class Block {
             this.y = 0;
         }
 
-        destructableLvl = NON_DESTRUCTABLE;
+        destructibleLvl = NON_DESTRUCTIBLE;
         switch (type) {
             case TREE_BLOCK:
-                image = new ImageIcon("eecs285/project4/blockImage/tree.png").getImage();
+                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/tree.png").getImage();
                 break;
             case ICE_BLOCK:
-                image = new ImageIcon("eecs285/project4blockImage/ice.png").getImage();  
+                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/ice.png").getImage();  
                 break;
             case WATER_BLOCK:
-                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();  
+                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/water.png").getImage();  
                 break;
             case BRICK_BLOCK:
-                image = new ImageIcon("eecs285/project4/blockImage/brick.png").getImage();
-                destructableLvl = EASY_DESTRUCTABLE;
+                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/brick.png").getImage();
+                destructibleLvl = EASY_DESTRUCTIBLE;
                 break;
             case STEEL_BLOCK:
-                image = new ImageIcon("eecs285/project4/blockImage/steel.png").getImage();
-                destructableLvl = HARD_DESTRUCTABLE;
+                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/steel.png").getImage();
+                destructibleLvl = HARD_DESTRUCTIBLE;
                 break;
             case BASE_BLOCK:
-                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();
-                destructableLvl = EASY_DESTRUCTABLE;
+                image = new ImageIcon("/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/blockImage/water.png").getImage();
+                destructibleLvl = EASY_DESTRUCTIBLE;
                 break;
             default:
                 assert(false);
@@ -64,6 +64,6 @@ public class Block {
     public int getx() { return x; }
     public int gety() { return y; }
     public int getType() { return type; }
-    public int getDestructableLvl() { return destructableLvl; }
+    public int getDestructibleLvl() { return destructibleLvl; }
     public Image getImage() { return image; }
 }
