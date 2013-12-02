@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  * View is responsible for drawing the map.
  */
 public class View extends JPanel {
-    private HashSet<Tank> tanks;
+	private HashSet<Tank> tanks;
     private HashSet<Bullet> bullets;
     private MapMaker makeMap;
 
