@@ -47,6 +47,15 @@ public class View extends JPanel {
     public void removeBullet(Bullet bullet) {
         bullets.remove(bullet);
     }
+    
+    //These methods shouldn't return references but I'm not so concerned about not modifying them at this point
+    public MapMaker getMapMaker() {
+        return makeMap;
+    }
+    
+    public HashSet<Bullet> getBullets() {
+        return bullets;
+    }
 
     private void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;

@@ -25,7 +25,7 @@ public class Model {
         map = new int[MAP_SIZE][MAP_SIZE];
         originalMap = new int[MAP_SIZE][MAP_SIZE];
         AITanks = new HashSet<AITank>();
-        for(int i = 0; i < 3; ++i) {
+        for(int i = 0; i < 0; ++i) {
             AITanks.add(new AITank(WEAK_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this));
         }
         playerTank = new PlayerTank(ENHANCED_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this);
@@ -90,32 +90,33 @@ public class Model {
         // Add bullet to view even if it already exists
         // Will just update this bullet instance in HashSet<Bullet> in View.
         view.addBullet(bThread.bullet); 
+        
 
         switch(direction) {
             case UP:
                 clearBullet(row+speed, column);
-                if(row >= 0 && clearPath(row, column, UP, BULLET_SIZE, true)) {
+                if(row >= 0 && clearPath(row, column, UP, BULLET_SIZE, bThread)) {
                     return moveBullet(row, column);
                 } else {
                     return endBullet(bThread);
                 }
             case DOWN:
                 clearBullet(row-speed, column);
-                if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, DOWN, BULLET_SIZE, true)) {
+                if(row < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, DOWN, BULLET_SIZE, bThread)) {
                     return moveBullet(row, column);
                 } else {
                     return endBullet(bThread);
                 }
             case LEFT:
                 clearBullet(row, column+speed);
-                if(column >= 0 && clearPath(row, column, LEFT, BULLET_SIZE, true)) {
+                if(column >= 0 && clearPath(row, column, LEFT, BULLET_SIZE, bThread)) {
                     return moveBullet(row, column);
                 } else {
                     return endBullet(bThread);
                 }
             case RIGHT:
                 clearBullet(row, column-speed);
-                if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, RIGHT, BULLET_SIZE, true)) {
+                if(column < (NUM_BLOCKS * BLOCK_SIZE) - 1 && clearPath(row, column, RIGHT, BULLET_SIZE, bThread)) {
                     return moveBullet(row, column);
                 } else {
                     return endBullet(bThread);
@@ -139,7 +140,7 @@ public class Model {
             case UP:
                 // the tank can safely move up if its y-coordinate
                 // is greater than 0
-                if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE, false)) {
+                if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE)) {
                     clearTank(row, column);
                     placeTank(row - 1, column, type);
                     view.repaint();
@@ -147,7 +148,7 @@ public class Model {
                 }
                 break;
             case DOWN:
-                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE, false)) {
+                if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE)) {
                     clearTank(row, column);
                     placeTank(row + 1, column, type);
                     view.repaint();
@@ -155,7 +156,7 @@ public class Model {
                 }
                 break;
             case LEFT:
-                if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE, false)) {
+                if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE)) {
                     clearTank(row, column);
                     placeTank(row, column - 1, type);
                     view.repaint();
@@ -163,7 +164,7 @@ public class Model {
                 }
                 break;
             case RIGHT:
-                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE, false)) {
+                if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE)) {
                     clearTank(row, column);
                     placeTank(row, column + 1, type);
                     view.repaint();
@@ -173,6 +174,7 @@ public class Model {
             default:
                 assert(false);
         }
+        view.repaint();
         return false;
     }
 
@@ -182,7 +184,7 @@ public class Model {
      * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check).
      */
     private boolean clearPath(final int row, final int column, final int direction, 
-            final int checkSize, final boolean isBullet) {
+            final int checkSize) {
         int rowMult = 0, colMult = 0;
         int rowOffset = 0, colOffset = 0;
         switch (direction) {
@@ -206,8 +208,115 @@ public class Model {
 
         for(int i = 0; i < checkSize; i++) {
             if(!(map[row+(i*rowMult) + rowOffset][column+(i*colMult) + colOffset] >= BLANK_BLOCK &&
-                        map[row+(i*rowMult) + rowOffset][column+(i*colMult) + colOffset] <= (ICE_BLOCK+ (isBullet?1:0)))) {
+                        map[row+(i*rowMult) + rowOffset][column+(i*colMult) + colOffset] <= (ICE_BLOCK))) {
                 return false;	
+            }
+        }
+        return true;
+    }
+    
+    /*
+     * Collision checking function which takes in coordinates you're moving to, direction
+     * that you're moving (determines which adjacent row/col you need to check), and 
+     * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check).
+     */
+    private boolean clearPath(final int row, final int column, final int direction, 
+            final int checkSize, final BulletThread bThread) {
+        int rowMult = 0, colMult = 0;
+        int rowOffset = 0, colOffset = 0;
+        switch (direction) {
+            case UP:
+                colMult = 1;
+                break;
+            case DOWN:
+                colMult = 1;
+                rowOffset = checkSize - 1;
+                break;
+            case LEFT:
+                rowMult = 1;
+                break;
+            case RIGHT:
+                rowMult = 1;
+                colOffset = checkSize - 1;
+                break;
+            default:
+                assert(false);
+        }
+
+        for(int i = 0; i < BULLET_SIZE; i++) {
+            for(int j = 0; j < BULLET_SIZE; j++) {
+                if(row+i >= 0 && row+i < (NUM_BLOCKS * BLOCK_SIZE) -1 &&
+                        column+j >= 0 && column+j < (NUM_BLOCKS * BLOCK_SIZE) -1){
+                    if(map[row+i][column+j] == BULLET_BLOCK) {
+                        for(Bullet bullet : view.getBullets()) {
+                            if(bullet != bThread.bullet && bullet.getType() != bThread.bullet.getType() && row+i >= bullet.row && row+i < bullet.row+BULLET_SIZE &&
+                                    column+j >= bullet.column && column+j < bullet.column+BULLET_SIZE) {
+                                view.removeBullet(bullet);
+                                view.removeBullet(bThread.bullet);
+                                return false;
+                            }
+                        }
+                    } else if(map[row+i][column+j] == BRICK_BLOCK) {
+                        
+                        if(bThread.bullet.bulletStrength < INITIAL_STRENGTH) {
+                            view.removeBullet(bThread.bullet);
+                            return false;
+                        }
+                        //Do this check twice, a bullet could destroy two blocks at once
+                        //Can't just continue the for-loop without breaking due to ConcurrentModificationException after first remove
+                        for(Block brick : view.getMapMaker().getBricks()) {
+                            if(row+1 >= brick.getx() && row+i < brick.getx()+MINI_BLOCK_SIZE &&
+                                    column+j >= brick.gety() && column+j < brick.gety()+MINI_BLOCK_SIZE) {
+                                view.getMapMaker().removeBlock(brick);
+                                view.removeBullet(bThread.bullet);
+                                clearBrick(brick.getx(), brick.gety());
+                                break;
+                            }
+                        }
+                        for(Block brick : view.getMapMaker().getBricks()) {
+                            if(row+1 >= brick.getx() && row+i < brick.getx()+MINI_BLOCK_SIZE &&
+                                    column+j >= brick.gety() && column+j < brick.gety()+MINI_BLOCK_SIZE) {
+                                view.getMapMaker().removeBlock(brick);
+                                view.removeBullet(bThread.bullet);
+                                clearBrick(brick.getx(), brick.gety());
+                                break;
+                            }
+                        }
+                        return false;
+                    } else if(map[row+i][column+j] == STEEL_BLOCK) {
+                        if(bThread.bullet.bulletStrength < ENHANCED_STRENGTH) {
+                            view.removeBullet(bThread.bullet);
+                            return false;
+                        }
+                        //Do this check twice, a bullet could destroy two blocks at once
+                        //Can't just continue the for-loop without breaking due to ConcurrentModificationException after first remove
+                        for(Block steelBlock : view.getMapMaker().getSteelBlocks()) {
+                            if(row+1 >= steelBlock.getx() && row+i < steelBlock.getx()+MINI_BLOCK_SIZE &&
+                                    column+j >= steelBlock.gety() && column+j < steelBlock.gety()+MINI_BLOCK_SIZE) {
+                                view.getMapMaker().removeBlock(steelBlock);
+                                view.removeBullet(bThread.bullet);
+                                clearBrick(steelBlock.getx(), steelBlock.gety());
+                                break;
+                            }
+                        }
+                        for(Block steelBlock : view.getMapMaker().getSteelBlocks()) {
+                            if(row+1 >= steelBlock.getx() && row+i < steelBlock.getx()+MINI_BLOCK_SIZE &&
+                                    column+j >= steelBlock.gety() && column+j < steelBlock.gety()+MINI_BLOCK_SIZE) {
+                                view.getMapMaker().removeBlock(steelBlock);
+                                view.removeBullet(bThread.bullet);
+                                clearBrick(steelBlock.getx(), steelBlock.gety());
+                                break;
+                            }
+                        }
+                        return false;
+                    } else if(map[row+i][column+j] == BASE_BLOCK) {
+                    
+                    } else if(map[row+i][column+j] == PLAYER1_TANK) {
+                        
+                    } else if(map[row+i][column+j] == AI_REG_TANK) {
+                        
+                    }   
+                }
             }
         }
         return true;
@@ -256,7 +365,21 @@ public class Model {
         for(int i = 0; i < BULLET_SIZE; i++) {
             for(int j = 0; j < BULLET_SIZE; j++) {
                 if(row >= 0 && column >= 0 && row+i < MAP_SIZE && column+j < MAP_SIZE)  
-                    map[row+i][column+j] = originalMap[row+i][column+j];
+                    if(originalMap[row+i][column+j] >= BRICK_BLOCK && originalMap[row+i][column+j] <= BASE_BLOCK) {
+                        //If bullet is traveling through a destructible block, it should be destroying it
+                        map[row+i][column+j] = 0;
+                    } else {
+                        map[row+i][column+j] = originalMap[row+i][column+j];
+                    }
+            }
+        }
+    }
+    
+    private void clearBrick(final int row, final int column) {
+        for(int i = 0; i < MINI_BLOCK_SIZE; i++) {
+            for(int j = 0; j < MINI_BLOCK_SIZE; j++) {
+                map[row+i][column+j] = 0;
+                originalMap[row+i][column+j] = 0;
             }
         }
     }
