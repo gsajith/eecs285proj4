@@ -14,24 +14,22 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class PowerupsScreen extends JPanel{
+public class UpgradeScreen extends JPanel{
     
     
-    PowerupsScreen(JButton accelerator, JButton gemstone,
-    JButton extralife, JButton  quit, JTextField curMoney)
+    UpgradeScreen(JButton armor, JButton firepower,
+    JButton doublebullet, JButton  quit, JTextField curMoney)
     {
-        
-
 
             
-            accelerator.setBorder(BorderFactory.createEmptyBorder());
-            accelerator.setContentAreaFilled(false);
+            armor.setBorder(BorderFactory.createEmptyBorder());
+            armor.setContentAreaFilled(false);
             
-            gemstone.setBorder(BorderFactory.createEmptyBorder());
-            gemstone.setContentAreaFilled(false);
+            firepower.setBorder(BorderFactory.createEmptyBorder());
+            firepower.setContentAreaFilled(false);
             
-            extralife.setBorder(BorderFactory.createEmptyBorder());
-            extralife.setContentAreaFilled(false);
+            doublebullet.setBorder(BorderFactory.createEmptyBorder());
+            doublebullet.setContentAreaFilled(false);
 
             
             quit.setBorder(BorderFactory.createEmptyBorder());
@@ -52,9 +50,9 @@ public class PowerupsScreen extends JPanel{
         empty.setBackground(Color.black);
         
         center.setLayout(new FlowLayout());
-        center.add(accelerator);
-        center.add(gemstone);
-        center.add(extralife);
+        center.add(armor);
+        center.add(firepower);
+        center.add(doublebullet);
 
         center.setBackground(Color.black);
         

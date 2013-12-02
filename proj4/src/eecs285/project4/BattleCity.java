@@ -41,11 +41,11 @@ public class BattleCity {
 	        JPanel livesMain = new JPanel(new GridLayout(2, 1));
 	        JPanel livesMain2 = new JPanel(new GridLayout(5, 1));
 	        JLabel life = new JLabel();
-	        life.setIcon(new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankUp.png"));
+	        life.setIcon(new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\tankImage\\PlayerTankUp.png"));
 	        JLabel life2 = new JLabel();
-	        life2.setIcon(new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankUp.png"));
+	        life2.setIcon(new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\tankImage\\PlayerTankUp.png"));
 	        JLabel life3 = new JLabel();
-	        life3.setIcon(new ImageIcon( "C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankUp.png"));
+	        life3.setIcon(new ImageIcon( "C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\tankImage\\PlayerTankUp.png"));
 	
 	        if(livesLeft > 0) lives.add(life);
 	        if(livesLeft > 1) lives.add(life2);
