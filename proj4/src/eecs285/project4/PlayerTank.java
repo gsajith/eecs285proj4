@@ -26,15 +26,23 @@ public class PlayerTank extends Tank {
         super(PLAYER1_TANK, healthPoint, bulletStrength, speed, INITIAL_PLAYER_ROW, INITIAL_PLAYER_COLUMN, model);
 
         tankImages = new Image[4];
-        tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankUp.png").getImage();
-        tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankDown.png").getImage();
-        tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankLeft.png").getImage();
-        tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankRight.png").getImage();
+        tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/PlayerTankUp.png").getImage();
+        tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/PlayerTankDown.png").getImage();
+        tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/PlayerTankLeft.png").getImage();
+        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/PlayerTankRight.png").getImage();
 
         image = tankImages[UP];
 
         setUpMove();
         setUpShoot();
+    }
+    
+    public void addArmor(int armor) {
+        this.healthPoint += armor;
+    }
+    
+    public void addFirepower(int firePower) {
+        this.bulletStrength = firePower;
     }
 
     // Specify how the tank shoots when key is pressed
@@ -50,7 +58,7 @@ public class PlayerTank extends Tank {
 					  new URL("file:eecs285/project4/sounds/shoot.wav"));*/
 					  //need to change the path
 					  AudioClip clip = Applet.newAudioClip(
-	                      		    new URL("file:C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\sounds\\shoot.wav"));
+	                      		    new URL("file:eecs285/project4/sounds/shoot.wav"));
 					  clip.play();
 					  } catch (MalformedURLException murle) {
 					      System.out.println("sound is not playing");

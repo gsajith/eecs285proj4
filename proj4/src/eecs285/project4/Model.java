@@ -44,6 +44,13 @@ public class Model {
         playerTank = new PlayerTank(ENHANCED_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this);
     }
 
+    public void addArmor(int armor) {
+        playerTank.addArmor(armor);
+    }
+    
+    public void addFirepower(int firePower) {
+        playerTank.addFirepower(firePower);
+    }
     /**
      * Attach the specified view to the model 
      * and notify the view about the locations of all tanks

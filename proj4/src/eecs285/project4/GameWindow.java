@@ -70,6 +70,8 @@ public class GameWindow extends JDialog{
     boolean acc = false;
     boolean gem = false;
     boolean ext = false;
+    public int tankArmor = 0;
+    public int firePower = 0;
     
     //buttons for startscreen
     JButton newgame;
@@ -270,7 +272,7 @@ public class GameWindow extends JDialog{
         public void actionPerformed(ActionEvent arg0) {
             if (checkMoney(5000))
             {
-              //upgrade tank here
+              tankArmor += 5;
             }
             
         }
@@ -283,7 +285,7 @@ public class GameWindow extends JDialog{
         public void actionPerformed(ActionEvent arg0) {
             if (checkMoney(5000))
             {
-              //upgrade tank here
+              firePower = 2;
             }
             
         }
