@@ -71,12 +71,14 @@ public class BattleCity {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        while(true) {
+        while(!model.isGameOver()) {
             try {
                 Thread.sleep(50);
             } catch(InterruptedException e) {}
             model.go();
             
         }
+        frame.dispose(); 
+        return;
     }
 }

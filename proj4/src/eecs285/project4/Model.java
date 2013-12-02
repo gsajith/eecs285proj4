@@ -20,6 +20,7 @@ public class Model {
     private View view;
     private int enemyCounter;
     private int respawnCounter;
+    private boolean gameOver = false;
 
     /**
      * Create a bunch of AI tanks and one player tank.
@@ -94,8 +95,15 @@ public class Model {
             	respawnCounter = 0;
         	}
         }
+        if(AITanks.size()==0) {
+        	gameOver = true;
+        }
         view.repaint();
     }    
+    
+    public boolean isGameOver() {
+    	return gameOver;
+    }
 
     /**
      * Determine whether a bullet can move to a specific location.
@@ -314,6 +322,21 @@ public class Model {
 						&& column + j >= 0
 						&& column + j < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
 					switch (map[row + i][column + j]) {
+					case BASE_BLOCK:
+						for (Block base : view.getMapMaker().getBase()) {
+							if (row + i >= base.getx()
+									&& row + i < base.getx() + MINI_BLOCK_SIZE
+									&& column + j >= base.gety()
+									&& column + j < base.gety()
+											+ MINI_BLOCK_SIZE) {
+								view.getMapMaker().removeBlock(base);
+								view.removeBullet(bThread.bullet);
+								clearBrick(base.getx(), base.gety());
+								gameOver = true;
+								return false;
+							}
+						}						
+						break;
 					case BULLET_BLOCK:
 						for (Bullet bullet : view.getBullets()) {
 							if (bullet != bThread.bullet
