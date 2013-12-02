@@ -66,7 +66,7 @@ public class View extends JPanel {
 
         // then draw each tank
         for(Tank tank : tanks) {
-            g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE, tank.getRow() * PIXEL_SIZE, null);
+            g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE,  tank.getRow() * PIXEL_SIZE, 64, 64, null);
         }
 
         // set up blocks
@@ -80,7 +80,7 @@ public class View extends JPanel {
         } catch (ConcurrentModificationException e) {
             // Something tried to modify bullets while it was being iterated over
             // This happens rarely and shouldn't actually be a problem since we're just drawing here
-            System.out.println("Bulltes modified");
+            System.out.println("Bullets modified");
         }
 
 
@@ -90,7 +90,7 @@ public class View extends JPanel {
     private void drawMap(Graphics2D g2d) {
         HashSet<Block> blocks = makeMap.getBlocks();
         for(Block block : blocks) {
-            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, null);
+            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, 32, 32, null);
         }
     }
 }

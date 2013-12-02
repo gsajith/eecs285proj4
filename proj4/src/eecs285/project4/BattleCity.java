@@ -23,7 +23,7 @@ public class BattleCity {
 
         // mapMaker calls
         MapMaker mapMaker = new MapMaker();
-        mapMaker.makeMap(0);
+        mapMaker.makeMap(5);
 
         view.attach(mapMaker);
         mapMaker.addAllBlocks(model);
