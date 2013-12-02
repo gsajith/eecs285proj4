@@ -22,10 +22,15 @@ public class AITank extends Tank {
         super(AI_REG_TANK, healthPoint, bulletStrength, speed, 0, 0, model);
 
         tankImages = new Image[4];
-        tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftUp.png").getImage();
-        tankImages[DOWN] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftDown.png").getImage();
-        tankImages[LEFT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftLeft.png").getImage();
-        tankImages[RIGHT] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftRight.png").getImage();
+        /*tankImages[UP] = new ImageIcon("C:/Users/Chermine/workspace/eecs285proj4/proj4/bin/eecs285/project4/tankImage/tankDraftUp.png").getImage();
+        tankImages[DOWN] = new ImageIcon("C:/Users/Chermine/workspace/eecs285proj4/proj4/bin/eecs285/project4/tankImage/tankDraftDown.png").getImage();
+        tankImages[LEFT] = new ImageIcon("C:/Users/Chermine/workspace/eecs285proj4/proj4/bin/eecs285/project4/tankImage/tankDraftLeft.png").getImage();
+        tankImages[RIGHT] = new ImageIcon("C:/Users/Chermine/workspace/eecs285proj4/proj4/bin/eecs285/project4/tankImage/tankDraftRight.png").getImage();*/
+
+        tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/tankDraftUp.png").getImage();
+        tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/tankDraftDown.png").getImage();
+        tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/tankDraftLeft.png").getImage();
+        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/tankDraftRight.png").getImage();
 
         image = tankImages[UP];
 

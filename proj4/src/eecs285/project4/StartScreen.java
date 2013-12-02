@@ -28,7 +28,7 @@ public class StartScreen extends JPanel{
     
         BufferedImage labelIcon2;
         try {
-            labelIcon2 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/title.png"));
+            labelIcon2 = ImageIO.read(new File("eecs285/project4/shopImage/title.png"));
             title = new JLabel(new ImageIcon(labelIcon2));
             
             newgame.setBorder(BorderFactory.createEmptyBorder());

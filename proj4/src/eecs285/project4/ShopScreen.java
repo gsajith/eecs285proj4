@@ -30,22 +30,10 @@ public class ShopScreen extends JPanel{
         
         try
         {
-            //BufferedImage buttonIcon = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/TankUpgrade.png"));
-            //upgrades = new JButton(new ImageIcon(buttonIcon));
-            
-            //BufferedImage buttonIcon2 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/Utilities.png"));
-            //utilities = new JButton(new ImageIcon(buttonIcon2));
-            
-            //BufferedImage buttonIcon3 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/PowerUp.png"));
-            //powerups = new JButton(new ImageIcon(buttonIcon3));
-            
-            //BufferedImage buttonIcon4 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/quit.png"));
-            //quit = new JButton(new ImageIcon(buttonIcon4));
-            
-            BufferedImage labelIcon = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/message.png"));
+            BufferedImage labelIcon = ImageIO.read(new File("eecs285/project4/shopImage/message.png"));
             message = new JLabel(new ImageIcon(labelIcon));
             
-            BufferedImage labelIcon2 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/blank.png"));
+            BufferedImage labelIcon2 = ImageIO.read(new File("eecs285/project4/shopImage/blank.png"));
             blank = new JLabel(new ImageIcon(labelIcon2));
             
             blank2 = new JLabel(new ImageIcon(labelIcon2));
