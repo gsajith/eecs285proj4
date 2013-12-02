@@ -73,6 +73,7 @@ public class Model {
         for(AITank tank : AITanks) {
             tank.go();
         }
+        view.repaint();
     }    
 
     /**
@@ -282,76 +283,95 @@ public class Model {
     /*
      * Removes this BulletThread's bullet from view.
      */
-    private synchronized boolean endBullet(final BulletThread bThread) {
-    	int row = bThread.bullet.row;
-    	int column = bThread.bullet.column;
-    	for(int i = 0; i < BULLET_SIZE; i++) {
-            for(int j = 0; j < BULLET_SIZE; j++) {
-                if(row+i >= 0 && row+i < (NUM_BLOCKS * BLOCK_SIZE) -1 &&
-                        column+j >= 0 && column+j < (NUM_BLOCKS * BLOCK_SIZE) -1){
-                    if(map[row+i][column+j] == BULLET_BLOCK) {
-                        for(Bullet bullet : view.getBullets()) {
-                            if(bullet != bThread.bullet && bullet.getType() != bThread.bullet.getType() && row+i >= bullet.row && row+i < bullet.row+BULLET_SIZE &&
-                                    column+j >= bullet.column && column+j < bullet.column+BULLET_SIZE) {
-                                view.removeBullet(bullet);
-                                view.removeBullet(bThread.bullet);
-                                return false;
-                            }
-                        }
-                    } else if(map[row+i][column+j] == BRICK_BLOCK) {
-                        
-                        if(bThread.bullet.bulletStrength < INITIAL_STRENGTH) {
-                            view.removeBullet(bThread.bullet);
-                            return false;
-                        }
-                        for(Block brick : view.getMapMaker().getBricks()) {
-                            if(row+i >= brick.getx() && row+i < brick.getx()+MINI_BLOCK_SIZE &&
-                                    column+j >= brick.gety() && column+j < brick.gety()+MINI_BLOCK_SIZE) {
-                                view.getMapMaker().removeBlock(brick);
-                                view.removeBullet(bThread.bullet);
-                                clearBrick(brick.getx(), brick.gety());
-                                return false;
-                            }
-                        }
-                    } else if(map[row+i][column+j] == STEEL_BLOCK) {
-                        if(bThread.bullet.bulletStrength < ENHANCED_STRENGTH) {
-                            view.removeBullet(bThread.bullet);
-                            return false;
-                        }
-                        for(Block steelBlock : view.getMapMaker().getSteelBlocks()) {
-                            if(row+i >= steelBlock.getx() && row+i < steelBlock.getx()+MINI_BLOCK_SIZE &&
-                                    column+j >= steelBlock.gety() && column+j < steelBlock.gety()+MINI_BLOCK_SIZE) {
-                                view.getMapMaker().removeBlock(steelBlock);
-                                view.removeBullet(bThread.bullet);
-                                clearBrick(steelBlock.getx(), steelBlock.gety());
-                                return false;
-                            }
-                        }
-                    } else if(map[row+i][column+j] == BASE_BLOCK) {
-                    
-                    } else if(map[row+i][column+j] == PLAYER1_TANK) {
-                        
-                    } else if(map[row+i][column+j] == AI_REG_TANK) {
-                        if(bThread.bullet.getType() == AI_REG_TANK) {
-                        	view.removeBullet(bThread.bullet);
-                        	return false;
-                        }
-                        for(Tank aiTank : AITanks) {
-                        	if(row+i >= aiTank.row && row+i < aiTank.row+BLOCK_SIZE && 
-                        			column+j >= aiTank.column && column+j < aiTank.column+BLOCK_SIZE) {
-                        		AITanks.remove(aiTank);
-                        		view.removeBullet(bThread.bullet);
-                        		view.removeTank(aiTank);
-                        		clearTank(aiTank.row, aiTank.column);
-                        		return false;
-                        	}
-                        }
-                    }   
-                }
-            }
-        }
-        view.removeBullet(bThread.bullet);
-        view.repaint();
-        return false;
+	private synchronized boolean endBullet(final BulletThread bThread) {
+		int row = bThread.bullet.row;
+		int column = bThread.bullet.column;
+		for (int i = 0; i < BULLET_SIZE; i++) {
+			for (int j = 0; j < BULLET_SIZE; j++) {
+				if (row + i >= 0 && row + i < (NUM_BLOCKS * BLOCK_SIZE) - 1
+						&& column + j >= 0
+						&& column + j < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
+					switch (map[row + i][column + j]) {
+					case BULLET_BLOCK:
+						for (Bullet bullet : view.getBullets()) {
+							if (bullet != bThread.bullet
+									&& bullet.getType() != bThread.bullet
+											.getType() && row + i >= bullet.row
+									&& row + i < bullet.row + BULLET_SIZE
+									&& column + j >= bullet.column
+									&& column + j < bullet.column + BULLET_SIZE) {
+								view.removeBullet(bullet);
+								view.removeBullet(bThread.bullet);
+								return false;
+							}
+						}
+						break;
+					case BRICK_BLOCK:
+						if (bThread.bullet.bulletStrength < INITIAL_STRENGTH) {
+							view.removeBullet(bThread.bullet);
+							return false;
+						}
+						for (Block brick : view.getMapMaker().getBricks()) {
+							if (row + i >= brick.getx()
+									&& row + i < brick.getx() + MINI_BLOCK_SIZE
+									&& column + j >= brick.gety()
+									&& column + j < brick.gety()
+											+ MINI_BLOCK_SIZE) {
+								view.getMapMaker().removeBlock(brick);
+								view.removeBullet(bThread.bullet);
+								clearBrick(brick.getx(), brick.gety());
+								return false;
+							}
+						}
+						break;
+					case STEEL_BLOCK:
+						if (bThread.bullet.bulletStrength < ENHANCED_STRENGTH) {
+							view.removeBullet(bThread.bullet);
+							return false;
+						}
+						for (Block steelBlock : view.getMapMaker()
+								.getSteelBlocks()) {
+							if (row + i >= steelBlock.getx()
+									&& row + i < steelBlock.getx()
+											+ MINI_BLOCK_SIZE
+									&& column + j >= steelBlock.gety()
+									&& column + j < steelBlock.gety()
+											+ MINI_BLOCK_SIZE) {
+								view.getMapMaker().removeBlock(steelBlock);
+								view.removeBullet(bThread.bullet);
+								clearBrick(steelBlock.getx(), steelBlock.gety());
+								return false;
+							}
+						}
+						break;
+					case PLAYER1_TANK:
+						break;
+					case AI_REG_TANK:
+						if (bThread.bullet.getType() == AI_REG_TANK) {
+							view.removeBullet(bThread.bullet);
+							return false;
+						}
+						for (Tank aiTank : AITanks) {
+							if (row + i >= aiTank.row
+									&& row + i < aiTank.row + BLOCK_SIZE
+									&& column + j >= aiTank.column
+									&& column + j < aiTank.column + BLOCK_SIZE) {
+								AITanks.remove(aiTank);
+								view.removeBullet(bThread.bullet);
+								view.removeTank(aiTank);
+								clearTank(aiTank.row, aiTank.column);
+								return false;
+							}
+						}
+						break;
+					default:
+						assert (false);
+					}
+				}
+			}
+		}
+		view.removeBullet(bThread.bullet);
+		view.repaint();
+		return false;
     }
 }
