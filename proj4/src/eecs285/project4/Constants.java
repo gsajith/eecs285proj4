@@ -6,7 +6,7 @@ public class Constants {
     public static final int BULLET_SIZE = 2;
     public static final int NUM_BLOCKS = 13;
     public static final int MAP_SIZE = NUM_BLOCKS * BLOCK_SIZE;
-    public static final int PIXEL_SIZE = 4;
+    public static final int PIXEL_SIZE = 8;
 
     // tank directions
     public static final int UP = 0;
@@ -56,12 +56,12 @@ public class Constants {
     public static final int BULLET_BLOCK = 15;
 
     // destructible level for each block
-    public static final int EASY_DESTRUCTABLE = 1;
-    public static final int HARD_DESTRUCTABLE = 2;
-    public static final int NON_DESTRUCTABLE = 3;
+    public static final int EASY_DESTRUCTIBLE = 1;
+    public static final int HARD_DESTRUCTIBLE = 2;
+    public static final int NON_DESTRUCTIBLE = 3;
     // bullet strength
-    public static final int INITIAL_STRENGTH = EASY_DESTRUCTABLE;
-    public static final int ENHANCED_STRENGTH = HARD_DESTRUCTABLE;
+    public static final int INITIAL_STRENGTH = EASY_DESTRUCTIBLE;
+    public static final int ENHANCED_STRENGTH = HARD_DESTRUCTIBLE;
 
     // speed
     public static final int TANK_SPEED = 1;

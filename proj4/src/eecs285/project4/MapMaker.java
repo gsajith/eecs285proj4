@@ -472,7 +472,7 @@ public class MapMaker {
         }
     }
 
-    private void removeBlock(final Block block) {
+    public void removeBlock(final Block block) {
         blocks.remove(block);
         switch(block.getType()) {
             case BRICK_BLOCK:
@@ -492,5 +492,13 @@ public class MapMaker {
 
     public HashSet<Block> getBlocks() {
         return blocks;
+    }
+    
+    public HashSet<Block> getBricks() {
+        return bricks;
+    }
+    
+    public HashSet<Block> getSteelBlocks() {
+        return steelBlocks;
     }
 }
