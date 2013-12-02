@@ -53,7 +53,7 @@ public class PlayerTank extends Tank {
 	                      		    new URL("file:C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\sounds\\shoot.wav"));
 					  clip.play();
 					  } catch (MalformedURLException murle) {
-					      System.out.println(murle);
+					      System.out.println("sound is not playing");
 					  }
 					BulletThread bThread = new BulletThread(PlayerTank.this, model, 
                         bulletStrength, BULLET_SPEED, direction, row, column);
