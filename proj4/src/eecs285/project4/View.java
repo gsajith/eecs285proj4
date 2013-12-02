@@ -19,11 +19,13 @@ import javax.swing.JPanel;
 public class View extends JPanel {
 	private HashSet<Tank> tanks;
     private HashSet<Bullet> bullets;
+    private HashSet<Boom> booms;
     private MapMaker makeMap;
 
     public View() {
         tanks = new HashSet<Tank>();
         bullets = new HashSet<Bullet>();
+        booms = new HashSet<Boom>();
     }
 
     public void attach(MapMaker m) {
@@ -34,7 +36,7 @@ public class View extends JPanel {
         super.paintComponent(g);
         draw(g);
     }
-
+    
     public void addTank(Tank tank) {
         tanks.add(tank);
         add(tank);
@@ -51,6 +53,14 @@ public class View extends JPanel {
 
     public void removeBullet(Bullet bullet) {
         bullets.remove(bullet);
+    }
+    
+    public void addBoom(Boom boom) {
+    	booms.add(boom);
+    }
+    
+    public void removeBoom(Boom boom) {
+    	booms.remove(boom);
     }
     
     //These methods shouldn't return references but I'm not so concerned about not modifying them at this point
@@ -92,7 +102,20 @@ public class View extends JPanel {
             System.out.println("Bullets modified");
         }
 
-
+        try {
+        	for (Boom boom : booms) {
+        		g2d.drawImage(boom.getImage(), boom.getCol() * PIXEL_SIZE, boom.getRow() *PIXEL_SIZE, null);
+        		boom.decrement();
+        	}
+        	for (Boom boom : booms) {
+        		if (boom.getDuration() <= 0) {
+        			booms.remove(boom);
+        			break;
+        		}
+        	}
+        } catch (ConcurrentModificationException e) {
+        	System.out.println("Booms modified");
+        }
     }
 
     // Draws the blocks

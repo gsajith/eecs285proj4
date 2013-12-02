@@ -2,8 +2,11 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
+import java.awt.Image;
 import java.util.ConcurrentModificationException;
 import java.util.HashSet;
+
+import javax.swing.ImageIcon;
 
 /**
  * Model houses the information of all tanks and bullets.
@@ -328,6 +331,7 @@ public class Model {
 						&& column + j < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
 					switch (map[row + i][column + j]) {
 					case BASE_BLOCK:
+						
 						for (Block base : view.getMapMaker().getBase()) {
 							if (row + i >= base.getx()
 									&& row + i < base.getx() + MINI_BLOCK_SIZE
@@ -335,6 +339,7 @@ public class Model {
 									&& column + j < base.gety()
 											+ MINI_BLOCK_SIZE) {
 								view.getMapMaker().removeBlock(base);
+								view.addBoom(new Boom(base.getx(), base.gety()));
 								view.removeBullet(bThread.bullet);
 								clearBrick(base.getx(), base.gety());
 								view.getMapMaker().getBase().remove(base);
@@ -369,6 +374,7 @@ public class Model {
 									&& column + j < brick.gety()
 											+ MINI_BLOCK_SIZE) {
 								view.getMapMaker().removeBlock(brick);
+								view.addBoom(new Boom(brick.getx(), brick.gety()));
 								view.removeBullet(bThread.bullet);
 								clearBrick(brick.getx(), brick.gety());
 								return false;
@@ -389,6 +395,7 @@ public class Model {
 									&& column + j < steelBlock.gety()
 											+ MINI_BLOCK_SIZE) {
 								view.getMapMaker().removeBlock(steelBlock);
+								view.addBoom(new Boom(steelBlock.getx(), steelBlock.gety()));
 								view.removeBullet(bThread.bullet);
 								clearBrick(steelBlock.getx(), steelBlock.gety());
 								return false;
@@ -404,6 +411,7 @@ public class Model {
 								&& row + i < playerTank.getRow() + BLOCK_SIZE
 								&& column + j >= playerTank.getColumn()
 								&& column + j < playerTank.getColumn() + BLOCK_SIZE) {
+							view.addBoom(new Boom(playerTank.getRow(), playerTank.getColumn()));
 							view.removeBullet(bThread.bullet);
 							playerTank.decrementHealth();
 							if(playerTank.getHealth() == 0) {
@@ -419,6 +427,7 @@ public class Model {
 						break;
 					case AI_REG_TANK:
 						if (bThread.bullet.getType() == AI_REG_TANK) {
+							view.addBoom(new Boom(bThread.bullet.row, bThread.bullet.column));
 							view.removeBullet(bThread.bullet);
 							return false;
 						}
@@ -427,10 +436,11 @@ public class Model {
 									&& row + i < aiTank.getRow() + BLOCK_SIZE
 									&& column + j >= aiTank.getColumn()
 									&& column + j < aiTank.getColumn() + BLOCK_SIZE) {
-								AITanks.remove(aiTank);
+								view.addBoom(new Boom(aiTank.getRow(), aiTank.getColumn()));
 								view.removeBullet(bThread.bullet);
 								view.removeTank(aiTank);
 								clearTank(aiTank.getRow(), aiTank.getColumn());
+								AITanks.remove(aiTank);
 								return false;
 							}
 						}
@@ -445,4 +455,12 @@ public class Model {
 		view.repaint();
 		return false;
     }
+
+	private void boom(final int row, final int col) {
+		Boom boom = new Boom(row, col);
+		view.addBoom(boom);
+		
+	}
 }
+
+

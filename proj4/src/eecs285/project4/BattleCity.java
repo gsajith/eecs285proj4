@@ -54,6 +54,13 @@ public class BattleCity {
 	        livesMain.add(lives);
 	        livesMain.setSize(new Dimension(100, 100));
 	        
+	        
+	        
+	        // set up enemyTanks panel
+	        //JPanel enemyTanks = new JPanel(new GridLayout())
+	        
+	        
+	        
 	        livesMain2.add(new JPanel());
 	        livesMain2.add(new JPanel());
 	        livesMain2.add(livesMain, BorderLayout.CENTER);
