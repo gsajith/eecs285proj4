@@ -32,12 +32,41 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
-public class GameWindow extends JDialog {
+import eecs285.project4.*;
+
+public class GameWindow extends JDialog{
     int money = 5000;
 
+    
     boolean acc = false;
     boolean gem = false;
     boolean ext = false;
@@ -50,12 +79,18 @@ public class GameWindow extends JDialog {
     
     JPanel startScreen;
     
+    //buttons used for upgrades
+    JButton armor;
+    JButton firepower;
+    JButton doublebullet;
+    JButton  quit;
     
+    JPanel upgradeScreen;
     //buttons used for shopscreen
     JButton upgrades;
     JButton utilities;
     JButton powerups;
-    JButton quit;
+    JButton quit4;
     
     JPanel shopScreen;
     
@@ -82,7 +117,7 @@ public class GameWindow extends JDialog {
     JTextField curMoney;
     JTextField curMoney2;
     JTextField curMoney3;
-    
+    JTextField curMoney4;
     //lisenters
     
     
@@ -105,6 +140,7 @@ public class GameWindow extends JDialog {
 
             powerupsScreen.setVisible(false);
             utilitiesScreen.setVisible(false);
+            upgradeScreen.setVisible(false);
             //getContentPane().removeAll();
             shopScreen.setVisible(true);
             setContentPane(shopScreen);
@@ -112,25 +148,13 @@ public class GameWindow extends JDialog {
     }
 
     //start screen buttons
-    //
-    private void startGame()
-    {
-        //dispose();
-        setVisible(false);
-    }
-
-
-
-
     private class newgameL implements ActionListener
     {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            //startScreen.setVisible(false);
+            startScreen.setVisible(false);
             //start the game here!
-            //startScreen.setVisible(false);
-            startGame();
         }
     }
     
@@ -172,11 +196,11 @@ public class GameWindow extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            /*
+            
             shopScreen.setVisible(false);
-            utilitiesScreen.setVisible(true);
-            setContentPane(utilitiesScreen);
-            */
+            upgradeScreen.setVisible(true);
+            setContentPane(upgradeScreen);
+            
         }
     }
     
@@ -219,8 +243,9 @@ public class GameWindow extends JDialog {
             curMoney.setText("You Have: " + money);
             curMoney2.setText("You Have: " + money);
             curMoney3.setText("You Have: " + money);
+            curMoney4.setText("You Have: " + money);
             
-            JOptionPane.showMessageDialog(this, "Purchase Successfully!");
+            JOptionPane.showMessageDialog(this, "Perchase Successfully!");
             return true;
         }
     }
@@ -229,6 +254,52 @@ public class GameWindow extends JDialog {
     {
         JOptionPane.showMessageDialog(this, "You already bought this power up!");
     }
+    
+    
+    //upgrade listener
+    private class armorL implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            if (checkMoney(5000))
+            {
+              //upgrade tank here
+            }
+            
+        }
+    }
+    
+    private class firepowerL implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            if (checkMoney(5000))
+            {
+              //upgrade tank here
+            }
+            
+        }
+    }
+    
+    private class doublebulletL implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            if (checkMoney(5000))
+            {
+               //upgrade tank here
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    
     
     //buying each items listener
     private class landmineL implements ActionListener
@@ -339,62 +410,88 @@ public class GameWindow extends JDialog {
         }
     }  
     
+    
+    
+    
     GameWindow (JFrame mainFrame,String title)
     {
         super(mainFrame, title, true);
+        
         try
         {
-        BufferedImage buttonIcon = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\TankUpgrade.png"));
+        BufferedImage buttonIcon = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/TankUpgrade.png"));
         upgrades = new JButton(new ImageIcon(buttonIcon));
         
-        BufferedImage buttonIcon2 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\Utilities.png"));
+        BufferedImage buttonIcon2 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/Utilities.png"));
         utilities = new JButton(new ImageIcon(buttonIcon2));
-       
-        BufferedImage buttonIcon3 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\PowerUp.png"));
+        
+        BufferedImage buttonIcon3 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/PowerUp.png"));
         powerups = new JButton(new ImageIcon(buttonIcon3));
         
-        BufferedImage buttonIcon4 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\quit.png"));
+        BufferedImage buttonIcon4 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/quit.png"));
         quit = new JButton(new ImageIcon(buttonIcon4));
         
-        BufferedImage buttonIcon5 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\landmine.png"));
+        BufferedImage buttonIcon5 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/landmine.png"));
         landmine = new JButton(new ImageIcon(buttonIcon5));
         
-        BufferedImage buttonIcon6 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\missle.png"));
+        BufferedImage buttonIcon6 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/missle.png"));
         missle = new JButton(new ImageIcon(buttonIcon6));
         
-        BufferedImage buttonIcon7 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\laser.png"));
+        BufferedImage buttonIcon7 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/laser.png"));
         laser = new JButton(new ImageIcon(buttonIcon7));
         
-        BufferedImage buttonIcon8 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\shield.png"));
+        BufferedImage buttonIcon8 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/shield.png"));
         shield = new JButton(new ImageIcon(buttonIcon8));
         
-        BufferedImage buttonIcon9 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\quit.png"));
+        BufferedImage buttonIcon9 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/quit.png"));
         quit3 = new JButton(new ImageIcon(buttonIcon9));
         
-        BufferedImage buttonIcon10 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\accelerator.png"));
+        BufferedImage buttonIcon10 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/accelerator.png"));
         accelerator = new JButton(new ImageIcon(buttonIcon10));
         
-        BufferedImage buttonIcon11 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\gemstone.png"));
+        BufferedImage buttonIcon11 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/gemstone.png"));
         gemstone = new JButton(new ImageIcon(buttonIcon11));
         
-        BufferedImage buttonIcon12 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\extralife.png"));
+        BufferedImage buttonIcon12 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/extralife.png"));
         extralife = new JButton(new ImageIcon(buttonIcon12));
         
-        BufferedImage buttonIcon13 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\quit.png"));
+        BufferedImage buttonIcon13 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/quit.png"));
         quit2 = new JButton(new ImageIcon(buttonIcon13));
         
-        BufferedImage buttonIcon14 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\newgame.png"));
+        BufferedImage buttonIcon14 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/newgame.png"));
         newgame = new JButton(new ImageIcon(buttonIcon14));
         
-        BufferedImage buttonIcon15 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\battleshop.png"));
+        BufferedImage buttonIcon15 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/battleshop.png"));
         battleshop = new JButton(new ImageIcon(buttonIcon15));
         
-        BufferedImage buttonIcon16 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\multiplayer.png"));
+        BufferedImage buttonIcon16 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/multiplayer.png"));
         multiplayer = new JButton(new ImageIcon(buttonIcon16));
         
-        BufferedImage buttonIcon17 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\exitgame.png"));
+        BufferedImage buttonIcon17 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/exitgame.png"));
         exitgame = new JButton(new ImageIcon(buttonIcon17));
         
+        BufferedImage buttonIcon18 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/armor.png"));
+        armor = new JButton(new ImageIcon(buttonIcon18));
+        
+        BufferedImage buttonIcon19 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/firepower.png"));
+        firepower = new JButton(new ImageIcon(buttonIcon19));
+        
+        BufferedImage buttonIcon20 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/doublebullet.png"));
+        doublebullet = new JButton(new ImageIcon(buttonIcon20));
+        
+        BufferedImage buttonIcon21 = ImageIO.read(new File("/Users/ChenyangDai/Desktop/tankimage/quit.png"));
+        quit4 = new JButton(new ImageIcon(buttonIcon21));
+        
+        
+        
+        
+        
+        
+        
+        /*JButton upgrades;
+        JButton utilities;
+        JButton powerups;
+        JButton quit4;*/
         }
         catch (IOException a)
         {
@@ -416,10 +513,22 @@ public class GameWindow extends JDialog {
         curMoney3.setForeground(Color.WHITE);
         curMoney3.setBackground(Color.BLACK);
         
+        curMoney4 = new JTextField();
+        curMoney4.setFont(font);
+        curMoney4.setForeground(Color.WHITE);
+        curMoney4.setBackground(Color.BLACK);
+        
         //buttons in start screen
         newgame.addActionListener(new newgameL());
         battleshop.addActionListener(new battleshopL());
         exitgame.addActionListener(new exitgameL());
+        
+        //buttons in upgrade screen
+        armor.addActionListener(new armorL());
+        firepower.addActionListener(new firepowerL());
+        doublebullet.addActionListener(new doublebulletL());
+        
+        
         
         //buttons in shop screen
         upgrades.addActionListener(new upgradesListener());
@@ -429,6 +538,9 @@ public class GameWindow extends JDialog {
         quit.addActionListener(new quitListener());
         quit2.addActionListener(new quit2Listener());
         quit3.addActionListener(new quit2Listener());
+        quit4.addActionListener(new quit2Listener());
+        
+        
         
         //buttons in utilities screen
         landmine.addActionListener(new landmineL());
@@ -444,15 +556,23 @@ public class GameWindow extends JDialog {
         curMoney.setText("You Have: " + money);
         curMoney2.setText("You Have: " + money);
         curMoney3.setText("You Have: " + money);
+        curMoney4.setText("You Have: " + money);
+        
+        
+        
         
         shopScreen = new ShopScreen(upgrades, utilities, powerups, quit, curMoney);
         powerupsScreen  = new PowerupsScreen(accelerator, gemstone, extralife, quit2, curMoney2);
         utilitiesScreen = new UtilitiesScreen(landmine, missle, laser, shield, quit3, curMoney3);
         startScreen = new StartScreen(newgame, battleshop, multiplayer, exitgame);
+        upgradeScreen = new UpgradeScreen(armor, firepower, doublebullet, quit4, curMoney4);
+        
+        
         setContentPane(startScreen);
-        setSize(900, 700);
-        setVisible(true);
+        
     }
+    
+
 }
 
 
