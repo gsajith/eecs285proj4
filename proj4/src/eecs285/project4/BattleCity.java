@@ -76,6 +76,7 @@ public class BattleCity {
                 Thread.sleep(50);
             } catch(InterruptedException e) {}
             model.go();
+            
         }
     }
 }

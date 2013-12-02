@@ -16,6 +16,8 @@ public abstract class Tank extends JComponent {
     // image of the tank
     protected Image image;
     protected Model model;
+    private int originalRow;
+    private int originalColumn;
 
     public Tank(final int type, final int healthPoint, final int bulletStrength, final int speed,
             final int row, final int column, final Model model) {
@@ -28,6 +30,8 @@ public abstract class Tank extends JComponent {
         this.column = column;
         this.model = model;
         this.canShoot = true;
+        this.originalRow = row;
+        this.originalColumn = column;
     }
 
     /**
@@ -43,6 +47,19 @@ public abstract class Tank extends JComponent {
 
     public int getColumn() {
         return column;
+    }
+    
+    public void resetLocation() {
+    	row = this.originalRow;
+    	column = this.originalColumn;
+    }
+    
+    public void decrementHealth() {
+    	healthPoint--;
+    }
+    
+    public int getHealth() {
+    	return healthPoint;
     }
 
     public Image getImage() {

@@ -70,8 +70,12 @@ public class View extends JPanel {
         g2d.fillRect(0, 0, MAP_SIZE * PIXEL_SIZE, MAP_SIZE * PIXEL_SIZE);
 
         // then draw each tank
-        for(Tank tank : tanks) {
-            g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE,  tank.getRow() * PIXEL_SIZE, 64, 64, null);
+        try{
+        	for(Tank tank : tanks) {
+        		g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE,  tank.getRow() * PIXEL_SIZE, 8*PIXEL_SIZE, 8*PIXEL_SIZE, null);
+        	}
+        } catch (ConcurrentModificationException e) {
+        	System.out.println("Tanks modified");
         }
 
         // set up blocks
@@ -95,7 +99,7 @@ public class View extends JPanel {
     private void drawMap(Graphics2D g2d) {
         HashSet<Block> blocks = makeMap.getBlocks();
 	        for(Block block : blocks) {
-	            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, 32, 32, null);
+	            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, 4*PIXEL_SIZE, 4*PIXEL_SIZE, null);
 	        }
     }
 }

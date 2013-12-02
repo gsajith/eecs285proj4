@@ -2,6 +2,7 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
+import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 
 /**
@@ -17,16 +18,21 @@ public class Model {
     private int numAITanks;
     private PlayerTank playerTank;
     private View view;
+    private int enemyCounter;
+    private int respawnCounter;
 
     /**
      * Create a bunch of AI tanks and one player tank.
      */
     public Model() {
-        map = new int[MAP_SIZE][MAP_SIZE];
+    	respawnCounter = 0;
+        enemyCounter = 0;
+    	map = new int[MAP_SIZE][MAP_SIZE];
         originalMap = new int[MAP_SIZE][MAP_SIZE];
         AITanks = new HashSet<AITank>();
         for(int i = 0; i < 3; ++i) {
-            AITanks.add(new AITank(WEAK_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this));
+            AITanks.add(new AITank(WEAK_HEALTH, INITIAL_STRENGTH, TANK_SPEED, 0, i * (MAP_SIZE/2 - MINI_BLOCK_SIZE), this));
+            enemyCounter++;
         }
         playerTank = new PlayerTank(ENHANCED_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this);
     }
@@ -38,7 +44,7 @@ public class Model {
     public void attach(final View view) {
         this.view = view;
         for(Tank tank : AITanks) {
-            view.addTank(tank);
+            this.view.addTank(tank);
             placeTank(10, 10, AI_REG_TANK);
         }
         this.view.addTank(playerTank);
@@ -70,8 +76,23 @@ public class Model {
      * Let each AI Tank update themselves.
      */
     public void go() {
-        for(AITank tank : AITanks) {
-            tank.go();
+    	try{
+	        for(AITank tank : AITanks) {
+	           tank.go();
+	        }
+    	} catch (ConcurrentModificationException e) {
+	    	System.out.println("Tanks modified");
+	    }
+        if (AITanks.size() <= MAX_AI_TANK_ON_MAP - 1 && enemyCounter < MAX_AI_TANK_NUM) {	
+        	respawnCounter++;
+        	if (respawnCounter > 60) {
+        		AITank aiTank = new AITank(WEAK_HEALTH, INITIAL_STRENGTH, TANK_SPEED, 0, (enemyCounter % 3) * (MAP_SIZE/2 - MINI_BLOCK_SIZE), this);
+        		enemyCounter++;
+        		AITanks.add(aiTank);
+        		view.addTank(aiTank);
+            	placeTank(10, 10, AI_REG_TANK);
+            	respawnCounter = 0;
+        	}
         }
         view.repaint();
     }    
@@ -345,6 +366,24 @@ public class Model {
 						}
 						break;
 					case PLAYER1_TANK:
+						if (bThread.bullet.getType() == PLAYER1_TANK) {
+							view.removeBullet(bThread.bullet);
+							return false;
+						}
+						if(row + i >= playerTank.getRow() 
+								&& row + i < playerTank.getRow() + BLOCK_SIZE
+								&& column + j >= playerTank.getColumn()
+								&& column + j < playerTank.getColumn() + BLOCK_SIZE) {
+							view.removeBullet(bThread.bullet);
+							playerTank.decrementHealth();
+							if(playerTank.getHealth() == 0) {
+								clearTank(playerTank.getRow(), playerTank.getColumn());
+								playerTank.resetLocation();
+						        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());
+						        playerTank.healthPoint = ENHANCED_HEALTH;
+							}
+						    return false;
+						}
 						break;
 					case AI_REG_TANK:
 						if (bThread.bullet.getType() == AI_REG_TANK) {
@@ -352,14 +391,14 @@ public class Model {
 							return false;
 						}
 						for (Tank aiTank : AITanks) {
-							if (row + i >= aiTank.row
-									&& row + i < aiTank.row + BLOCK_SIZE
-									&& column + j >= aiTank.column
-									&& column + j < aiTank.column + BLOCK_SIZE) {
+							if (row + i >= aiTank.getRow()
+									&& row + i < aiTank.getRow() + BLOCK_SIZE
+									&& column + j >= aiTank.getColumn()
+									&& column + j < aiTank.getColumn() + BLOCK_SIZE) {
 								AITanks.remove(aiTank);
 								view.removeBullet(bThread.bullet);
 								view.removeTank(aiTank);
-								clearTank(aiTank.row, aiTank.column);
+								clearTank(aiTank.getRow(), aiTank.getColumn());
 								return false;
 							}
 						}

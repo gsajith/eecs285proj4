@@ -16,10 +16,11 @@ public class AITank extends Tank {
     // determines whether the AI tank should generate a new location
     private boolean shouldTurnAround;
     private int direction;
+    
 
     public AITank(final int healthPoint, final int bulletStrength, final int speed, 
-            final Model model) {
-        super(AI_REG_TANK, healthPoint, bulletStrength, speed, 0, 0, model);
+            final int x, final int y, final Model model) {
+        super(AI_REG_TANK, healthPoint, bulletStrength, speed, x, y, model);
 
         tankImages = new Image[4];
         tankImages[UP] = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\tankDraftUp.png").getImage();
