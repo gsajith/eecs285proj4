@@ -45,10 +45,10 @@ public class Model {
         this.view = view;
         for(Tank tank : AITanks) {
             this.view.addTank(tank);
-            placeTank(10, 10, AI_REG_TANK);
         }
         this.view.addTank(playerTank);
-        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());
+        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());        
+
     }
 
     /**
@@ -90,7 +90,7 @@ public class Model {
         		enemyCounter++;
         		AITanks.add(aiTank);
         		view.addTank(aiTank);
-            	placeTank(10, 10, AI_REG_TANK);
+            	placeTank(0, (enemyCounter % 3) * (MAP_SIZE/2 - MINI_BLOCK_SIZE), AI_REG_TANK);
             	respawnCounter = 0;
         	}
         }
@@ -156,6 +156,7 @@ public class Model {
      * If the move is valid, notify the view about the location change of a tank.
      */
     public synchronized boolean notifyLocation(final Tank tank, final int direction) {
+        
         int row = tank.getRow(), column = tank.getColumn();
         int type = tank.getType();
         switch(direction) {
