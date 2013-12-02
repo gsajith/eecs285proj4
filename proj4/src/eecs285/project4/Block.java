@@ -53,7 +53,7 @@ public class Block {
                 destructibleLvl = HARD_DESTRUCTIBLE;
                 break;
             case BASE_BLOCK:
-                image = new ImageIcon("eecs285/project4/blockImage/water.png").getImage();
+                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\tankImage\\PlayerTankUp.png").getImage();
                 destructibleLvl = EASY_DESTRUCTIBLE;
                 break;
             default:

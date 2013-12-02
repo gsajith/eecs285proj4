@@ -6,7 +6,7 @@ public class Constants {
     public static final int BULLET_SIZE = 2;
     public static final int NUM_BLOCKS = 13;
     public static final int MAP_SIZE = NUM_BLOCKS * BLOCK_SIZE;
-    public static final int PIXEL_SIZE = 8;
+    public static final int PIXEL_SIZE = 6;
 
     // tank directions
     public static final int UP = 0;

@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 public class BattleCity {
     public static void main(String[] args)  {
         JFrame frame = new JFrame("battle City");
-       // GameWindow window = new GameWindow(frame, "Battle City");
         JPanel panel1 = new JPanel(new BorderLayout());
         JPanel lives = new JPanel(new GridLayout(1, 3));
         View view = new View();
@@ -69,11 +68,14 @@ public class BattleCity {
         GameWindow window = new GameWindow (frame, "battleCity");
         frame.setVisible(true);
 
-        while(true) {
+        while(!model.isGameOver()) {
             try {
                 Thread.sleep(50);
             } catch(InterruptedException e) {}
             model.go();
+            
         }
+        frame.dispose(); 
+        return;
     }
 }

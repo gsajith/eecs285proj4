@@ -13,7 +13,7 @@ public class MapMaker {
      * 	MapMaker stores the blocks for each level map.
      * 
      */
-    private Block base;
+    private HashSet<Block> baseBlocks;
     private HashSet<Block> blocks;
     private HashSet<Block> bricks;
     private HashSet<Block> steelBlocks;
@@ -22,6 +22,7 @@ public class MapMaker {
         blocks = new HashSet<Block>();
         bricks = new HashSet<Block>();
         steelBlocks = new HashSet<Block>();
+        baseBlocks = new HashSet<Block>();
         makeBlock(BASE_BLOCK, 12, 6);
         makeBlock(BRICK_BLOCK, 12, 5);
         makeBlock(BRICK_BLOCK, 11, 5);
@@ -467,6 +468,11 @@ public class MapMaker {
                 steelBlocks.add(block3);
                 steelBlocks.add(block4);
                 break;
+            case BASE_BLOCK:
+            	baseBlocks.add(block1);
+            	baseBlocks.add(block2);
+            	baseBlocks.add(block3);
+            	baseBlocks.add(block4);
             default:
                 break;
         }
@@ -496,6 +502,10 @@ public class MapMaker {
     
     public HashSet<Block> getBricks() {
         return bricks;
+    }
+    
+    public HashSet<Block> getBase() {
+    	return baseBlocks;
     }
     
     public HashSet<Block> getSteelBlocks() {
