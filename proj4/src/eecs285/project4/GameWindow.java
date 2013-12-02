@@ -253,7 +253,7 @@ public class GameWindow extends JDialog{
             curMoney3.setText("You Have: " + money);
             curMoney4.setText("You Have: " + money);
             
-            JOptionPane.showMessageDialog(this, "Perchase Successfully!");
+            JOptionPane.showMessageDialog(this, "Purchase Successfully!");
             return true;
         }
     }
@@ -427,68 +427,57 @@ public class GameWindow extends JDialog{
         
         try
         {
-        BufferedImage buttonIcon = ImageIO.read(new File("eecs285/project4/shopImage/TankUpgrade.png"));
-        upgrades = new JButton(new ImageIcon(buttonIcon));
-        
-        BufferedImage buttonIcon2 = ImageIO.read(new File("eecs285/project4/shopImage/Utilities.png"));
-        utilities = new JButton(new ImageIcon(buttonIcon2));
-        
-        BufferedImage buttonIcon3 = ImageIO.read(new File("eecs285/project4/shopImage/PowerUp.png"));
-        powerups = new JButton(new ImageIcon(buttonIcon3));
-        
-        BufferedImage buttonIcon4 = ImageIO.read(new File("eecs285/project4/shopImage/quit.png"));
-        quit = new JButton(new ImageIcon(buttonIcon4));
-        
-        BufferedImage buttonIcon5 = ImageIO.read(new File("eecs285/project4/shopImage/landmine.png"));
-        landmine = new JButton(new ImageIcon(buttonIcon5));
-        
-        BufferedImage buttonIcon6 = ImageIO.read(new File("eecs285/project4/shopImage/missle.png"));
-        missle = new JButton(new ImageIcon(buttonIcon6));
-        
-        BufferedImage buttonIcon7 = ImageIO.read(new File("eecs285/project4/shopImage/laser.png"));
-        laser = new JButton(new ImageIcon(buttonIcon7));
-        
-        BufferedImage buttonIcon8 = ImageIO.read(new File("eecs285/project4/shopImage/shield.png"));
-        shield = new JButton(new ImageIcon(buttonIcon8));
-        
-        BufferedImage buttonIcon9 = ImageIO.read(new File("eecs285/project4/shopImage/quit.png"));
-        quit3 = new JButton(new ImageIcon(buttonIcon9));
-        
-        BufferedImage buttonIcon10 = ImageIO.read(new File("eecs285/project4/shopImage/accelerator.png"));
-        accelerator = new JButton(new ImageIcon(buttonIcon10));
-        
-        BufferedImage buttonIcon11 = ImageIO.read(new File("eecs285/project4/shopImage/gemstone.png"));
-        gemstone = new JButton(new ImageIcon(buttonIcon11));
-        
-        BufferedImage buttonIcon12 = ImageIO.read(new File("eecs285/project4/shopImage/extralife.png"));
-        extralife = new JButton(new ImageIcon(buttonIcon12));
-        
-        BufferedImage buttonIcon13 = ImageIO.read(new File("eecs285/project4/shopImage/quit.png"));
-        quit2 = new JButton(new ImageIcon(buttonIcon13));
-        
-        BufferedImage buttonIcon14 = ImageIO.read(new File("eecs285/project4/shopImage/newgame.png"));
-        newgame = new JButton(new ImageIcon(buttonIcon14));
-        
-        BufferedImage buttonIcon15 = ImageIO.read(new File("eecs285/project4/shopImage/battleshop.png"));
-        battleshop = new JButton(new ImageIcon(buttonIcon15));
-        
-        BufferedImage buttonIcon16 = ImageIO.read(new File("eecs285/project4/shopImage/multiplayer.png"));
-        multiplayer = new JButton(new ImageIcon(buttonIcon16));
-        
-        BufferedImage buttonIcon17 = ImageIO.read(new File("eecs285/project4/shopImage/exitgame.png"));
-        exitgame = new JButton(new ImageIcon(buttonIcon17));
-        
-        BufferedImage buttonIcon18 = ImageIO.read(new File("eecs285/project4/shopImage/armor.png"));
-        armor = new JButton(new ImageIcon(buttonIcon18));
-        
-        BufferedImage buttonIcon19 = ImageIO.read(new File("eecs285/project4/shopImage/firepower.png"));
-        firepower = new JButton(new ImageIcon(buttonIcon19));
-        
-        BufferedImage buttonIcon20 = ImageIO.read(new File("eecs285/project4/shopImage/doublebullet.png"));
-        doublebullet = new JButton(new ImageIcon(buttonIcon20));
-        
-        BufferedImage buttonIcon21 = ImageIO.read(new File("eecs285/project4/shopImage/quit.png"));
-        quit4 = new JButton(new ImageIcon(buttonIcon21));
+            BufferedImage buttonIcon = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\TankUpgrade.png"));
+            upgrades = new JButton(new ImageIcon(buttonIcon));
+            
+            BufferedImage buttonIcon2 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\Utilities.png"));
+            utilities = new JButton(new ImageIcon(buttonIcon2));
+           
+            BufferedImage buttonIcon3 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\PowerUp.png"));
+            powerups = new JButton(new ImageIcon(buttonIcon3));
+            
+            BufferedImage buttonIcon4 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\quit.png"));
+            quit = new JButton(new ImageIcon(buttonIcon4));
+            
+            BufferedImage buttonIcon5 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\landmine.png"));
+            landmine = new JButton(new ImageIcon(buttonIcon5));
+            
+            BufferedImage buttonIcon6 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\missle.png"));
+            missle = new JButton(new ImageIcon(buttonIcon6));
+            
+            BufferedImage buttonIcon7 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\laser.png"));
+            laser = new JButton(new ImageIcon(buttonIcon7));
+            
+            BufferedImage buttonIcon8 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\shield.png"));
+            shield = new JButton(new ImageIcon(buttonIcon8));
+            
+            BufferedImage buttonIcon9 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\quit.png"));
+            quit3 = new JButton(new ImageIcon(buttonIcon9));
+            
+            BufferedImage buttonIcon10 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\accelerator.png"));
+            accelerator = new JButton(new ImageIcon(buttonIcon10));
+            
+            BufferedImage buttonIcon11 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\gemstone.png"));
+            gemstone = new JButton(new ImageIcon(buttonIcon11));
+            
+            BufferedImage buttonIcon12 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\extralife.png"));
+            extralife = new JButton(new ImageIcon(buttonIcon12));
+            
+            BufferedImage buttonIcon13 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\quit.png"));
+            quit2 = new JButton(new ImageIcon(buttonIcon13));
+            
+            BufferedImage buttonIcon14 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\newgame.png"));
+            newgame = new JButton(new ImageIcon(buttonIcon14));
+            
+            BufferedImage buttonIcon15 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\battleshop.png"));
+            battleshop = new JButton(new ImageIcon(buttonIcon15));
+            
+            BufferedImage buttonIcon16 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\multiplayer.png"));
+            multiplayer = new JButton(new ImageIcon(buttonIcon16));
+            
+            BufferedImage buttonIcon17 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\exitgame.png"));
+            exitgame = new JButton(new ImageIcon(buttonIcon17));
+            
         
         
         

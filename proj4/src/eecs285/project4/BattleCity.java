@@ -46,13 +46,19 @@ public class BattleCity {
 	        life2.setIcon(new ImageIcon("eecs285/project4/tankImage/PlayerTankUp.png"));
 	        JLabel life3 = new JLabel();
 	        life3.setIcon(new ImageIcon( "eecs285/project4/tankImage/PlayerTankUp.png"));
-	
 	        if(livesLeft > 0) lives.add(life);
 	        if(livesLeft > 1) lives.add(life2);
 	        if(livesLeft > 2) lives.add(life3);
 	        livesMain.add(new JLabel("Lives"));
 	        livesMain.add(lives);
 	        livesMain.setSize(new Dimension(100, 100));
+	        
+	        
+	        
+	        // set up enemyTanks panel
+	        //JPanel enemyTanks = new JPanel(new GridLayout())
+	        
+	        
 	        
 	        livesMain2.add(new JPanel());
 	        livesMain2.add(new JPanel());
