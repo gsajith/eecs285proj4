@@ -30,10 +30,10 @@ public class ShopScreen extends JPanel{
         
         try
         {
-            BufferedImage labelIcon = ImageIO.read(new File("eecs285/project4/shopImage/message.png"));
+            BufferedImage labelIcon = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\message.png"));
             message = new JLabel(new ImageIcon(labelIcon));
             
-            BufferedImage labelIcon2 = ImageIO.read(new File("eecs285/project4/shopImage/blank.png"));
+            BufferedImage labelIcon2 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\shopImage\\blank.png"));
             blank = new JLabel(new ImageIcon(labelIcon2));
             
             blank2 = new JLabel(new ImageIcon(labelIcon2));

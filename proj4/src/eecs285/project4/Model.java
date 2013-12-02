@@ -20,12 +20,14 @@ public class Model {
     private View view;
     private int enemyCounter;
     private int respawnCounter;
-    private boolean gameOver = false;
+    private int gameOver = 0;
+    private int livesLeft;
 
     /**
      * Create a bunch of AI tanks and one player tank.
      */
-    public Model() {
+    public Model(int livesLeft) {
+    	this.livesLeft = livesLeft;
     	respawnCounter = 0;
         enemyCounter = 0;
     	map = new int[MAP_SIZE][MAP_SIZE];
@@ -96,13 +98,17 @@ public class Model {
         	}
         }
         if(AITanks.size()==0) {
-        	gameOver = true;
+        	gameOver = 1;
         }
         view.repaint();
     }    
     
-    public boolean isGameOver() {
+    public int isGameOver() {
     	return gameOver;
+    }
+    
+    public int livesLeft() {
+    	return livesLeft;
     }
 
     /**
@@ -331,7 +337,8 @@ public class Model {
 								view.getMapMaker().removeBlock(base);
 								view.removeBullet(bThread.bullet);
 								clearBrick(base.getx(), base.gety());
-								gameOver = true;
+								view.getMapMaker().getBase().remove(base);
+								if(view.getMapMaker().getBase().size() == 0) gameOver = 2;
 								return false;
 							}
 						}						
@@ -400,10 +407,12 @@ public class Model {
 							view.removeBullet(bThread.bullet);
 							playerTank.decrementHealth();
 							if(playerTank.getHealth() == 0) {
+								livesLeft--;
 								clearTank(playerTank.getRow(), playerTank.getColumn());
 								playerTank.resetLocation();
 						        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());
 						        playerTank.healthPoint = ENHANCED_HEALTH;
+						        if(livesLeft == 0) gameOver = 2;
 							}
 						    return false;
 						}
