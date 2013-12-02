@@ -467,12 +467,6 @@ public class Model {
 		view.repaint();
 		return false;
     }
-
-	private void boom(final int row, final int col) {
-		Boom boom = new Boom(row, col);
-		view.addBoom(boom);
-		
-	}
 }
 
 

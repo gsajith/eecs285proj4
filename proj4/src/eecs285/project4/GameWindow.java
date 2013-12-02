@@ -476,9 +476,18 @@ public class GameWindow extends JDialog{
             BufferedImage buttonIcon17 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\exitgame.png"));
             exitgame = new JButton(new ImageIcon(buttonIcon17));
             
-        
-        
-        
+            BufferedImage buttonIcon18 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\armor.png"));
+            armor = new JButton(new ImageIcon(buttonIcon18));
+            
+            BufferedImage buttonIcon19 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\firepower.png"));
+            firepower = new JButton(new ImageIcon(buttonIcon19));
+
+            BufferedImage buttonIcon20 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\doublebullet.png"));
+            doublebullet = new JButton(new ImageIcon(buttonIcon20));
+
+            BufferedImage buttonIcon21 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\quit2.png"));
+            quit4 = new JButton(new ImageIcon(buttonIcon21));
+
         
         
         
