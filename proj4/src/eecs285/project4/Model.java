@@ -332,7 +332,20 @@ public class Model {
                     } else if(map[row+i][column+j] == PLAYER1_TANK) {
                         
                     } else if(map[row+i][column+j] == AI_REG_TANK) {
-                        
+                        if(bThread.bullet.getType() == AI_REG_TANK) {
+                        	view.removeBullet(bThread.bullet);
+                        	return false;
+                        }
+                        for(Tank aiTank : AITanks) {
+                        	if(row+i >= aiTank.row && row+i < aiTank.row+BLOCK_SIZE && 
+                        			column+j >= aiTank.column && column+j < aiTank.column+BLOCK_SIZE) {
+                        		AITanks.remove(aiTank);
+                        		view.removeBullet(bThread.bullet);
+                        		view.removeTank(aiTank);
+                        		clearTank(aiTank.row, aiTank.column);
+                        		return false;
+                        	}
+                        }
                     }   
                 }
             }

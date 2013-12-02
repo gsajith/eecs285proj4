@@ -39,6 +39,11 @@ public class View extends JPanel {
         tanks.add(tank);
         add(tank);
     }
+    
+    public void removeTank(Tank tank) {
+    	tanks.remove(tank);
+    	remove(tank);
+    }
 
     public void addBullet(Bullet bullet) {
         bullets.add(bullet);
@@ -89,8 +94,8 @@ public class View extends JPanel {
     // Draws the blocks
     private void drawMap(Graphics2D g2d) {
         HashSet<Block> blocks = makeMap.getBlocks();
-        for(Block block : blocks) {
-            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, 32, 32, null);
-        }
+	        for(Block block : blocks) {
+	            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, 32, 32, null);
+	        }
     }
 }
