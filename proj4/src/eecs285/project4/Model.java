@@ -2,6 +2,10 @@ package eecs285.project4;
 
 import static eecs285.project4.Constants.*;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 
@@ -93,7 +97,7 @@ public class Model {
         		enemyCounter++;
         		AITanks.add(aiTank);
         		view.addTank(aiTank);
-            	placeTank(0, (enemyCounter % 3) * (MAP_SIZE/2 - MINI_BLOCK_SIZE), AI_REG_TANK);
+            	//placeTank(0, (enemyCounter % 3) * (MAP_SIZE/2 - MINI_BLOCK_SIZE), AI_REG_TANK);
             	respawnCounter = 0;
         	}
         }
@@ -433,7 +437,7 @@ public class Model {
 								clearTank(aiTank.getRow(), aiTank.getColumn());
 								try {
 					                            	AudioClip clip = Applet.newAudioClip(
-	                      		    				new URL("file:C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\bin\\eecs285\\project4\\sounds\\exploding.wav"));
+	                      		    				new URL("file:eecs285/project4/sounds/exploding.wav"));
 					  				clip.play();
 					  				} catch (MalformedURLException murle) {
 										 System.out.println("sound is not playing");
