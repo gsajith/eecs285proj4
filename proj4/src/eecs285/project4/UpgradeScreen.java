@@ -18,7 +18,7 @@ public class UpgradeScreen extends JPanel{
     
     
     UpgradeScreen(JButton armor, JButton firepower,
-    JButton doublebullet, JButton  quit, JTextField curMoney)
+    JButton doublebullet, JButton quit, JTextField curMoney)
     {
 
             
