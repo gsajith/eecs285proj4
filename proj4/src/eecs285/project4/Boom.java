@@ -4,6 +4,8 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import static eecs285.project4.Constants.*;
+
 public class Boom {
 	private int row;
 	private int col;
@@ -13,7 +15,7 @@ public class Boom {
 	public Boom(int r, int c) {
 		row = r;
 		col = c;
-		image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\blockImage\\Boom.png").getImage();
+		image = new ImageIcon(BASE_PATH + BLOCK_PATH + "Boom.png").getImage();
 		duration = 20;
 	}
 	

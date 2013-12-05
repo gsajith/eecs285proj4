@@ -455,7 +455,7 @@ public class Model {
 
 								try {
 									AudioClip clip = Applet.newAudioClip(
-	                      		    new URL("file:C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\sounds\\exploding.wav"));
+	                      		    new URL("file:" + BASE_PATH + SOUND_PATH + "exploding.wav"));
 					  				clip.play();
 					  				} catch (MalformedURLException murle) {
 										 System.out.println("sound is not playing");

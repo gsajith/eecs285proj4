@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import static eecs285.project4.Constants.*;
 public class StartScreen extends JPanel{
     
     
@@ -28,7 +29,7 @@ public class StartScreen extends JPanel{
     
         BufferedImage labelIcon2;
         try {
-            labelIcon2 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\title.png"));
+            labelIcon2 = ImageIO.read(new File(BASE_PATH + SHOP_PATH + "title.png"));
             title = new JLabel(new ImageIcon(labelIcon2));
             
             newgame.setBorder(BorderFactory.createEmptyBorder());

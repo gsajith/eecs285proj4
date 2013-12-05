@@ -36,24 +36,24 @@ public class Block {
         destructibleLvl = NON_DESTRUCTIBLE;
         switch (type) {
             case TREE_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\blockImage\\tree.png").getImage();
+                image = new ImageIcon(BASE_PATH + BLOCK_PATH + "tree.png").getImage();
                 break;
             case ICE_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\blockImage\\ice.png").getImage();  
+                image = new ImageIcon(BASE_PATH + BLOCK_PATH + "ice.png").getImage();  
                 break;
             case WATER_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\blockImage\\water.png").getImage();  
+                image = new ImageIcon(BASE_PATH + BLOCK_PATH + "water.png").getImage();  
                 break;
             case BRICK_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\blockImage\\brick.png").getImage();
+                image = new ImageIcon(BASE_PATH + BLOCK_PATH + "brick.png").getImage();
                 destructibleLvl = EASY_DESTRUCTIBLE;
                 break;
             case STEEL_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\blockImage\\steel.png").getImage();
+                image = new ImageIcon(BASE_PATH + BLOCK_PATH + "steel.png").getImage();
                 destructibleLvl = HARD_DESTRUCTIBLE;
                 break;
             case BASE_BLOCK:
-                image = new ImageIcon("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\tankImage\\PlayerTankUp.png").getImage();
+                image = new ImageIcon(BASE_PATH + TANK_PATH + "PlayerTankUp.png").getImage();
                 destructibleLvl = EASY_DESTRUCTIBLE;
                 break;
             default:

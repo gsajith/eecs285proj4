@@ -1,6 +1,7 @@
 package eecs285.project4;
 
 import java.awt.BorderLayout;
+import static eecs285.project4.Constants.*;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -30,10 +31,10 @@ public class ShopScreen extends JPanel{
         
         try
         {
-            BufferedImage labelIcon = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\message.png"));
+            BufferedImage labelIcon = ImageIO.read(new File(BASE_PATH + SHOP_PATH + "message.png"));
             message = new JLabel(new ImageIcon(labelIcon));
             
-            BufferedImage labelIcon2 = ImageIO.read(new File("C:\\Users\\Chermine\\workspace\\eecs285proj4\\proj4\\src\\eecs285\\project4\\shopImage\\blank.png"));
+            BufferedImage labelIcon2 = ImageIO.read(new File(BASE_PATH + SHOP_PATH + "blank.png"));
             blank = new JLabel(new ImageIcon(labelIcon2));
             
             blank2 = new JLabel(new ImageIcon(labelIcon2));

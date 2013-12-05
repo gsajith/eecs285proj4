@@ -26,10 +26,10 @@ public class PlayerTank extends Tank {
         super(PLAYER1_TANK, healthPoint, bulletStrength, speed, INITIAL_PLAYER_ROW, INITIAL_PLAYER_COLUMN, model);
 
         tankImages = new Image[4];
-        tankImages[UP] = new ImageIcon("eecs285/project4/tankImage/PlayerTankUp.png").getImage();
-        tankImages[DOWN] = new ImageIcon("eecs285/project4/tankImage/PlayerTankDown.png").getImage();
-        tankImages[LEFT] = new ImageIcon("eecs285/project4/tankImage/PlayerTankLeft.png").getImage();
-        tankImages[RIGHT] = new ImageIcon("eecs285/project4/tankImage/PlayerTankRight.png").getImage();
+        tankImages[UP] = new ImageIcon(BASE_PATH + TANK_PATH + "PlayerTankUp.png").getImage();
+        tankImages[DOWN] = new ImageIcon(BASE_PATH + TANK_PATH + "PlayerTankDown.png").getImage();
+        tankImages[LEFT] = new ImageIcon(BASE_PATH + TANK_PATH + "PlayerTankLeft.png").getImage();
+        tankImages[RIGHT] = new ImageIcon(BASE_PATH + TANK_PATH + "PlayerTankRight.png").getImage();
 
         image = tankImages[UP];
 
@@ -58,7 +58,7 @@ public class PlayerTank extends Tank {
 					  new URL("file:eecs285/project4/sounds/shoot.wav"));*/
 					  //need to change the path
 					  AudioClip clip = Applet.newAudioClip(
-	                      		    new URL("file:eecs285/project4/sounds/shoot.wav"));
+	                      		    new URL("file:" + BASE_PATH + SOUND_PATH + "shoot.wav"));
 					  clip.play();
 					  } catch (MalformedURLException murle) {
 					      System.out.println("sound is not playing");
