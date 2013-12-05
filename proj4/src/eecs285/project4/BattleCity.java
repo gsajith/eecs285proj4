@@ -46,6 +46,7 @@ public class BattleCity {
 	        life2.setIcon(new ImageIcon(BASE_PATH + TANK_PATH + "PlayerTankUp.png"));
 	        JLabel life3 = new JLabel();
 	        life3.setIcon(new ImageIcon( BASE_PATH + TANK_PATH + "PlayerTankUp.png"));
+
 	        if(livesLeft > 0) lives.add(life);
 	        if(livesLeft > 1) lives.add(life2);
 	        if(livesLeft > 2) lives.add(life3);

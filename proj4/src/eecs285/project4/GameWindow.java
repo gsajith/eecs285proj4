@@ -272,7 +272,7 @@ public class GameWindow extends JDialog{
         public void actionPerformed(ActionEvent arg0) {
             if (checkMoney(5000))
             {
-              tankArmor += 5;
+              tankArmor+=5;
             }
             
         }
@@ -285,7 +285,7 @@ public class GameWindow extends JDialog{
         public void actionPerformed(ActionEvent arg0) {
             if (checkMoney(5000))
             {
-              firePower = 2;
+              firePower = 1;
             }
             
         }
@@ -544,7 +544,6 @@ public class GameWindow extends JDialog{
         quit2.addActionListener(new quit2Listener());
         quit3.addActionListener(new quit2Listener());
         quit4.addActionListener(new quit2Listener());
-        
         
         
         //buttons in utilities screen
