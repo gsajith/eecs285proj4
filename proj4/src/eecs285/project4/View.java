@@ -109,6 +109,13 @@ public class View extends JPanel {
     public HashSet<Bullet> getBullets() {
         return bullets;
     }
+    
+    /*
+     * Get the set of tanks for this view
+     */
+    public HashSet<Tank> getTanks() {
+        return tanks;
+    }
 
     /*
      * Draw all bullets, tanks, blocks

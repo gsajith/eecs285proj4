@@ -19,6 +19,6 @@ public class BulletThread extends Thread {
             } catch (InterruptedException e) {}
             bullet.move();
         }
-        tank.canShoot = true;
+        if(model.view.getTanks().contains(tank)) tank.canShoot = true;
     }
 }

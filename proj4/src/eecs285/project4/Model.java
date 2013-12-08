@@ -25,7 +25,7 @@ public class Model {
     private int numAITanks;
     private PlayerTank playerTank1;
     private PlayerTank playerTank2;
-    private View view;
+    View view;
     private int enemyCounter;
     private int respawnCounter;
     private int gameOver = 0;
@@ -107,9 +107,11 @@ public class Model {
         for(Tank tank : AITanks) {
             this.view.addTank(tank);
         }
-        this.view.addTank(playerTank1);
-        placeTank(playerTank1.getRow(), playerTank1.getColumn(), playerTank1.getType());   
-        if(numPlayers==2) {
+        if(livesLeft1 > 0) {
+            this.view.addTank(playerTank1);
+            placeTank(playerTank1.getRow(), playerTank1.getColumn(), playerTank1.getType());
+        }           
+        if(numPlayers==2 && livesLeft2 > 0) {
             this.view.addTank(playerTank2);
             placeTank(playerTank2.getRow(), playerTank2.getColumn(), playerTank2.getType());
         }
