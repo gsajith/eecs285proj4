@@ -13,10 +13,13 @@ import javax.swing.ImageIcon;
 public class AITank extends Tank {
     private final Random generator = new Random();
     private Image[] tankImages;
+    
     // determines whether the AI tank should generate a new location
     private boolean shouldTurnAround;
     private int direction;
-    private int noMoveCounter;
+    
+    //Counter used to un-stuck AI tanks in advanced difficulty AI
+    //private int noMoveCounter;
 
     public AITank(final int healthPoint, final int bulletStrength, final int speed, 
             final int x, final int y, final Model model) {
@@ -41,30 +44,32 @@ public class AITank extends Tank {
      */
     public void go() {
         // UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3
+        int shouldShoot = generator.nextInt(10);
         if(shouldTurnAround) {
-            noMoveCounter++;
+            /*noMoveCounter++;
             System.out.println(noMoveCounter);
-            if(noMoveCounter > 10) {
-                direction = generator.nextInt(4);  
-                noMoveCounter = 0;
+            if(noMoveCounter > 10) {*/
+            direction = generator.nextInt(4);  
+                /*noMoveCounter = 0;
             } else {
                 direction = generator.nextInt(12);  
                 if(direction >= 8 && direction <= 11 || row >= MAP_SIZE - BLOCK_SIZE) {
                     if(this.column < MAP_SIZE/2) {
                         direction = RIGHT;
+                        shouldShoot = 0;
                     } else {
                         direction = LEFT;
+                        shouldShoot = 0;
                     }
                 } else {
                     direction = DOWN;
                 }
-            }
+            }*/            
             
             shouldTurnAround = false;
             // we only have to change the image if we turn to a new direciotn
             image = tankImages[direction];
         }
-        int shouldShoot = generator.nextInt(10);
         if(shouldShoot == 0) {
             if(canShoot) {
                 canShoot = false;

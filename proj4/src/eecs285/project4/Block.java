@@ -34,6 +34,7 @@ public class Block {
         }
 
         destructibleLvl = NON_DESTRUCTIBLE;
+        
         switch (type) {
             case TREE_BLOCK:
                 image = new ImageIcon(BASE_PATH + BLOCK_PATH + "tree.png").getImage();

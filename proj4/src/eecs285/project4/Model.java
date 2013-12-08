@@ -23,53 +23,95 @@ public class Model {
     private HashSet<AITank> AITanks;
     // the number of AI tanks currently created
     private int numAITanks;
-    private PlayerTank playerTank;
+    private PlayerTank playerTank1;
+    private PlayerTank playerTank2;
     private View view;
     private int enemyCounter;
     private int respawnCounter;
     private int gameOver = 0;
-    private int livesLeft;
+    private int livesLeft1;
+    private int livesLeft2;
+    private int numPlayers = 1;
 
     /**
-     * Create a bunch of AI tanks and one player tank.
+     * Sets number of lives for players 1 and 2.
+     * Creates MAX_AI_TANK_ON_MAP number of AI tanks at three spawn locations
+     * across the top of the map.
      */
-    public Model(int livesLeft) {
-    	this.livesLeft = livesLeft;
+    public Model(int livesLeft1, int livesLeft2) {
+    	this.livesLeft1 = livesLeft1;
+    	this.livesLeft2 = livesLeft2;
     	respawnCounter = 0;
         enemyCounter = 0;
     	map = new int[MAP_SIZE][MAP_SIZE];
         originalMap = new int[MAP_SIZE][MAP_SIZE];
         AITanks = new HashSet<AITank>();
-        for(int i = 0; i < 3; ++i) {
+        for(int i = 0; i < MAX_AI_TANK_ON_MAP; ++i) {
             AITanks.add(new AITank(WEAK_HEALTH, INITIAL_STRENGTH, TANK_SPEED, 0, i * (MAP_SIZE/2 - MINI_BLOCK_SIZE), this));
             enemyCounter++;
         }
-        playerTank = new PlayerTank(ENHANCED_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this);
-    }
-
-    public void addArmor(int armor) {
-        playerTank.addArmor(armor);
     }
     
-    public void addFirepower(int firePower) {
-        playerTank.addFirepower(firePower);
+    /**
+     * Sets the number of players (single or multiplayer mode)
+     * @param numP - 1 if singleplayer, 2 if multiplayer
+     */
+    public void setNumPlayers(int numP) {
+        numPlayers = numP;
+        if(numPlayers < 1 || numPlayers > 2) {
+            numPlayers = 1;
+        }
+        playerTank1 = new PlayerTank(ENHANCED_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this, true);
+        if(numPlayers==2) {
+            playerTank2 = new PlayerTank(ENHANCED_HEALTH, INITIAL_STRENGTH, TANK_SPEED, this, false);
+        }
+        
     }
+
+    /**
+     * Adds armor upgrade to one or both player tanks
+     * @param armor - Number of temporary health to gain
+     */
+    public void addArmor(int armor) {
+        playerTank1.addArmor(armor);
+        if(numPlayers==2) {
+            playerTank2.addArmor(armor);
+        }
+    }
+    
+    /**
+     * Add firepower upgrade to one or both player tanks
+     * @param firePower - Permanent strength to gain
+     */
+    public void addFirepower(int firePower) {
+        playerTank1.addFirepower(firePower);
+        if(numPlayers==2) {
+            playerTank2.addFirepower(firePower);
+        }
+    }
+    
     /**
      * Attach the specified view to the model 
      * and notify the view about the locations of all tanks
+     * Creates and places PlayerTanks at their start locations
      */
     public void attach(final View view) {
         this.view = view;
         for(Tank tank : AITanks) {
             this.view.addTank(tank);
         }
-        this.view.addTank(playerTank);
-        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());        
+        this.view.addTank(playerTank1);
+        placeTank(playerTank1.getRow(), playerTank1.getColumn(), playerTank1.getType());   
+        if(numPlayers==2) {
+            this.view.addTank(playerTank2);
+            placeTank(playerTank2.getRow(), playerTank2.getColumn(), playerTank2.getType());
+        }
 
     }
 
     /**
-     * Function to add blocks and register them on the map.
+     * Function to add blocks and register them on the map
+     * @param blocks - Set of blocks to add to this map for this level
      */
     public void addBlocks(final HashSet<Block> blocks) {
         for(Block block : blocks) {
@@ -90,9 +132,19 @@ public class Model {
     }
 
     /**
+     * Update locations and shooting conditions of both player tanks.
      * Let each AI Tank update themselves.
+     * Respawns new AI tanks after 3 seconds if less than MAX_AI_TANK_ON_MAP on screen.
+     * Checks if all MAX_AI_TANK_NUM AI Tanks have been defeated, if so goes to next level.
+     * 
+     * When a new tank spawns, map is temporarily cleared of all AI tanks to prevent
+     * minor bug that appeared during testing.
      */
     public void go() {
+        playerTank1.moveAndShoot();
+        if(numPlayers==2) {
+            playerTank2.moveAndShoot();
+        }
     	try{
 	        for(AITank tank : AITanks) {
 	           tank.go();
@@ -100,6 +152,7 @@ public class Model {
     	} catch (ConcurrentModificationException e) {
 	    	System.out.println("Tanks modified");
 	    }
+    	
         if (AITanks.size() <= MAX_AI_TANK_ON_MAP - 1 && enemyCounter < MAX_AI_TANK_NUM) {	
         	respawnCounter++;
         	if (respawnCounter > 60) {
@@ -107,22 +160,51 @@ public class Model {
         		enemyCounter++;
         		AITanks.add(aiTank);
         		view.addTank(aiTank);
-            	//placeTank(0, (enemyCounter % 3) * (MAP_SIZE/2 - MINI_BLOCK_SIZE), AI_REG_TANK);
             	respawnCounter = 0;
+            	
+            	/*
+            	 * Whenever a new AI tank spawns, first clear
+            	 * all AI tank spaces on the map to prevent a minor
+            	 * bug which would leave AI tanks that were dead
+            	 * on the map.
+            	 */
+            	for(int i = 0; i < MAP_SIZE; i++) {
+                    for(int j = 0; j < MAP_SIZE; j++) {
+                        if(map[i][j]==AI_REG_TANK) {
+                            map[i][j] = 0;
+                        }
+                    }
+                }
         	}
         }
-        if(AITanks.size()==0) {
+        if(AITanks.size()==0 && enemyCounter==MAX_AI_TANK_NUM) {
         	gameOver = 1;
         }
         view.repaint();
     }    
     
+    /**
+     * Checks whether the game is over (regardless of win or loss)
+     * @return gameOver boolean indicating game over status
+     */
     public int isGameOver() {
     	return gameOver;
     }
     
-    public int livesLeft() {
-    	return livesLeft;
+    /**
+     * Checks number of lives player1 has left
+     * @return livesLeft1 player1 lives
+     */
+    public int livesLeft1() {
+    	return livesLeft1;
+    }
+    
+    /**
+     * Checks number of lives player2 has left
+     * @return livesLeft2 player2 lives
+     */
+    public int livesLeft2() {
+        return livesLeft2;
     }
 
     /**
@@ -228,7 +310,7 @@ public class Model {
         return false;
     }
     
-    /*
+    /**
      * Collision checking function which takes in coordinates you're moving to, direction
      * that you're moving (determines which adjacent row/col you need to check), and 
      * your size (e.g. 8 for tank, 2 for bullet -> determines how wide to check).
@@ -267,7 +349,7 @@ public class Model {
         return true;
     }
 
-    /*
+    /**
      * Places a tank block on map at (row,col).
      */
     private void placeTank(final int row, final int column, final int tankType) {
@@ -278,8 +360,9 @@ public class Model {
         }
     }
 
-    /*
-     * Removes a tank block from (row,col), sets this block on the map to 0.
+    /**
+     * Removes a tank block from (row,col), sets this block on the map to what
+     * it originally was before the tank stepped onto it.
      */
     private void clearTank(final int row, final int column) {
         for(int i = 0; i < BLOCK_SIZE; i++) {
@@ -289,8 +372,8 @@ public class Model {
         }
     }
 
-    /*
-     * Moves to bullet on map to row, col.
+    /**
+     * Moves bullet on map to row, col and repaints map.
      * Assumes it has already been removed from it's previous location.
      */
     private boolean moveBullet(final int row, final int column) {
@@ -303,8 +386,11 @@ public class Model {
         return true;
     }
 
-    /*
+    /**
      * Clears bullet from map at (row,col).
+     * In its place, it puts either 0 (if it was originally a blank space
+     * or if the bullet destructed at a destructible block) or whatever 
+     * was on the map at that space originally.
      */
     private void clearBullet(final int row, final int column) {
         for(int i = 0; i < BULLET_SIZE; i++) {
@@ -314,13 +400,18 @@ public class Model {
                         //If bullet is traveling through a destructible block, it should be destroying it
                         map[row+i][column+j] = 0;
                     } else {
-                        map[row+i][column+j] = originalMap[row+i][column+j];
+                        map[row+i][column+j] = originalMap[row+i][column+j];     
                     }
             }
         }
     }
     
-    private void clearBrick(final int row, final int column) {
+    /**
+     * Clears block from map at (row,col)
+     * Updates originalMap as well so that this block
+     * doesn't reappear in the future.
+     */
+    private void clearBlock(final int row, final int column) {
         for(int i = 0; i < MINI_BLOCK_SIZE; i++) {
             for(int j = 0; j < MINI_BLOCK_SIZE; j++) {
                 map[row+i][column+j] = 0;
@@ -329,37 +420,65 @@ public class Model {
         }
     }
 
-    /*
+    /**
      * Removes this BulletThread's bullet from view.
+     * Checks whether the any of the 2x2 bullet hit any destructible objects.
+     * If it hit a base block:  
+     *      For each base block, check if the bullet shares a space with 
+     *      that base block, and if so, removes that base block, makes a boom,
+     *      and removes the bullet.  If all base blocks have been removed,
+     *      game is over (loss).
+     * If it hit another bullet:
+     *      Checks through all the bullets, and sees if any bullet other
+     *      than this one shares a space with this bullet.  Removes both
+     *      bullets if true.
+     * If it hit brick/steel block:
+     *      Checks through all brick/steel blocks, and sees if bullet shares
+     *      a space with any of these.  If so, and if strength is sufficient,
+     *      removes the block and the bullet.
+     * If player tank:
+     *      Checks that the bullet wasn't fired by another player tank, 
+     *      then decrements the health of the tank that the bullet hit. If
+     *      that tank's health reaches zero and it has lives left, it respawns
+     *      at it's start location.  if it reaches zero and it has no lives left,
+     *      it gets removed from View.  Once no player tank lives remain, game is over.
+     * If AI tank:  
+     *      Loops through all AI tanks and sees if this bullet
+     *      shares a space with any of them.  If so, removes that AI tank 
+     *      and this bullet.
+     *      
+     * Regardless of whether or not any destructions occurred, this bullet
+     * is removed and the view is repainted because the bullet is confirmed
+     * to have hit something at this point.
      */
 	private synchronized boolean endBullet(final BulletThread bThread) {
 		int row = bThread.bullet.row;
 		int column = bThread.bullet.column;
-		for (int i = 0; i < BULLET_SIZE; i++) {
+		for (int i = 0; i < BULLET_SIZE; i++) {  //For each of the 4 spaces the 2x2 bullet occupies
 			for (int j = 0; j < BULLET_SIZE; j++) {
-				if (row + i >= 0 && row + i < (NUM_BLOCKS * BLOCK_SIZE) - 1
+				if (row + i >= 0 && row + i < (NUM_BLOCKS * BLOCK_SIZE) - 1  
 						&& column + j >= 0
-						&& column + j < (NUM_BLOCKS * BLOCK_SIZE) - 1) {
+						&& column + j < (NUM_BLOCKS * BLOCK_SIZE) - 1) { //If the space is not off the map[][]
 					switch (map[row + i][column + j]) {
 					case BASE_BLOCK:
-						
-						for (Block base : view.getMapMaker().getBase()) {
+					    for (Block base : view.getMapMaker().getBase()) {   //Loop through all base blocks
 							if (row + i >= base.getx()
 									&& row + i < base.getx() + MINI_BLOCK_SIZE
 									&& column + j >= base.gety()
 									&& column + j < base.gety()
-											+ MINI_BLOCK_SIZE) {
-								view.getMapMaker().removeBlock(base);
-								view.addBoom(new Boom(base.getx(), base.gety()));
-								view.removeBullet(bThread.bullet);
-								clearBrick(base.getx(), base.gety());
-								view.getMapMaker().getBase().remove(base);
-								if(view.getMapMaker().getBase().size() == 0) gameOver = 2;
-								return false;
+											+ MINI_BLOCK_SIZE) {  //If this bullet space is within this base block's space
+								view.getMapMaker().removeBlock(base);  //Remove base block from view
+								view.addBoom(new Boom(base.getx(), base.gety()));  //Add a boom at this location
+								view.removeBullet(bThread.bullet);  //remove the bullet from view
+								clearBlock(base.getx(), base.gety());  //Clear the block from map[][]
+								view.getMapMaker().getBase().remove(base);  //Remove the base block from list of base blocks
+								if(view.getMapMaker().getBase().size() == 0) gameOver = 2; //Check for gameover condition
+								return false; //End this bulletThread
 							}
 						}						
 						break;
-					case BULLET_BLOCK:
+						
+					case BULLET_BLOCK:  //Similar logic to base block for all following cases
 						for (Bullet bullet : view.getBullets()) {
 							if (bullet != bThread.bullet
 									&& bullet.getType() != bThread.bullet
@@ -373,6 +492,7 @@ public class Model {
 							}
 						}
 						break;
+						
 					case BRICK_BLOCK:
 						if (bThread.bullet.bulletStrength < INITIAL_STRENGTH) {
 							view.removeBullet(bThread.bullet);
@@ -387,11 +507,12 @@ public class Model {
 								view.getMapMaker().removeBlock(brick);
 								view.addBoom(new Boom(brick.getx(), brick.gety()));
 								view.removeBullet(bThread.bullet);
-								clearBrick(brick.getx(), brick.gety());
+								clearBlock(brick.getx(), brick.gety());
 								return false;
 							}
 						}
 						break;
+						
 					case STEEL_BLOCK:
 						if (bThread.bullet.bulletStrength < ENHANCED_STRENGTH) {
 							view.removeBullet(bThread.bullet);
@@ -408,34 +529,28 @@ public class Model {
 								view.getMapMaker().removeBlock(steelBlock);
 								view.addBoom(new Boom(steelBlock.getx(), steelBlock.gety()));
 								view.removeBullet(bThread.bullet);
-								clearBrick(steelBlock.getx(), steelBlock.gety());
+								clearBlock(steelBlock.getx(), steelBlock.gety());
 								return false;
 							}
 						}
 						break;
+						
 					case PLAYER1_TANK:
-						if (bThread.bullet.getType() == PLAYER1_TANK) {
+                        if (bThread.bullet.getType() == PLAYER1_TANK || bThread.bullet.getType() == PLAYER2_TANK) {
+                            view.removeBullet(bThread.bullet);
+                            return false;
+                        }
+                        if(!hitTank(bThread, row, column, i, j, playerTank1)) return false;
+                        break;
+                        
+					case PLAYER2_TANK:
+						if (bThread.bullet.getType() == PLAYER1_TANK || bThread.bullet.getType() == PLAYER2_TANK) {
 							view.removeBullet(bThread.bullet);
 							return false;
 						}
-						if(row + i >= playerTank.getRow() 
-								&& row + i < playerTank.getRow() + BLOCK_SIZE
-								&& column + j >= playerTank.getColumn()
-								&& column + j < playerTank.getColumn() + BLOCK_SIZE) {
-							view.addBoom(new Boom(playerTank.getRow(), playerTank.getColumn()));
-							view.removeBullet(bThread.bullet);
-							playerTank.decrementHealth();
-							if(playerTank.getHealth() == 0) {
-								livesLeft--;
-								clearTank(playerTank.getRow(), playerTank.getColumn());
-								playerTank.resetLocation();
-						        placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());
-						        playerTank.healthPoint = ENHANCED_HEALTH;
-						        if(livesLeft == 0) gameOver = 2;
-							}
-						    return false;
-						}
+						if(!hitTank(bThread, row, column, i, j, playerTank2)) return false;
 						break;
+						
 					case AI_REG_TANK:
 						if (bThread.bullet.getType() == AI_REG_TANK) {
 							view.addBoom(new Boom(bThread.bullet.row, bThread.bullet.column));
@@ -464,6 +579,7 @@ public class Model {
 							}
 						}
 						break;
+						
 					default:
 						assert (false);
 					}
@@ -473,6 +589,44 @@ public class Model {
 		view.removeBullet(bThread.bullet);
 		view.repaint();
 		return false;
+    }
+
+	/**
+	 * Function called when a playerTank is hit by a bullet
+	 * Decrements this player tank's health, checks whether it has 
+	 * died and respawns it if it has lives left.  Otherwise,
+	 * checks for gameover condition when no lives left (loss).
+	 */
+    private boolean hitTank(final BulletThread bThread, int row, int column,
+            int i, int j, Tank playerTank) {
+        if(row + i >= playerTank.getRow() 
+        		&& row + i < playerTank.getRow() + BLOCK_SIZE
+        		&& column + j >= playerTank.getColumn()
+        		&& column + j < playerTank.getColumn() + BLOCK_SIZE) {
+        	view.addBoom(new Boom(playerTank.getRow(), playerTank.getColumn()));
+        	view.removeBullet(bThread.bullet);
+        	playerTank.decrementHealth();
+        	if(playerTank.getHealth() == 0) {
+        		if(playerTank == playerTank1) {
+        		    livesLeft1--;
+        		    if(livesLeft1 == 0) {
+        		        view.removeTank(playerTank1);
+        		    }
+        		} else {
+        		    livesLeft2--;
+        		    if(livesLeft2 == 0) {
+        		        view.removeTank(playerTank2);
+        		    }
+        		}
+        		clearTank(playerTank.getRow(), playerTank.getColumn());
+        		playerTank.resetLocation();
+                placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());
+                playerTank.healthPoint = ENHANCED_HEALTH;						        
+                if((livesLeft1 <= 0 && numPlayers == 1) || (livesLeft1 <= 0 && livesLeft2 <= 0)) gameOver = 2;                
+        	}
+            return false;
+        }
+        return true;
     }
 }
 

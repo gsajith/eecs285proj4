@@ -24,8 +24,10 @@ public class Constants {
     public static final int MAX_AI_TANK_ON_MAP = 3;
 
     // the initial position of the player tank
-    public static final int INITIAL_PLAYER_ROW = (NUM_BLOCKS - 1) * BLOCK_SIZE;
-    public static final int INITIAL_PLAYER_COLUMN = 4 * BLOCK_SIZE;
+    public static final int INITIAL_PLAYER1_ROW = (NUM_BLOCKS - 1) * BLOCK_SIZE;
+    public static final int INITIAL_PLAYER1_COLUMN = 4 * BLOCK_SIZE;
+    public static final int INITIAL_PLAYER2_ROW = (NUM_BLOCKS - 1) * BLOCK_SIZE;
+    public static final int INITIAL_PLAYER2_COLUMN = 8 * BLOCK_SIZE;
 
     // numbers used to represent each kind of object on the map
 

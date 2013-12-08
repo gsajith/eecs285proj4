@@ -17,9 +17,13 @@ import javax.swing.JPanel;
  * View is responsible for drawing the map.
  */
 public class View extends JPanel {
+    
+    //Sets of tanks, bullets, and explosions
 	private HashSet<Tank> tanks;
     private HashSet<Bullet> bullets;
     private HashSet<Boom> booms;
+    
+    //Mapmaker to determine level layout for each round
     private MapMaker makeMap;
 
     public View() {
@@ -28,50 +32,87 @@ public class View extends JPanel {
         booms = new HashSet<Boom>();
     }
 
+    /*
+     * Attach MapMaker to this view
+     */
     public void attach(MapMaker m) {
         makeMap = m;
     }
 
+    /*
+     * Called when view.repaint() is called
+     * Redraws map and all actors
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
     }
     
+    /*
+     * Adds a tank to view (to enable controlling it) 
+     * and to the set of tanks
+     */
     public void addTank(Tank tank) {
         tanks.add(tank);
         add(tank);
     }
     
+    /*
+     * Removes tank from view and set of tanks
+     */
     public void removeTank(Tank tank) {
     	tanks.remove(tank);
     	remove(tank);
     }
 
+    /*
+     * Adds bullet to set of bullets
+     */
     public void addBullet(Bullet bullet) {
         bullets.add(bullet);
     }
 
+    /*
+     * Removes bullet from set of bullets
+     */
     public void removeBullet(Bullet bullet) {
         bullets.remove(bullet);
     }
     
+    /*
+     * Adds boom to set of booms
+     */
     public void addBoom(Boom boom) {
     	booms.add(boom);
     }
     
+    /*
+     * Removes boom from set of booms
+     */
     public void removeBoom(Boom boom) {
     	booms.remove(boom);
     }
     
-    //These methods shouldn't return references but I'm not so concerned about not modifying them at this point
+    /*
+     * Get the mapMaker for this view
+     * Used by model to access sets of brick/steel/base blocks
+     * for destruction checking
+     */
     public MapMaker getMapMaker() {
         return makeMap;
     }
     
+    /*
+     * Get the set of bullets for this view
+     * Used by model
+     */
     public HashSet<Bullet> getBullets() {
         return bullets;
     }
 
+    /*
+     * Draw all bullets, tanks, blocks
+     */
     private void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
 
@@ -91,6 +132,7 @@ public class View extends JPanel {
         // set up blocks
         drawMap(g2d);
 
+        // Draw all bullets
         g2d.setColor(Color.WHITE);
         try{
             for(Bullet bullet : bullets) {
@@ -102,6 +144,7 @@ public class View extends JPanel {
             System.out.println("Bullets modified");
         }
 
+        // Draw / expire all booms
         try {
         	for (Boom boom : booms) {
         		g2d.drawImage(boom.getImage(), boom.getCol() * PIXEL_SIZE, boom.getRow() *PIXEL_SIZE, null);
