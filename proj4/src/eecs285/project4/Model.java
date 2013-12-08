@@ -553,7 +553,6 @@ public class Model {
 						
 					case AI_REG_TANK:
 						if (bThread.bullet.getType() == AI_REG_TANK) {
-							view.addBoom(new Boom(bThread.bullet.row, bThread.bullet.column));
 							view.removeBullet(bThread.bullet);
 							return false;
 						}

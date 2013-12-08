@@ -126,25 +126,59 @@ public class BattleCity {
 	            try {
 	                //Update every 50 milliseconds
 	                Thread.sleep(50);
-	            } catch(InterruptedException e) {}
+	            } catch(InterruptedException e) {
+	            	System.out.println("interrupted in BattleCity");
+	            }
 	            
 	            //Do all move actions for player and AI tanks
 	            model.go(); 
 	            
 	            //Removes lives from panel if lives were lost
-	            if(model.livesLeft1()<=2) lives1.remove(life3);
-	            if(model.livesLeft1()<=1) lives1.remove(life2);
-	            if(model.livesLeft1()<=0) lives1.remove(life);
+	            if(model.livesLeft1()<=2) {
+	            	lives1.remove(life3);
+	                //Update lives panels
+		            livesMain.repaint();
+		            livesMain1.repaint();
+		            livesMain2.repaint();
+	            }
+	            if(model.livesLeft1()<=1) {
+	            	lives1.remove(life2);
+	                //Update lives panels
+		            livesMain.repaint();
+		            livesMain1.repaint();
+		            livesMain2.repaint();
+	            }
+	            if(model.livesLeft1()<=0) {
+	            	lives1.remove(life);
+	                //Update lives panels
+		            livesMain.repaint();
+		            livesMain1.repaint();
+		            livesMain2.repaint();
+	            }
                 if(window.numPlayers == 2) {
-                    if(model.livesLeft2()<=2) lives2.remove(life3Two);
-                    if(model.livesLeft2()<=1) lives2.remove(life2Two);
-                    if(model.livesLeft2()<=0) lives2.remove(lifeTwo);
+                    if(model.livesLeft2()<=2) {
+                    	lives2.remove(life3Two);
+                        //Update lives panels
+        	            livesMain.repaint();
+        	            livesMain1.repaint();
+        	            livesMain2.repaint();
+                    }
+                    if(model.livesLeft2()<=1) {
+                    	lives2.remove(life2Two);
+                        //Update lives panels
+        	            livesMain.repaint();
+        	            livesMain1.repaint();
+        	            livesMain2.repaint();
+                    }
+                    if(model.livesLeft2()<=0) {
+                    	lives2.remove(lifeTwo);
+                        //Update lives panels
+        	            livesMain.repaint();
+        	            livesMain1.repaint();
+        	            livesMain2.repaint();
+                    }
                 }
                 
-                //Update lives panels
-	            livesMain.repaint();
-	            livesMain1.repaint();
-	            livesMain2.repaint();
 	        }
 	        
 	        //Update number of lives for next round

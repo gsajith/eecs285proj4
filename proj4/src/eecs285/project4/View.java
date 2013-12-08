@@ -164,8 +164,12 @@ public class View extends JPanel {
     // Draws the blocks
     private void drawMap(Graphics2D g2d) {
         HashSet<Block> blocks = makeMap.getBlocks();
+        try{
 	        for(Block block : blocks) {
 	            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, 4*PIXEL_SIZE, 4*PIXEL_SIZE, null);
 	        }
+        } catch (ConcurrentModificationException e) {
+        	System.out.println("Blocks modified");
+        }
     }
 }

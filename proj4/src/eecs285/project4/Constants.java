@@ -54,7 +54,7 @@ public class Constants {
     public static final int AI_REG2_TANK = 13;
     public static final int AI_FAST2_TANK = 14;
 
-    public static final String BASE_PATH = "/afs/umich.edu/user/g/s/gsajith/eecs285/workspace/eecs285proj4/proj4/src/eecs285/project4/";
+    public static final String BASE_PATH = "eecs285proj4/proj4/src/eecs285/project4/";
     public static final String BLOCK_PATH = "blockImage/";
     public static final String SHOP_PATH = "shopImage/";
     public static final String TANK_PATH = "tankImage/";
