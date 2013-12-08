@@ -620,7 +620,9 @@ public class Model {
         		}
         		clearTank(playerTank.getRow(), playerTank.getColumn());
         		playerTank.resetLocation();
-                placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());
+        		if((playerTank == playerTank1 && livesLeft1 > 0) || (playerTank == playerTank2 && livesLeft2 > 0)) {
+        			placeTank(playerTank.getRow(), playerTank.getColumn(), playerTank.getType());                    
+        		}
                 playerTank.healthPoint = ENHANCED_HEALTH;						        
                 if((livesLeft1 <= 0 && numPlayers == 1) || (livesLeft1 <= 0 && livesLeft2 <= 0)) gameOver = 2;                
         	}
