@@ -60,7 +60,6 @@ public class AITank extends Tank {
                 }
             }
             
-            
             shouldTurnAround = false;
             // we only have to change the image if we turn to a new direciotn
             image = tankImages[direction];
