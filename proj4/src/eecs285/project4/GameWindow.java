@@ -72,6 +72,7 @@ public class GameWindow extends JDialog{
     boolean ext = false;
     public int tankArmor = 0;
     public int firePower = 0;
+    public int numPlayers = 0;
     
     //buttons for startscreen
     JButton newgame;
@@ -161,6 +162,7 @@ public class GameWindow extends JDialog{
         @Override
         public void actionPerformed(ActionEvent arg0) {
             //startScreen.setVisible(false);
+            numPlayers = 1;
             startGame();
             //start the game here!
         }
@@ -183,7 +185,8 @@ public class GameWindow extends JDialog{
         @Override
         public void actionPerformed(ActionEvent arg0) {
             
-            //not implemented
+            numPlayers = 2;
+            startGame();
         }
     }
     
@@ -527,6 +530,7 @@ public class GameWindow extends JDialog{
         newgame.addActionListener(new newgameL());
         battleshop.addActionListener(new battleshopL());
         exitgame.addActionListener(new exitgameL());
+        multiplayer.addActionListener(new multiplayerL());
         
         //buttons in upgrade screen
         armor.addActionListener(new armorL());
