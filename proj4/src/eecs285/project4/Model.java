@@ -141,17 +141,22 @@ public class Model {
      * minor bug that appeared during testing.
      */
     public void go() {
+        System.out.println("go start");
         playerTank1.moveAndShoot();
         if(numPlayers==2) {
             playerTank2.moveAndShoot();
         }
+        System.out.println("After player moves");
     	try{
-	        for(AITank tank : AITanks) {
+    	    AITank[] AITankArray = new AITank[AITanks.size()];
+    	    AITanks.toArray(AITankArray);
+	        for(AITank tank : AITankArray) {
 	           tank.go();
 	        }
     	} catch (ConcurrentModificationException e) {
-	    	System.out.println("Tanks modified");
+	    	System.out.println("AITanks modified");
 	    }
+    	System.out.println("After AI moves");
     	
         if (AITanks.size() <= MAX_AI_TANK_ON_MAP - 1 && enemyCounter < MAX_AI_TANK_NUM) {	
         	respawnCounter++;
@@ -161,7 +166,7 @@ public class Model {
         		AITanks.add(aiTank);
         		view.addTank(aiTank);
             	respawnCounter = 0;
-            	
+            	System.out.println("After respawn");
             	/*
             	 * Whenever a new AI tank spawns, first clear
             	 * all AI tank spaces on the map to prevent a minor
@@ -175,12 +180,16 @@ public class Model {
                         }
                     }
                 }
+            	System.out.println("After clear");
         	}
         }
+        System.out.println("After respawn check");
         if(AITanks.size()==0 && enemyCounter==MAX_AI_TANK_NUM) {
         	gameOver = 1;
         }
+        System.out.println("Before repaint");
         view.repaint();
+        System.out.println("After repaint");
     }    
     
     /**
@@ -275,7 +284,7 @@ public class Model {
                 if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row - 1, column, type);
-                    view.repaint();
+                    //view.repaint();
                     return true;
                 }
                 break;
@@ -283,7 +292,7 @@ public class Model {
                 if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row + 1, column, type);
-                    view.repaint();
+                    //view.repaint();
                     return true;
                 }
                 break;
@@ -291,7 +300,7 @@ public class Model {
                 if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row, column - 1, type);
-                    view.repaint();
+                    //view.repaint();
                     return true;
                 }
                 break;
@@ -299,14 +308,14 @@ public class Model {
                 if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row, column + 1, type);
-                    view.repaint();
+                    //view.repaint();
                     return true;
                 }
                 break;
             default:
                 assert(false);
         }
-        view.repaint();
+        //view.repaint();
         return false;
     }
     
@@ -382,7 +391,7 @@ public class Model {
                 map[row+i][column+j] = BULLET_BLOCK;
             }
         }
-        view.repaint();
+        //view.repaint();
         return true;
     }
 
@@ -586,7 +595,7 @@ public class Model {
 			}
 		}
 		view.removeBullet(bThread.bullet);
-		view.repaint();
+		//view.repaint();
 		return false;
     }
 

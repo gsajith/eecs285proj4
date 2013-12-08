@@ -30,7 +30,22 @@ public class PlayerTank extends Tank {
     private boolean downPressed;
     private boolean leftPressed;
     private boolean rightPressed;
-    private boolean shootPressed;
+    private boolean shootPressed;    
+    
+    private class SoundThread extends Thread {
+        private AudioClip clip;
+        public SoundThread() {
+            try {
+                clip = Applet.newAudioClip(new URL("file:" + BASE_PATH + SOUND_PATH + "shoot.wav"));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        public void run() {
+            clip.play();
+        }
+    }
 
     public PlayerTank(final int healthPoint, final int bulletStrength, final int speed, 
                       final Model model, boolean isPlayerOne) {
@@ -39,6 +54,7 @@ public class PlayerTank extends Tank {
                 isPlayerOne?INITIAL_PLAYER1_ROW:INITIAL_PLAYER2_ROW, 
                         isPlayerOne?INITIAL_PLAYER1_COLUMN:INITIAL_PLAYER2_COLUMN, model);
         this.isPlayerOne = isPlayerOne;
+
         
         upPressed = false;
         downPressed = false;
@@ -78,6 +94,7 @@ public class PlayerTank extends Tank {
      * Called every 50 milliseconds from model
      */
     public void moveAndShoot() {
+        System.out.println("Start moveandshoot");
         if(upPressed) {
             direction = UP;
             image = tankImages[UP];
@@ -103,22 +120,22 @@ public class PlayerTank extends Tank {
                 ++column;
             }            
         }
+        System.out.println("After direction checks");
         
         if(shootPressed) {
             if(canShoot) {
-            canShoot = false; //canShoot flag is set to false until this thread is ended by Model
-            try {
-              AudioClip clip = Applet.newAudioClip(
-                            new URL("file:" + BASE_PATH + SOUND_PATH + "shoot.wav"));
-              clip.play();
-              } catch (MalformedURLException murle) {
-                  System.out.println("sound is not playing");
-              }
-            BulletThread bThread = new BulletThread(PlayerTank.this, model, 
-                bulletStrength, BULLET_SPEED, direction, row, column);
-            bThread.start();
+                canShoot = false; //canShoot flag is set to false until this thread is ended by Model            
+                SoundThread sThread = new SoundThread();
+                sThread.start();   
+                System.out.println("After play");
+                
+                BulletThread bThread = new BulletThread(PlayerTank.this, model, 
+                    bulletStrength, BULLET_SPEED, direction, row, column);
+                bThread.start();
+                System.out.println("After bthread start");
             }
         }
+        System.out.println("After bullet check");
     }
 
     /*

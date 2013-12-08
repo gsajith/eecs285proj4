@@ -122,6 +122,7 @@ public class BattleCity {
             model.attach(view);
 	
             //While this round is not over
+            int count = 0;
 	        while(model.isGameOver() == 0) {
 	            try {
 	                //Update every 50 milliseconds
@@ -138,44 +139,32 @@ public class BattleCity {
 	            	lives1.remove(life3);
 	                //Update lives panels
 		            livesMain.repaint();
-		            livesMain1.repaint();
-		            livesMain2.repaint();
 	            }
 	            if(model.livesLeft1()<=1) {
 	            	lives1.remove(life2);
 	                //Update lives panels
 		            livesMain.repaint();
-		            livesMain1.repaint();
-		            livesMain2.repaint();
 	            }
 	            if(model.livesLeft1()<=0) {
 	            	lives1.remove(life);
 	                //Update lives panels
 		            livesMain.repaint();
-		            livesMain1.repaint();
-		            livesMain2.repaint();
 	            }
                 if(window.numPlayers == 2) {
                     if(model.livesLeft2()<=2) {
                     	lives2.remove(life3Two);
                         //Update lives panels
         	            livesMain.repaint();
-        	            livesMain1.repaint();
-        	            livesMain2.repaint();
                     }
                     if(model.livesLeft2()<=1) {
                     	lives2.remove(life2Two);
                         //Update lives panels
         	            livesMain.repaint();
-        	            livesMain1.repaint();
-        	            livesMain2.repaint();
                     }
                     if(model.livesLeft2()<=0) {
                     	lives2.remove(lifeTwo);
                         //Update lives panels
         	            livesMain.repaint();
-        	            livesMain1.repaint();
-        	            livesMain2.repaint();
                     }
                 }
                 

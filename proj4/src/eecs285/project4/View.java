@@ -43,7 +43,7 @@ public class View extends JPanel {
      * Called when view.repaint() is called
      * Redraws map and all actors
      */
-    public void paintComponent(Graphics g) {
+    public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
     }
@@ -119,23 +119,32 @@ public class View extends JPanel {
         // draw map background
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, MAP_SIZE * PIXEL_SIZE, MAP_SIZE * PIXEL_SIZE);
-
+        System.out.println("After rect");
+        
         // then draw each tank
         try{
-        	for(Tank tank : tanks) {
+            Tank[] tankArray = new Tank[tanks.size()];
+            tanks.toArray(tankArray);
+        	for(Tank tank : tankArray) {
         		g2d.drawImage(tank.getImage(), tank.getColumn() * PIXEL_SIZE,  tank.getRow() * PIXEL_SIZE, 8*PIXEL_SIZE, 8*PIXEL_SIZE, null);
         	}
         } catch (ConcurrentModificationException e) {
         	System.out.println("Tanks modified");
         }
+        
+        System.out.println("After tanks");
 
         // set up blocks
         drawMap(g2d);
+        
+        System.out.println("After map");
 
         // Draw all bullets
         g2d.setColor(Color.WHITE);
         try{
-            for(Bullet bullet : bullets) {
+            Bullet[] bulletArray = new Bullet[bullets.size()];
+            bullets.toArray(bulletArray);
+            for(Bullet bullet : bulletArray) {
                 g2d.fillOval(bullet.column * PIXEL_SIZE, bullet.row * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE, BULLET_SIZE * PIXEL_SIZE);
             } 
         } catch (ConcurrentModificationException e) {
@@ -143,10 +152,13 @@ public class View extends JPanel {
             // This happens rarely and shouldn't actually be a problem since we're just drawing here
             System.out.println("Bullets modified");
         }
+        System.out.println("After bullets");
 
         // Draw / expire all booms
         try {
-        	for (Boom boom : booms) {
+            Boom[] boomArray = new Boom[booms.size()];
+            booms.toArray(boomArray);
+        	for (Boom boom : boomArray) {
         		g2d.drawImage(boom.getImage(), boom.getCol() * PIXEL_SIZE, boom.getRow() *PIXEL_SIZE, null);
         		boom.decrement();
         	}
@@ -159,13 +171,16 @@ public class View extends JPanel {
         } catch (ConcurrentModificationException e) {
         	System.out.println("Booms modified");
         }
+        System.out.println("After booms");
     }
 
     // Draws the blocks
     private void drawMap(Graphics2D g2d) {
         HashSet<Block> blocks = makeMap.getBlocks();
         try{
-	        for(Block block : blocks) {
+            Block[] blockArray = new Block[blocks.size()];
+            blocks.toArray(blockArray);
+	        for(Block block : blockArray) {
 	            ((Graphics) g2d).drawImage(block.getImage(), block.gety() * PIXEL_SIZE, block.getx() * PIXEL_SIZE, 4*PIXEL_SIZE, 4*PIXEL_SIZE, null);
 	        }
         } catch (ConcurrentModificationException e) {
