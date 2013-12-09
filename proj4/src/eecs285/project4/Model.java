@@ -25,13 +25,15 @@ public class Model {
     private int numAITanks;
     private PlayerTank playerTank1;
     private PlayerTank playerTank2;
-    private View view;
+    View view;
     private int enemyCounter;
     private int respawnCounter;
     private int gameOver = 0;
     private int livesLeft1;
     private int livesLeft2;
     private int numPlayers = 1;
+    private static AudioClip explosion;
+    private static AudioClip theme;
 
     /**
      * Sets number of lives for players 1 and 2.
@@ -39,6 +41,14 @@ public class Model {
      * across the top of the map.
      */
     public Model(int livesLeft1, int livesLeft2) {
+        try {
+            explosion = Applet.newAudioClip(new URL("file:" + BASE_PATH + SOUND_PATH + "exploding.wav"));
+            theme = Applet.newAudioClip(new URL("file: " + BASE_PATH + SOUND_PATH + "Victors.wav"));
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     	this.livesLeft1 = livesLeft1;
     	this.livesLeft2 = livesLeft2;
     	respawnCounter = 0;
@@ -100,13 +110,23 @@ public class Model {
         for(Tank tank : AITanks) {
             this.view.addTank(tank);
         }
-        this.view.addTank(playerTank1);
-        placeTank(playerTank1.getRow(), playerTank1.getColumn(), playerTank1.getType());   
-        if(numPlayers==2) {
+        if(livesLeft1 > 0) {
+            this.view.addTank(playerTank1);
+            placeTank(playerTank1.getRow(), playerTank1.getColumn(), playerTank1.getType());
+        }           
+        if(numPlayers==2 && livesLeft2 > 0) {
             this.view.addTank(playerTank2);
             placeTank(playerTank2.getRow(), playerTank2.getColumn(), playerTank2.getType());
         }
 
+        SoundThread themeThread = new SoundThread(theme);
+        themeThread.start();
+        System.out.println(theme.toString());
+        try {
+        	themeThread.join();
+        } catch(InterruptedException e) {
+        	e.printStackTrace();
+        }
     }
 
     /**
@@ -141,12 +161,10 @@ public class Model {
      * minor bug that appeared during testing.
      */
     public void go() {
-        System.out.println("go start");
         playerTank1.moveAndShoot();
         if(numPlayers==2) {
             playerTank2.moveAndShoot();
         }
-        System.out.println("After player moves");
     	try{
     	    AITank[] AITankArray = new AITank[AITanks.size()];
     	    AITanks.toArray(AITankArray);
@@ -156,7 +174,6 @@ public class Model {
     	} catch (ConcurrentModificationException e) {
 	    	System.out.println("AITanks modified");
 	    }
-    	System.out.println("After AI moves");
     	
         if (AITanks.size() <= MAX_AI_TANK_ON_MAP - 1 && enemyCounter < MAX_AI_TANK_NUM) {	
         	respawnCounter++;
@@ -166,7 +183,6 @@ public class Model {
         		AITanks.add(aiTank);
         		view.addTank(aiTank);
             	respawnCounter = 0;
-            	System.out.println("After respawn");
             	/*
             	 * Whenever a new AI tank spawns, first clear
             	 * all AI tank spaces on the map to prevent a minor
@@ -180,16 +196,12 @@ public class Model {
                         }
                     }
                 }
-            	System.out.println("After clear");
         	}
         }
-        System.out.println("After respawn check");
         if(AITanks.size()==0 && enemyCounter==MAX_AI_TANK_NUM) {
         	gameOver = 1;
         }
-        System.out.println("Before repaint");
         view.repaint();
-        System.out.println("After repaint");
     }    
     
     /**
@@ -284,7 +296,6 @@ public class Model {
                 if(row > 0 && clearPath(row - 1, column, UP, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row - 1, column, type);
-                    //view.repaint();
                     return true;
                 }
                 break;
@@ -292,7 +303,6 @@ public class Model {
                 if(row < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row + 1, column, DOWN, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row + 1, column, type);
-                    //view.repaint();
                     return true;
                 }
                 break;
@@ -300,7 +310,6 @@ public class Model {
                 if(column > 0 && clearPath(row, column - 1, LEFT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row, column - 1, type);
-                    //view.repaint();
                     return true;
                 }
                 break;
@@ -308,14 +317,12 @@ public class Model {
                 if(column < (NUM_BLOCKS - 1) * BLOCK_SIZE && clearPath(row, column + 1, RIGHT, BLOCK_SIZE, false)) {
                     clearTank(row, column);
                     placeTank(row, column + 1, type);
-                    //view.repaint();
                     return true;
                 }
                 break;
             default:
                 assert(false);
         }
-        //view.repaint();
         return false;
     }
     
@@ -575,14 +582,14 @@ public class Model {
 								view.removeTank(aiTank);
 								clearTank(aiTank.getRow(), aiTank.getColumn());
 								AITanks.remove(aiTank);
-
-								try {
-									AudioClip clip = Applet.newAudioClip(
-	                      		    new URL("file:" + BASE_PATH + SOUND_PATH + "exploding.wav"));
-					  				clip.play();
-					  				} catch (MalformedURLException murle) {
-										 System.out.println("sound is not playing");
-					  			}
+								SoundThread sThread = new SoundThread(explosion);
+				                sThread.start();  
+				                try {
+                                    sThread.join();
+                                } catch (InterruptedException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
 								return false;
 							}
 						}

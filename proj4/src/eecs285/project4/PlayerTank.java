@@ -31,21 +31,8 @@ public class PlayerTank extends Tank {
     private boolean leftPressed;
     private boolean rightPressed;
     private boolean shootPressed;    
-    
-    private class SoundThread extends Thread {
-        private AudioClip clip;
-        public SoundThread() {
-            try {
-                clip = Applet.newAudioClip(new URL("file:" + BASE_PATH + SOUND_PATH + "shoot.wav"));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        }
+    private static AudioClip shoot;
         
-        public void run() {
-            clip.play();
-        }
-    }
 
     public PlayerTank(final int healthPoint, final int bulletStrength, final int speed, 
                       final Model model, boolean isPlayerOne) {
@@ -54,7 +41,12 @@ public class PlayerTank extends Tank {
                 isPlayerOne?INITIAL_PLAYER1_ROW:INITIAL_PLAYER2_ROW, 
                         isPlayerOne?INITIAL_PLAYER1_COLUMN:INITIAL_PLAYER2_COLUMN, model);
         this.isPlayerOne = isPlayerOne;
-
+        try {
+            shoot = Applet.newAudioClip(new URL("file:" + BASE_PATH + SOUND_PATH + "shoot.wav"));
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
         upPressed = false;
         downPressed = false;
@@ -124,8 +116,9 @@ public class PlayerTank extends Tank {
         
         if(shootPressed) {
             if(canShoot) {
-                canShoot = false; //canShoot flag is set to false until this thread is ended by Model            
-                SoundThread sThread = new SoundThread();
+                canShoot = false; //canShoot flag is set to false until this thread is ended by Model    
+                
+                SoundThread sThread = new SoundThread(shoot);
                 sThread.start();   
                 System.out.println("After play");
                 

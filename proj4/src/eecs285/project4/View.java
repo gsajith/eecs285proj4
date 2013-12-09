@@ -109,6 +109,13 @@ public class View extends JPanel {
     public HashSet<Bullet> getBullets() {
         return bullets;
     }
+    
+    /*
+     * Get the set of tanks for this view
+     */
+    public HashSet<Tank> getTanks() {
+        return tanks;
+    }
 
     /*
      * Draw all bullets, tanks, blocks
@@ -119,7 +126,6 @@ public class View extends JPanel {
         // draw map background
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, MAP_SIZE * PIXEL_SIZE, MAP_SIZE * PIXEL_SIZE);
-        System.out.println("After rect");
         
         // then draw each tank
         try{
@@ -132,12 +138,10 @@ public class View extends JPanel {
         	System.out.println("Tanks modified");
         }
         
-        System.out.println("After tanks");
 
         // set up blocks
         drawMap(g2d);
         
-        System.out.println("After map");
 
         // Draw all bullets
         g2d.setColor(Color.WHITE);
@@ -152,7 +156,6 @@ public class View extends JPanel {
             // This happens rarely and shouldn't actually be a problem since we're just drawing here
             System.out.println("Bullets modified");
         }
-        System.out.println("After bullets");
 
         // Draw / expire all booms
         try {
@@ -171,7 +174,6 @@ public class View extends JPanel {
         } catch (ConcurrentModificationException e) {
         	System.out.println("Booms modified");
         }
-        System.out.println("After booms");
     }
 
     // Draws the blocks
