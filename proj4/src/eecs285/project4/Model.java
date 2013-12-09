@@ -33,6 +33,7 @@ public class Model {
     private int livesLeft2;
     private int numPlayers = 1;
     private static AudioClip explosion;
+    private static AudioClip theme;
 
     /**
      * Sets number of lives for players 1 and 2.
@@ -42,10 +43,14 @@ public class Model {
     public Model(int livesLeft1, int livesLeft2) {
         try {
             explosion = Applet.newAudioClip(new URL("file:" + BASE_PATH + SOUND_PATH + "exploding.wav"));
+            theme = Applet.newAudioClip(new URL("file: " + BASE_PATH + SOUND_PATH + "Victors.mp3"));
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        SoundThread themeThread = new SoundThread(theme);
+        themeThread.start();
+        
     	this.livesLeft1 = livesLeft1;
     	this.livesLeft2 = livesLeft2;
     	respawnCounter = 0;
