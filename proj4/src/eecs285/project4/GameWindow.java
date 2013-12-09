@@ -288,7 +288,7 @@ public class GameWindow extends JDialog{
         public void actionPerformed(ActionEvent arg0) {
             if (checkMoney(5000))
             {
-              firePower = 1;
+              firePower = ENHANCED_STRENGTH;
             }
             
         }

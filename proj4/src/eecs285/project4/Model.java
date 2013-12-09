@@ -43,13 +43,11 @@ public class Model {
     public Model(int livesLeft1, int livesLeft2) {
         try {
             explosion = Applet.newAudioClip(new URL("file:" + BASE_PATH + SOUND_PATH + "exploding.wav"));
-            theme = Applet.newAudioClip(new URL("file: " + BASE_PATH + SOUND_PATH + "Victors.mp3"));
+            theme = Applet.newAudioClip(new URL("file: " + BASE_PATH + SOUND_PATH + "Victors.wav"));
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        SoundThread themeThread = new SoundThread(theme);
-        themeThread.start();
         
     	this.livesLeft1 = livesLeft1;
     	this.livesLeft2 = livesLeft2;
@@ -121,6 +119,14 @@ public class Model {
             placeTank(playerTank2.getRow(), playerTank2.getColumn(), playerTank2.getType());
         }
 
+        SoundThread themeThread = new SoundThread(theme);
+        themeThread.start();
+        System.out.println(theme.toString());
+        try {
+        	themeThread.join();
+        } catch(InterruptedException e) {
+        	e.printStackTrace();
+        }
     }
 
     /**

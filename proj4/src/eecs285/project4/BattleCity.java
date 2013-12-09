@@ -58,9 +58,21 @@ public class BattleCity {
 	        JLabel life3 = new JLabel();
 	        life3.setIcon(new ImageIcon( BASE_PATH + TANK_PATH + "PlayerTankUp.png"));
 
-	        if(livesLeft1 > 0) lives1.add(life);
-	        if(livesLeft1 > 1) lives1.add(life2);
-	        if(livesLeft1 > 2) lives1.add(life3);
+	        if(livesLeft1 == 1) {
+	        	lives1.add(life);
+	        	lives1.add(new JPanel());
+	        	lives1.add(new JPanel());
+	        }
+	        if(livesLeft1 == 2) {
+	        	lives1.add(life);
+	        	lives1.add(life2);
+	        	lives1.add(new JPanel());
+	        }
+	        if(livesLeft1 == 3) {
+	        	lives1.add(life);
+	        	lives1.add(life2);
+	        	lives1.add(life3);
+	        }
 	        livesMain1.add(new JLabel("Player 1 Lives"));
 	        livesMain1.add(lives1);
 	        livesMain1.setSize(new Dimension(100, 100));     
@@ -80,9 +92,21 @@ public class BattleCity {
             
             //Only show player2 lives if multiplayer mode is activated
             if(window.numPlayers == 2) {                
-                if(livesLeft2 > 0) lives2.add(lifeTwo);
-                if(livesLeft2 > 1) lives2.add(life2Two);
-                if(livesLeft2 > 2) lives2.add(life3Two);
+                if(livesLeft2 == 1) {
+                	lives2.add(lifeTwo);
+                	lives2.add(new JPanel());
+                	lives2.add(new JPanel());
+                }
+                if(livesLeft2 == 2) {
+                	lives2.add(lifeTwo);
+                	lives2.add(life2Two);
+                	lives2.add(new JPanel());
+                }
+                if(livesLeft2 == 3) {
+                	lives2.add(lifeTwo);
+                	lives2.add(life2Two);
+                	lives2.add(life3Two);
+                }
                 livesMain2.add(new JLabel("Player 2 Lives"));
                 livesMain2.add(lives2);
                 livesMain2.setSize(new Dimension(100, 100));  
