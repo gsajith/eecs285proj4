@@ -121,7 +121,7 @@ public class Model {
 
         SoundThread themeThread = new SoundThread(theme);
         themeThread.start();
-        System.out.println(theme.toString());
+        //System.out.println(theme.toString());
         try {
         	themeThread.join();
         } catch(InterruptedException e) {

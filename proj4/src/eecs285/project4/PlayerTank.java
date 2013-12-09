@@ -86,7 +86,7 @@ public class PlayerTank extends Tank {
      * Called every 50 milliseconds from model
      */
     public void moveAndShoot() {
-        System.out.println("Start moveandshoot");
+        //System.out.println("Start moveandshoot");
         if(upPressed) {
             direction = UP;
             image = tankImages[UP];
@@ -112,7 +112,7 @@ public class PlayerTank extends Tank {
                 ++column;
             }            
         }
-        System.out.println("After direction checks");
+        //System.out.println("After direction checks");
         
         if(shootPressed) {
             if(canShoot) {
@@ -120,15 +120,15 @@ public class PlayerTank extends Tank {
                 
                 SoundThread sThread = new SoundThread(shoot);
                 sThread.start();   
-                System.out.println("After play");
+                //System.out.println("After play");
                 
                 BulletThread bThread = new BulletThread(PlayerTank.this, model, 
                     bulletStrength, BULLET_SPEED, direction, row, column);
                 bThread.start();
-                System.out.println("After bthread start");
+                //System.out.println("After bthread start");
             }
         }
-        System.out.println("After bullet check");
+        //System.out.println("After bullet check");
     }
 
     /*

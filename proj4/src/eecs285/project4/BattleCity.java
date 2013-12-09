@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class BattleCity {
@@ -197,6 +198,15 @@ public class BattleCity {
 	        //Update number of lives for next round
 	        livesLeft1 = model.livesLeft1();
 	        livesLeft2 = model.livesLeft2();
+            
+            // show that the player wins or loses, depending on the gameOver number
+            if(model.isGameOver() == 1) {
+                JOptionPane.showMessageDialog(frame, "You defeated all Buckeyes!", 
+                        "You win!", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(frame, "You are defeated by Buckeyes-_-????", 
+                        "You lose...", JOptionPane.ERROR_MESSAGE);
+            }
 	        
 	        //Round ended, close this window and return to menu
 	        frame.dispose(); 

@@ -307,11 +307,6 @@ public class GameWindow extends JDialog{
         }
     }
     
-    
-    
-    
-    
-    
     //buying each items listener
     private class landmineL implements ActionListener
     {
